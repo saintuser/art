@@ -1,0 +1,6 @@
+{
+  "view": "browser",
+  "container": {
+    "node": "14"
+  }
+}
