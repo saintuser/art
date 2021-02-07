@@ -22,8 +22,9 @@ export const useHls = (src) => {
     el.value.addEventListener("ended", (e) => {
       console.log("ended");
     });
-    el.value.addEventListener("loadedmetadata", (e) => {
+    el.value.addEventListener("loadedmetadata", (e, e2) => {
       console.log("loadedmetadata");
+      console.log(el.value.videoWidth, el.value.videoHeight);
     });
     el.value.addEventListener("ended", (e) => {
       console.log("ended");
@@ -81,6 +82,7 @@ export const useHls = (src) => {
       });
       hls.on(Hls.Events.ERROR, function (e, data) {
         console.log("hlserror");
+        console.log(data);
         hls.recoverMediaError();
         hls.startLoad();
         if (data.fatal) {
