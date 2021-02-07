@@ -53,7 +53,6 @@ export const useHls = (src) => {
           console.log("debounce");
         }, 100);
       });
-      console.log("hls");
     } else if (Hls.isSupported()) {
       const hls = new Hls({
         manifestLoadingRetryDelay: 1000,
@@ -78,7 +77,7 @@ export const useHls = (src) => {
       hls.on(Hls.Events.MEDIA_ATTACHED, () => {
         hls.loadSource(src);
         hls.startLoad();
-        el.value.play();
+        //el.value.play();
       });
       hls.on(Hls.Events.ERROR, function (e, data) {
         console.log("hlserror");
