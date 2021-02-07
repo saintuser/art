@@ -1,19 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <div style="display: grid; grid-template-columns: 1fr 1fr">
+    <video-hsl :src="urls[0]" />
+  </div>
 </template>
 
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import VideoHsl from "./components/VideoHsl.vue";
+const streamUrl = (id) =>
+  `https://le25.babahhcdn.com/bb1150-le/${id}/index.m3u8`;
+const urls = ["test2"].map(streamUrl);
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  font-family: sans-serif;
+}
+.debug {
+  border: 3px solid red;
 }
 </style>
