@@ -1,7 +1,13 @@
 <template>
   <div class="debug">
     <button @click="muted = !muted">{{ muted ? "unmute" : "mute" }}</button>
-    <video ref="videoRef" autoplay :muted="muted" style="width: 100%" />
+    <video
+      controls
+      ref="videoRef"
+      autoplay
+      :muted="muted"
+      style="width: 100%"
+    />
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-import { ref, onMounted } from "vue";
+import { ref, onMounted, h } from "vue";
 import Hls from "hls.js";
 
 export function debounce(fn, timeout) {
@@ -13,6 +13,12 @@ export const useHls = (src) => {
   const retryDelay = 4000;
   const el = ref(null);
   onMounted(() => {
+    el.value.addEventListener("play", (e) => {
+      console.log("play");
+    });
+    el.value.addEventListener("playing", (e) => {
+      console.log("playing");
+    });
     el.value.addEventListener("ended", (e) => {
       console.log("ended");
     });
@@ -52,21 +58,32 @@ export const useHls = (src) => {
       const hls = new Hls({
         manifestLoadingRetryDelay: 1000,
         manifestLoadingMaxRetry: Infinity,
-        progressive: true,
+        //progressive: true,
         xhrSetup: function (xhr, url) {
           xhr.addEventListener("error", (e) => {
             console.log("xhr error");
-            el.value.src = src;
+            el.value.play();
+            // hls.destroy();
+            // hls = new Hls(init);
+            // hls.attachMedia(el.value);
+            // hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+            //   hls.loadSource(src);
+            // });
+            // el.value.play();
           });
         },
       });
+
       hls.attachMedia(el.value);
       hls.on(Hls.Events.MEDIA_ATTACHED, () => {
         hls.loadSource(src);
+        hls.startLoad();
+        el.value.play();
       });
       hls.on(Hls.Events.ERROR, function (e, data) {
-        //hls.recoverMediaError();
-        //hls.startLoad();
+        console.log("hlserror");
+        hls.recoverMediaError();
+        hls.startLoad();
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
@@ -82,6 +99,41 @@ export const useHls = (src) => {
           }
         }
       });
+
+      // const hls = new Hls({
+      //   manifestLoadingRetryDelay: 1000,
+      //   manifestLoadingMaxRetry: Infinity,
+      //   progressive: true,
+      //   xhrSetup: function (xhr, url) {
+      //     xhr.addEventListener("error", (e) => {
+      //       console.log("xhr error");
+      //       //el.value.src = src;
+      //       hls.loadSource(src);
+      //     });
+      //   },
+      // });
+      // hls.attachMedia(el.value);
+      // hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+      //   hls.loadSource(src);
+      // });
+      // hls.on(Hls.Events.ERROR, function (e, data) {
+      //   //hls.recoverMediaError();
+      //   //hls.startLoad();
+      //   if (data.fatal) {
+      //     switch (data.type) {
+      //       case Hls.ErrorTypes.NETWORK_ERROR:
+      //         console.log("hls network");
+      //         console.log("fatal network error encountered, try to recover");
+      //         break;
+      //       case Hls.ErrorTypes.MEDIA_ERROR:
+      //         console.log("hls mediua");
+      //         break;
+      //       default:
+      //         console.log("hls destroy");
+      //         break;
+      //     }
+      //   }
+      // });
     }
   });
   return el;
