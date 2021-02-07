@@ -84,7 +84,11 @@ export const useHls = (src) => {
         console.log("hlserror");
         console.log(data);
         hls.recoverMediaError();
-        hls.startLoad();
+        if (data.type !== Hls.ErrorTypes.MEDIA_ERROR) {
+          hls.startLoad();
+        } else {
+          hls.recoverMediaError();
+        }
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
