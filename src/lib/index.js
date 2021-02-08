@@ -25,27 +25,42 @@ export const useHls = (src) => {
 
     videoRef.value.addEventListener("loadeddata", (e) => {
       status.value = "loading";
+      width.value =
+        videoRef.value?.videoWidth > 0 ? videoRef.value?.videoWidth : -1;
+      height.value =
+        videoRef.value?.videoHeight > 0 ? videoRef.value?.videoHeight : -1;
+      //     ? videoRef.value.videoWidth
+      //     : -1;
       // if (
       //   videoRef.value &&
-      //   videoRef.value.videoWidth > 0 &&
-      //   videoRef.value.videoHeight > 0
+      //   videoRef.value.videoWidth &&
+      //   videoRef.value.videoHeight
       // ) {
-      //   width.value = videoRef.value.videoWidth;
-      //   height.value = videoRef.value.videoHeight;
+      //   width.value = videoRef.value.videoWidth
+      //     ? videoRef.value.videoWidth
+      //     : -1;
+      //   height.value = videoRef.value.videoHeight
+      //     ? videoRef.value.videoHeight
+      //     : -1;
       // }
     });
 
     videoRef.value.addEventListener("playing", (e) => {
       status.value = "playing";
+      width.value =
+        videoRef.value?.videoWidth > 0 ? videoRef.value?.videoWidth : -1;
+      height.value =
+        videoRef.value?.videoHeight > 0 ? videoRef.value?.videoHeight : -1;
     });
 
     videoRef.value.addEventListener("emptied", (e) => {
       console.log("emptied");
-      status.value = "loading";
+      status.value = "nodata";
     });
 
     videoRef.value.addEventListener("stalled", (e) => {
       console.log("stalled");
+      //status.value = "loading";
     });
 
     videoRef.value.addEventListener("suspensed", (e) => {
