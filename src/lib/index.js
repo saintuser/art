@@ -9,8 +9,6 @@ export function debounce(fn, timeout) {
   };
 }
 
-const hlsReloadFrequency = 1000;
-
 export const useHls = (src) => {
   const retryDelay = 3000;
 
@@ -38,10 +36,20 @@ export const useHls = (src) => {
     });
 
     videoRef.value.addEventListener("emptied", (e) => {
-      status.value = "nodata";
+      console.log("emptied");
+      status.value = "loading";
+    });
+
+    videoRef.value.addEventListener("stalled", (e) => {
+      console.log("stalled");
+    });
+
+    videoRef.value.addEventListener("suspensed", (e) => {
+      console.log("suspensed");
     });
 
     videoRef.value.addEventListener("ended", (e) => {
+      console.log("ended");
       status.value = "nodata";
     });
 
@@ -54,7 +62,7 @@ export const useHls = (src) => {
       timeout = setInterval(() => {
         console.log("interval");
         videoRef.value.src = src;
-      }, 1000);
+      }, retryDelay);
 
       videoRef.value.addEventListener("loadeddata", (e) => {
         console.log("clearing timeout");
@@ -68,13 +76,13 @@ export const useHls = (src) => {
         timeout = setInterval(() => {
           console.log("waiting interval");
           videoRef.value.src = src;
-        }, hlsReloadFrequency);
+        }, retryDelay);
       });
     } else {
       if (Hls.isSupported()) {
         console.log("CHROME");
         const hls = new Hls({
-          manifestLoadingRetryDelay: hlsReloadFrequency,
+          manifestLoadingRetryDelay: retryDelay,
           manifestLoadingMaxRetry: Infinity,
           xhrSetup: function (xhr) {
             xhr.addEventListener("error", (e) => {
@@ -97,8 +105,6 @@ export const useHls = (src) => {
           hls.recoverMediaError();
           if (data.type !== Hls.ErrorTypes.MEDIA_ERROR) {
             hls.startLoad();
-          } else {
-            hls.recoverMediaError();
           }
         });
       }
