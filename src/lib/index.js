@@ -13,53 +13,58 @@ const hlsReloadFrequency = 1000;
 
 export const useHls = (src) => {
   const retryDelay = 4000;
-  const el = ref(null);
+  const videoRef = ref(null);
+  const isLoading = ref(true);
 
   onMounted(() => {
-    el.value.addEventListener("play", (e) => {
+    videoRef.value.addEventListener("play", (e) => {
       console.log("play");
     });
-    el.value.addEventListener("playing", (e) => {
+    videoRef.value.addEventListener("playing", (e) => {
       console.log("playing");
+      isLoading.value = false;
     });
-    el.value.addEventListener("ended", (e) => {
+    videoRef.value.addEventListener("ended", (e) => {
       console.log("ended");
     });
-    el.value.addEventListener("loadedmetadata", (e, e2) => {
+    videoRef.value.addEventListener("loadedmetadata", (e, e2) => {
       console.log("loadedmetadata");
-      if (el.value) {
-        console.log(el.value.videoWidth, el.value.videoHeight);
+      if (videoRef.value) {
+        console.log(videoRef.value.videoWidth, videoRef.value.videoHeight);
       }
     });
-    el.value.addEventListener("ended", (e) => {
+    videoRef.value.addEventListener("ended", (e) => {
       console.log("ended");
     });
-    el.value.addEventListener("emptied", (e) => {
+    videoRef.value.addEventListener("emptied", (e) => {
       console.log("emptied");
     });
-    el.value.addEventListener("loadeddata", (e) => {
+    videoRef.value.addEventListener("loadeddata", (e) => {
       console.log("loadeddata");
     });
-    el.value.addEventListener("stalled", (e) => {
+    videoRef.value.addEventListener("stalled", (e) => {
       console.log("stalled");
     });
-    el.value.addEventListener("suspend", (e) => {
+    videoRef.value.addEventListener("suspend", (e) => {
       console.log("suspend");
     });
-    el.value.addEventListener("waiting", (e) => {
+    videoRef.value.addEventListener("waiting", (e) => {
       console.log("waiting");
     });
 
-    if (el.value.canPlayType("application/vnd.apple.mpegURL")) {
+    if (videoRef.value.canPlayType("application/vnd.apple.mpegURL")) {
       console.log("SAFARI");
-      el.value.src = src;
-      el.value.addEventListener("waiting", (e) => {
-        console.log("apple error");
-        el.value.src = src;
-        debounce(() => {
-          el.value.src = src;
-          console.log("debounce");
-        }, hlsReloadFrequency);
+      // setInterval(() => {
+      //   console.log("interval");
+      //   videoRef.value.src = src;
+      // }, 1000);
+      videoRef.value.addEventListener("waiting", (e) => {
+        isLoading.value = true;
+        videoRef.value.src = src;
+        // debounce(() => {
+        //   videoRef.value.src = src;
+        //   console.log("debounce");
+        // }, hlsReloadFrequency);
       });
     } /*else if (Hls.isSupported()) {
       console.log("CHROME");
@@ -69,12 +74,12 @@ export const useHls = (src) => {
         xhrSetup: function (xhr, url) {
           xhr.addEventListener("error", (e) => {
             console.log("xhr error");
-            el.value.play();
+            videoRef.value.play();
           });
         },
       });
 
-      hls.attachMedia(el.value);
+      hls.attachMedia(videoRef.value);
       hls.on(Hls.Events.MEDIA_ATTACHED, () => {
         hls.loadSource(src);
         hls.startLoad();
@@ -90,5 +95,5 @@ export const useHls = (src) => {
       });
     }*/
   });
-  return el;
+  return { videoRef, isLoading };
 };
