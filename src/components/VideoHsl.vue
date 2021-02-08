@@ -6,7 +6,6 @@
     <div>{{ width }} {{ height }}</div>
     <div class="debug aspect">
       <video
-        controls
         ref="videoRef"
         autoplay
         :muted="muted"

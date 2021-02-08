@@ -14,6 +14,7 @@ const urls = ["test2"].map(streamUrl);
 <style>
 body {
   font-family: sans-serif;
+  background: yellow;
 }
 .debug {
   border: 3px solid red;
