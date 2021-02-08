@@ -5,12 +5,16 @@
     {{ status }}
     <div>{{ width }} {{ height }}</div>
     <div class="debug" style="position: relative; background: rgba(0, 0, 0, 1)">
+      <canvas ref="canvasRef" style="width: 100%"></canvas>
       <video
         ref="videoRef"
         autoplay
         :muted="muted"
         :style="{
           opacity: status === 'nodata' ? 0 : 1,
+          position: 'static',
+          top: 0,
+          left: 0,
           display: 'block',
           width: '100%',
           aspectRatio: width + ' / ' + height,
@@ -61,6 +65,6 @@ import { defineProps, ref } from "vue";
 import { useHls } from "../lib";
 
 const props = defineProps({ src: String });
-const { videoRef, status, width, height } = useHls(props.src);
+const { videoRef, canvasRef, status, width, height } = useHls(props.src);
 const muted = ref(true);
 </script>

@@ -1,4 +1,4 @@
-import { ref, onMounted, h } from "vue";
+import { ref, onMounted, h, watch } from "vue";
 import Hls from "hls.js";
 
 export function debounce(fn, timeout) {
@@ -13,15 +13,36 @@ export const useHls = (src) => {
   const retryDelay = 3000;
 
   const videoRef = ref(null);
+  const canvasRef = ref(null);
 
   const status = ref("nodata");
   const width = ref(640);
   const height = ref(360);
 
+  // watch(
+  //   () => width.value,
+  //   (width) => {
+  //     console.log("width");
+  //     canvasRef.value.width = width;
+  //   },
+  //   { immediate: true }
+  // );
+
+  // watch(
+  //   () => height,
+  //   (height) => (canvasRef.value.height = height),
+  //   { immediate: true }
+  // );
+
   onMounted(() => {
-    videoRef.value.addEventListener("loadedmetadata", (e, e2) => {
-      console.log("loadedmetadata");
-    });
+    setInterval(() => {
+      if (canvasRef.value) {
+        canvasRef.value.width = width.value;
+        canvasRef.value.height = height.value;
+        const context = canvasRef.value.getContext("2d");
+        context.drawImage(videoRef.value, 0, 0, width.value, height.value);
+      }
+    }, 2000);
 
     videoRef.value.addEventListener("loadeddata", (e) => {
       status.value = "loading";
@@ -130,5 +151,5 @@ export const useHls = (src) => {
     }
   });
 
-  return { videoRef, status, width, height };
+  return { videoRef, canvasRef, status, width, height };
 };
