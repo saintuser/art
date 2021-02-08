@@ -15,8 +15,8 @@ export const useHls = (src) => {
   const videoRef = ref(null);
 
   const status = ref("nodata");
-  const width = ref(null);
-  const height = ref(null);
+  const width = ref(640);
+  const height = ref(360);
 
   onMounted(() => {
     videoRef.value.addEventListener("loadedmetadata", (e, e2) => {

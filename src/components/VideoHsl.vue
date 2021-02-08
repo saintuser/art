@@ -4,12 +4,13 @@
     <!-- <div>{{ isLoading ? "loading" : "playing" }}</div> -->
     {{ status }}
     <div>{{ width }} {{ height }}</div>
-    <div class="debug" style="position: relative">
+    <div class="debug" style="position: relative; background: rgba(0, 0, 0, 1)">
       <video
         ref="videoRef"
         autoplay
         :muted="muted"
         :style="{
+          opacity: status === 'nodata' ? 0 : 1,
           display: 'block',
           width: '100%',
           aspectRatio: width + ' / ' + height,
@@ -23,7 +24,10 @@
             display: inline-flex;
             top: 0;
             left: 0;
-            background: red;
+            bottom: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             padding: 24px;
           "
         >
@@ -38,7 +42,10 @@
             display: inline-flex;
             top: 0;
             right: 0;
-            background: blue;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             padding: 24px;
           "
         >

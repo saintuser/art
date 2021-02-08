@@ -28,4 +28,7 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+* {
+  transition: opacity 0.5s linear;
+}
 </style>
