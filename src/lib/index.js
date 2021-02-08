@@ -25,10 +25,14 @@ export const useHls = (src) => {
 
     videoRef.value.addEventListener("loadeddata", (e) => {
       status.value = "loading";
-      if (videoRef.value) {
-        width.value = videoRef.value.videoWidth;
-        height.value = videoRef.value.videoHeight;
-      }
+      // if (
+      //   videoRef.value &&
+      //   videoRef.value.videoWidth > 0 &&
+      //   videoRef.value.videoHeight > 0
+      // ) {
+      //   width.value = videoRef.value.videoWidth;
+      //   height.value = videoRef.value.videoHeight;
+      // }
     });
 
     videoRef.value.addEventListener("playing", (e) => {
