@@ -23,14 +23,14 @@ export const useHls = (src) => {
   onMounted(() => {
     videoRef.value.addEventListener("loadedmetadata", (e, e2) => {
       console.log("loadedmetadata");
-      if (videoRef.value) {
-        width.value = videoRef.value.videoWidth;
-        height.value = videoRef.value.videoHeight;
-      }
     });
 
     videoRef.value.addEventListener("loadeddata", (e) => {
       status.value = "loading";
+      if (videoRef.value) {
+        width.value = videoRef.value.videoWidth;
+        height.value = videoRef.value.videoHeight;
+      }
     });
 
     videoRef.value.addEventListener("playing", (e) => {
