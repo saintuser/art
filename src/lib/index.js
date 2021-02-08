@@ -15,6 +15,7 @@ export const useHls = (src) => {
   const retryDelay = 4000;
   const videoRef = ref(null);
   const isLoading = ref(true);
+  const status = ref("nodata");
 
   onMounted(() => {
     videoRef.value.addEventListener("play", (e) => {
@@ -23,6 +24,7 @@ export const useHls = (src) => {
     videoRef.value.addEventListener("playing", (e) => {
       console.log("playing");
       isLoading.value = false;
+      status.value = "playing";
     });
     videoRef.value.addEventListener("ended", (e) => {
       console.log("ended");
@@ -35,15 +37,16 @@ export const useHls = (src) => {
     });
     videoRef.value.addEventListener("ended", (e) => {
       console.log("ended");
+      status.value = "nodata";
     });
     videoRef.value.addEventListener("emptied", (e) => {
       console.log("emptied");
-    });
-    videoRef.value.addEventListener("loadeddata", (e) => {
-      console.log("loadeddata");
+      status.value = "nodata";
     });
     videoRef.value.addEventListener("stalled", (e) => {
       console.log("stalled");
+      //   isLoading.value = false;
+      //   status.value = "loading";
     });
     videoRef.value.addEventListener("suspend", (e) => {
       console.log("suspend");
@@ -54,13 +57,27 @@ export const useHls = (src) => {
 
     if (videoRef.value.canPlayType("application/vnd.apple.mpegURL")) {
       console.log("SAFARI");
-      // setInterval(() => {
-      //   console.log("interval");
-      //   videoRef.value.src = src;
-      // }, 1000);
+
+      videoRef.value.src = src;
+
+      let timeout = null;
+      timeout = setInterval(() => {
+        console.log("interval");
+        videoRef.value.src = src;
+      }, 1000);
+
+      videoRef.value.addEventListener("loadeddata", (e) => {
+        console.log("loadeddata, clearing timeout");
+        status.value = "loading";
+        clearTimeout(timeout);
+      });
       videoRef.value.addEventListener("waiting", (e) => {
         isLoading.value = true;
-        videoRef.value.src = src;
+        timeout = setInterval(() => {
+          console.log("waiting interval");
+          videoRef.value.src = src;
+        }, 1000);
+        //videoRef.value.src = src;
         // debounce(() => {
         //   videoRef.value.src = src;
         //   console.log("debounce");
@@ -95,5 +112,5 @@ export const useHls = (src) => {
       });
     }*/
   });
-  return { videoRef, isLoading };
+  return { videoRef, isLoading, status };
 };
