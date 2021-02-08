@@ -1,5 +1,5 @@
 <template>
-  <div style="display: grid; grid-template-columns: 10fr 1fr">
+  <div style="display: grid; grid-template-columns: 1fr 1fr">
     <video-hsl :src="urls[0]" />
   </div>
 </template>
