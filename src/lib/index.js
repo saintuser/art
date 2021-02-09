@@ -10,130 +10,125 @@ export function debounce(fn, timeout) {
 }
 
 export const useHls = (src) => {
-  const retryDelay = 4000;
-  const el = ref(null);
+  const retryDelay = 3000;
+
+  const videoRef = ref(null);
+
+  const status = ref("nodata");
+  const width = ref(640);
+  const height = ref(360);
+
   onMounted(() => {
-    el.value.addEventListener("play", (e) => {
-      console.log("play");
-    });
-    el.value.addEventListener("playing", (e) => {
-      console.log("playing");
-    });
-    el.value.addEventListener("ended", (e) => {
-      console.log("ended");
-    });
-    el.value.addEventListener("loadedmetadata", (e) => {
+    videoRef.value.addEventListener("loadedmetadata", (e, e2) => {
       console.log("loadedmetadata");
     });
-    el.value.addEventListener("ended", (e) => {
-      console.log("ended");
-    });
-    el.value.addEventListener("emptied", (e) => {
-      console.log("emptied");
-    });
-    el.value.addEventListener("loadeddata", (e) => {
-      console.log("loadeddata");
-    });
-    el.value.addEventListener("stalled", (e) => {
-      console.log("stalled");
-    });
-    el.value.addEventListener("suspend", (e) => {
-      console.log("suspend");
-    });
-    el.value.addEventListener("waiting", (e) => {
-      console.log("waiting");
-    });
-    if (el.value.canPlayType("application/vnd.apple.mpegsrc")) {
-      el.value.src = src;
-      //el.value.onerror = debounce(() => (el.value.src = src), 1000);
-      el.value.addEventListener("error", (e) => {
-        console.log("error");
-        debounce(() => {
-          //el.value.src = src;
-          console.log("debounce");
-        }, 100);
-      });
-    } else if (Hls.isSupported()) {
-      const hls = new Hls({
-        manifestLoadingRetryDelay: 1000,
-        manifestLoadingMaxRetry: Infinity,
-        //progressive: true,
-        xhrSetup: function (xhr, url) {
-          xhr.addEventListener("error", (e) => {
-            console.log("xhr error");
-            el.value.play();
-            // hls.destroy();
-            // hls = new Hls(init);
-            // hls.attachMedia(el.value);
-            // hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-            //   hls.loadSource(src);
-            // });
-            // el.value.play();
-          });
-        },
-      });
 
-      hls.attachMedia(el.value);
-      hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-        hls.loadSource(src);
-        hls.startLoad();
-        //el.value.play();
-      });
-      hls.on(Hls.Events.ERROR, function (e, data) {
-        console.log("hlserror");
-        hls.recoverMediaError();
-        hls.startLoad();
-        if (data.fatal) {
-          switch (data.type) {
-            case Hls.ErrorTypes.NETWORK_ERROR:
-              console.log("hls network");
-              console.log("fatal network error encountered, try to recover");
-              break;
-            case Hls.ErrorTypes.MEDIA_ERROR:
-              console.log("hls mediua");
-              break;
-            default:
-              console.log("hls destroy");
-              break;
-          }
+    videoRef.value.addEventListener("loadeddata", (e) => {
+      status.value = "loading";
+      width.value =
+        videoRef.value?.videoWidth > 0 ? videoRef.value?.videoWidth : -1;
+      height.value =
+        videoRef.value?.videoHeight > 0 ? videoRef.value?.videoHeight : -1;
+      //     ? videoRef.value.videoWidth
+      //     : -1;
+      // if (
+      //   videoRef.value &&
+      //   videoRef.value.videoWidth &&
+      //   videoRef.value.videoHeight
+      // ) {
+      //   width.value = videoRef.value.videoWidth
+      //     ? videoRef.value.videoWidth
+      //     : -1;
+      //   height.value = videoRef.value.videoHeight
+      //     ? videoRef.value.videoHeight
+      //     : -1;
+      // }
+    });
+
+    videoRef.value.addEventListener("playing", (e) => {
+      status.value = "playing";
+      width.value =
+        videoRef.value?.videoWidth > 0 ? videoRef.value?.videoWidth : -1;
+      height.value =
+        videoRef.value?.videoHeight > 0 ? videoRef.value?.videoHeight : -1;
+    });
+
+    videoRef.value.addEventListener("emptied", (e) => {
+      console.log("emptied");
+      status.value = "nodata";
+    });
+
+    videoRef.value.addEventListener("stalled", (e) => {
+      console.log("stalled");
+      //status.value = "loading";
+    });
+
+    videoRef.value.addEventListener("suspensed", (e) => {
+      console.log("suspensed");
+    });
+
+    videoRef.value.addEventListener("ended", (e) => {
+      console.log("ended");
+      status.value = "nodata";
+    });
+
+    if (videoRef.value.canPlayType("application/vnd.apple.mpegURL")) {
+      console.log("SAFARI");
+
+      videoRef.value.src = src;
+
+      let timeout = null;
+      timeout = setInterval(() => {
+        console.log("interval");
+        videoRef.value.src = src;
+      }, retryDelay);
+
+      videoRef.value.addEventListener("loadeddata", (e) => {
+        console.log("clearing timeout");
+        if (timeout) {
+          clearTimeout(timeout);
         }
       });
 
-      // const hls = new Hls({
-      //   manifestLoadingRetryDelay: 1000,
-      //   manifestLoadingMaxRetry: Infinity,
-      //   progressive: true,
-      //   xhrSetup: function (xhr, url) {
-      //     xhr.addEventListener("error", (e) => {
-      //       console.log("xhr error");
-      //       //el.value.src = src;
-      //       hls.loadSource(src);
-      //     });
-      //   },
-      // });
-      // hls.attachMedia(el.value);
-      // hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-      //   hls.loadSource(src);
-      // });
-      // hls.on(Hls.Events.ERROR, function (e, data) {
-      //   //hls.recoverMediaError();
-      //   //hls.startLoad();
-      //   if (data.fatal) {
-      //     switch (data.type) {
-      //       case Hls.ErrorTypes.NETWORK_ERROR:
-      //         console.log("hls network");
-      //         console.log("fatal network error encountered, try to recover");
-      //         break;
-      //       case Hls.ErrorTypes.MEDIA_ERROR:
-      //         console.log("hls mediua");
-      //         break;
-      //       default:
-      //         console.log("hls destroy");
-      //         break;
-      //     }
-      //   }
-      // });
+      videoRef.value.addEventListener("waiting", (e) => {
+        status.value = "loading";
+        timeout = setInterval(() => {
+          console.log("waiting interval");
+          videoRef.value.src = src;
+        }, retryDelay);
+      });
+    } else {
+      if (Hls.isSupported()) {
+        console.log("CHROME");
+        const hls = new Hls({
+          manifestLoadingRetryDelay: retryDelay,
+          manifestLoadingMaxRetry: Infinity,
+          xhrSetup: function (xhr) {
+            xhr.addEventListener("error", (e) => {
+              console.log("xhr error");
+              hls.loadSource(src);
+              hls.startLoad();
+              videoRef.value.play();
+            });
+          },
+        });
+
+        hls.attachMedia(videoRef.value);
+        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+          hls.loadSource(src);
+          hls.startLoad();
+        });
+        hls.on(Hls.Events.ERROR, function (e, data) {
+          console.log("hlserror");
+          console.log(data);
+          hls.recoverMediaError();
+          if (data.type !== Hls.ErrorTypes.MEDIA_ERROR) {
+            hls.startLoad();
+          }
+        });
+      }
     }
   });
-  return el;
+
+  return { videoRef, status, width, height };
 };

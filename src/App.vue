@@ -1,5 +1,5 @@
 <template>
-  <div style="display: grid; grid-template-columns: 10fr 1fr">
+  <div style="display: grid; grid-template-columns: 1fr 1fr">
     <video-hsl :src="urls[0]" />
   </div>
 </template>
@@ -14,8 +14,21 @@ const urls = ["test2"].map(streamUrl);
 <style>
 body {
   font-family: sans-serif;
+  background: yellow;
 }
 .debug {
   border: 3px solid red;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+* {
+  transition: opacity 0.5s linear;
 }
 </style>
