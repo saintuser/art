@@ -2,14 +2,14 @@
   "name": "live2",
   "private": true,
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build -c vite.config.app.js && vite build -c vite.config.lib.js --outDir dist/lib && mv dist/lib/live2.es.js dist/lib/index.js",
+    "dev": "vite -c vite.config.app.js",
+    "build": "vite build -c vite.config.app.js && vite build -c vite.config.lib.js --outDir dist/lib",
     "serve": "vite preview"
   },
   "dependencies": {
     "hls.js": "^0.14.17",
-    "vue": "^3.0.5"
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.4",
