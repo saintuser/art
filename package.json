@@ -4,7 +4,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build -c vite.config.app.js && vite build -c vite.config.lib.js --outDir dist/lib && mv dist/lib/live2.es.js dist/lib/index.js",
     "serve": "vite preview"
   },
   "dependencies": {

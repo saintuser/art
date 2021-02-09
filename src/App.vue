@@ -6,9 +6,12 @@
 
 <script setup>
 import VideoHsl from "./components/VideoHsl.vue";
-const streamUrl = (id) =>
-  `https://le25.babahhcdn.com/bb1150-le/${id}/index.m3u8`;
-const urls = ["test2"].map(streamUrl);
+import { inject } from "./lib/index.js";
+
+const streamUrl = import.meta.env.VITE_STREAM_PATH || "";
+
+const urls = ["test2"].map((streamkey) => inject(streamUrl, { streamkey }));
+console.log(urls);
 </script>
 
 <style>
