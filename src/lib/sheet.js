@@ -17,9 +17,7 @@ const parseSheet = (data) => {
 };
 
 export const getSheet = (url) => {
-  //const id = url.match(/[-\w]{25,}/)?.[0];
-  console.log(url);
-  const id = "1uwpQmFojlB1NbVzllsPgu2NY3b-oFEmH2KA-vWbk7Nk";
+  const id = url.match(/[-\w]{25,}/)?.[0];
   return fetch(
     `https://spreadsheets.google.com/feeds/list/${id}/od6/public/values?alt=json`
   )
