@@ -1,7 +1,7 @@
 import { ref, onMounted } from "vue";
 import Hls from "hls.js";
 
-export const useHls = (src) => {
+export const useVideoStream = (src) => {
   const retryDelay = 3000;
 
   const videoRef = ref(null);

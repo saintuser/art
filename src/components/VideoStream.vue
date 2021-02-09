@@ -58,9 +58,9 @@
 
 <script setup>
 import { defineProps, ref } from "vue";
-import { useHls } from "../lib";
+import { useVideoStream } from "../lib";
 
 const props = defineProps({ src: String });
-const { videoRef, status, width, height } = useHls(props.src);
+const { videoRef, status, width, height } = useVideoStream(props.src);
 const muted = ref(true);
 </script>
