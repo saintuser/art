@@ -12,10 +12,6 @@ export const inject = (str, obj) => str.replace(/\${(.*?)}/g, (_, v) => obj[v]);
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const fetchJson = (url) => {
-  return fetch(url).then((res) => res.json());
-};
-
 export const useLocalstorage = (key = null, initialValue = null) => {
   const value = ref(initialValue);
   if (window.localStorage !== undefined) {
