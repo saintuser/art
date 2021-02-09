@@ -1,4 +1,4 @@
 <template>
   Hello
-  <router-link to="videostream-example">VideoStream</router-link>
+  <router-link to="/videostream-example">VideoStream</router-link>
 </template>

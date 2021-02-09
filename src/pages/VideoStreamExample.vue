@@ -1,4 +1,5 @@
 <template>
+  <router-link to="/">VideoStream</router-link>
   <div style="display: grid; grid-template-columns: 1fr 1fr">
     <video-stream :src="urls[0]" />
   </div>
