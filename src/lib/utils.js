@@ -1,3 +1,5 @@
+import { ref, computed } from "vue";
+
 export function debounce(fn, timeout) {
   let t;
   return function () {
@@ -10,9 +12,33 @@ export const inject = (str, obj) => str.replace(/\${(.*?)}/g, (_, v) => obj[v]);
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const useJson = (url) => {
-  const json = ref(null);
-  return fetch(url)
-    .then((res) => res.json())
-    .then((res) => (json.value = res));
+export const fetchJson = (url) => {
+  return fetch(url).then((res) => res.json());
+};
+
+export const useLocalstorage = (key = null, initialValue = null) => {
+  const value = ref(initialValue);
+  if (window.localStorage !== undefined) {
+    if (initialValue !== null && key && !window.localStorage.getItem(key)) {
+      window.localStorage.setItem(key, JSON.stringify(initialValue));
+    }
+    const localValue = computed({
+      get: () => {
+        let storedValue = null;
+        if (key && window.localStorage.getItem(key)) {
+          storedValue = JSON.parse(window.localStorage.getItem(key));
+          return storedValue !== value.value ? storedValue : value.value;
+        }
+        return value.value;
+      },
+      set: (val) => {
+        value.value = val;
+        if (key) {
+          window.localStorage.setItem(key, JSON.stringify(val));
+        }
+      },
+    });
+    return localValue;
+  }
+  return value;
 };

@@ -1,9 +1,11 @@
 import { ref } from "vue";
-import { sleep, useJson } from "./index.js";
+import { sleep, config, fetchJson, useLocalstorage } from "./index.js";
 
-const events = ref([]);
+const events = useLocalstorage("ELEKTRON_EVENTS", []);
 
 export const useEvents = () => {
-  sleep(2000).then((_) => (events.value = ["hello"]));
+  fetchJson(config.eventsUrl).then(
+    ({ items }) => (events.value = items?.[0]?.summary + Math.random())
+  );
   return events;
 };
