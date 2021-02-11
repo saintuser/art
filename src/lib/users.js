@@ -1,20 +1,11 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { merge } from "lodash";
 
-import {
-  ws,
-  safeJsonParse,
-  config,
-  createMessage,
-  useUser,
-  uniqueCollection,
-} from ".";
+import { ws, safeJsonParse } from ".";
 
 const users = ref([]);
 
 export const useUsers = () => {
-  const { userName } = useUser();
-
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
     if (message?.type === "USER") {
@@ -28,20 +19,6 @@ export const useUsers = () => {
       }
     }
   });
-
-  const idleInteval = ref(null);
-
-  onMounted(() => {
-    idleInteval.value = setInterval(() => {
-      const outgoingMessage = createMessage({
-        type: "USER",
-        value: { userName: userName.value },
-      });
-      ws.send(outgoingMessage);
-    }, config.idleFrequency);
-  });
-
-  onUnmounted(() => clearInterval(idleInteval.value));
 
   return {
     users,

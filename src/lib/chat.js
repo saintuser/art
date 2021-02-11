@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import {
   safeJsonParse,
   ws,
@@ -6,14 +6,22 @@ import {
   useScrollToBottom,
   createMessage,
   config,
+  messages as m,
 } from "./index.js";
 
 export const useChat = (channel) => {
   const allMessages = ref([]);
 
-  fetch(config.historyUrl)
-    .then((res) => res.json())
-    .then((messages) => console.log(messages));
+  watch(
+    () => m.value,
+    () => {
+      allMessages.value = [
+        ...m.value.filter((m) => m.type === "CHAT"),
+        ...allMessages.value,
+      ];
+    },
+    { immediate: true }
+  );
 
   const messages = computed(() =>
     allMessages.value.filter((message) => message.channel === channel)

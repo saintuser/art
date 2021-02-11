@@ -1,6 +1,6 @@
 export * from "./utils.js";
 export * from "./config.js";
-export * from "./ws.js";
+export * from "./messages.js";
 export * from "./chat.js";
 export * from "./events.js";
 export * from "./names.js";

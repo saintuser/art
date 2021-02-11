@@ -1,4 +1,5 @@
 import { onMounted, onUnmounted, watch, ref } from "vue";
+import { tryOnMounted, tryOnUnmounted } from "@vueuse/core";
 
 import {
   adjectives,
@@ -10,6 +11,8 @@ import {
   useLocalstorage,
   config,
 } from ".";
+
+const interval = ref(null);
 
 export const useUser = () => {
   const initialUserId = randomId();
@@ -37,23 +40,23 @@ export const useUser = () => {
     }
   );
 
-  /*
+  // tryOnMounted(() => {
+  //   const outgoingMessage = createMessage({
+  //     type: "USER",
+  //   });
+  //   ws.send(outgoingMessage);
 
-  const interval = ref(null);
+  //   if (!interval.value) {
+  //     interval.value = setInterval(() => {
+  //       const outgoingMessage = createMessage({
+  //         type: "USER",
+  //       });
+  //       ws.send(outgoingMessage);
+  //     }, config.userIdle);
+  //   }
+  // });
 
-  onMounted(() => {
-    interval.value = setInterval(() => {
-      const outgoingMessage = createMessage({
-        type: "USER",
-        userId: userId.value,
-      });
-      //console.log(outgoingMessage);
-      ws.send(outgoingMessage);
-    }, config.idleFrequency);
-  });
-
-  onUnmounted(() => clearInterval(interval.value));
-  */
+  // tryOnUnmounted(() => clearInterval(interval.value));
 
   return { userId, userName, onUserNameChange };
 };

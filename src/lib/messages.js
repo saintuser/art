@@ -1,6 +1,7 @@
 import ReconnectingWebsocket from "reconnecting-websocket";
 
-import { useUser, randomId, config } from "./index.js";
+import { ref } from "vue";
+import { useUser, randomId, config, uniqueCollection } from ".";
 
 // Websocket
 
@@ -19,4 +20,18 @@ export const createMessage = (message) => {
     value: "",
     ...message,
   });
+};
+
+export const messages = ref([]);
+
+export const fetchMessagesHistory = () => {
+  fetch(config.historyUrl)
+    .then((res) => res.json())
+    .then(
+      (messagesHistory) =>
+        (messages.value = uniqueCollection(
+          [...messagesHistory, ...messages.value],
+          "id"
+        ))
+    );
 };

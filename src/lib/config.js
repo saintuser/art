@@ -3,5 +3,5 @@ export const config = {
   eventsUrl: import.meta.env.VITE_EVENTS_URL || "",
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
-  idleFrequency: 4000,
+  userIdle: 10000,
 };

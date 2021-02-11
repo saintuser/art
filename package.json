@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^4.1.0",
     "hls.js": "^0.14.17",
     "lodash": "^4.17.20",
     "reconnecting-websocket": "^4.4.0",
