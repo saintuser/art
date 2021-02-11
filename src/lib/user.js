@@ -1,4 +1,4 @@
-import { watch } from "vue";
+import { onMounted, onUnmounted, watch, ref } from "vue";
 
 import {
   adjectives,
@@ -6,9 +6,10 @@ import {
   any,
   createMessage,
   randomId,
-  socket,
+  ws,
   useLocalstorage,
-} from "./index.js";
+  config,
+} from ".";
 
 export const useUser = () => {
   const initialUserId = randomId();
@@ -32,8 +33,27 @@ export const useUser = () => {
         userId: userId.value,
         value: { userName: userName.value },
       });
-      socket.send(outgoingMessage);
+      ws.send(outgoingMessage);
     }
   );
+
+  /*
+
+  const interval = ref(null);
+
+  onMounted(() => {
+    interval.value = setInterval(() => {
+      const outgoingMessage = createMessage({
+        type: "USER",
+        userId: userId.value,
+      });
+      //console.log(outgoingMessage);
+      ws.send(outgoingMessage);
+    }, config.idleFrequency);
+  });
+
+  onUnmounted(() => clearInterval(interval.value));
+  */
+
   return { userId, userName, onUserNameChange };
 };

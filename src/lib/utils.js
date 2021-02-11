@@ -54,13 +54,13 @@ export const safeJsonParse = (str) => {
 export const uniqueCollection = (arr, key) => {
   const result = [];
   const map = new Map();
-  for (const item of arr) {
+  for (const item of arr.reverse()) {
     if (!map.has(item[key])) {
       map.set(item[key], true);
       result.push(item);
     }
   }
-  return result;
+  return result.reverse();
 };
 
 export const useTextarea = (callback) => {
@@ -113,3 +113,6 @@ export const randomId = (length = 16) => {
   const letters = "abcdefghijklmnopqrstuvwxyz".split("");
   return shuffle(letters).slice(0, length).join("");
 };
+
+export const wsToUrl = (ws) =>
+  ws.replace("ws://", "http://").replace("wss://", "https://");

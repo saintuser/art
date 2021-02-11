@@ -1,9 +1,9 @@
 export * from "./utils.js";
-
-export * from "./chat.js";
 export * from "./config.js";
+export * from "./ws.js";
+export * from "./chat.js";
 export * from "./events.js";
 export * from "./names.js";
 export * from "./user.js";
+export * from "./users.js";
 export * from "./videostream.js";
-export * from "./ws.js";

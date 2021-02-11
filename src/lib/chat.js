@@ -1,20 +1,26 @@
 import { ref, computed } from "vue";
 import {
   safeJsonParse,
-  socket,
+  ws,
   useTextarea,
   useScrollToBottom,
   createMessage,
+  config,
 } from "./index.js";
 
 export const useChat = (channel) => {
   const allMessages = ref([]);
+
+  fetch(config.historyUrl)
+    .then((res) => res.json())
+    .then((messages) => console.log(messages));
+
   const messages = computed(() =>
     allMessages.value.filter((message) => message.channel === channel)
   );
   const newMessage = ref("");
 
-  socket.addEventListener("message", ({ data }) => {
+  ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
     if (message?.type === "CHAT") {
       allMessages.value = [...allMessages.value, message];
@@ -23,12 +29,12 @@ export const useChat = (channel) => {
 
   const onNewMessage = () => {
     const outgoingMessage = createMessage({
-      // TODO: Handle /update and /reset
       type: "CHAT",
       channel: channel,
       value: newMessage.value,
+      history: true,
     });
-    socket.send(outgoingMessage);
+    ws.send(outgoingMessage);
     newMessage.value = "";
   };
 
