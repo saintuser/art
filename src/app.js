@@ -13,6 +13,10 @@ const routes = [
     path: "/videostream-example",
     component: () => import("./pages/VideoStreamExample.vue"),
   },
+  {
+    path: "/chat-example",
+    component: () => import("./pages/ChatExample.vue"),
+  },
 ];
 
 const router = createRouter({

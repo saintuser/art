@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 export function debounce(fn, timeout) {
   let t;
@@ -37,4 +37,79 @@ export const useLocalstorage = (key = null, initialValue = null) => {
     return localValue;
   }
   return value;
+};
+
+export const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+export const any = (arr) => shuffle(arr)[0];
+
+export const safeJsonParse = (str) => {
+  try {
+    return JSON.parse(str);
+  } catch (err) {
+    return null;
+  }
+};
+
+export const uniqueCollection = (arr, key) => {
+  const result = [];
+  const map = new Map();
+  for (const item of arr) {
+    if (!map.has(item[key])) {
+      map.set(item[key], true);
+      result.push(item);
+    }
+  }
+  return result;
+};
+
+export const useTextarea = (callback) => {
+  const el = ref(null);
+
+  const onKeydown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      callback();
+      el.value.style.height = "auto";
+    }
+  };
+
+  const onInput = (e) => {
+    el.value.style.height = "auto";
+    el.value.style.height = el.value.scrollHeight + "px";
+  };
+
+  onMounted(() => {
+    if (el.value) {
+      //el.value.focus();
+      el.value.addEventListener("keydown", onKeydown);
+      onInput();
+      el.value.addEventListener("input", onInput);
+    }
+  });
+
+  onUnmounted(() => {
+    if (el.value) {
+      el.value.removeEventListener("keydown", onKeydown);
+    }
+  });
+
+  return el;
+};
+
+export const useScrollToBottom = () => {
+  const el = ref(null);
+  onMounted(() => {
+    el.value.scrollTop = el.value.scrollHeight;
+    const observer = new MutationObserver(
+      () => (el.value.scrollTop = el.value.scrollHeight)
+    );
+    observer.observe(el.value, { childList: true });
+  });
+  return el;
+};
+
+export const randomId = (length = 16) => {
+  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+  return shuffle(letters).slice(0, length).join("");
 };
