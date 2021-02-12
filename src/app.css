@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "font-medium";
+  src: url("/fonts/font-medium.woff") format("woff"),
+    url("/fonts/font-medium.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "font-medium-oblique";
+  src: url("/fonts/font-medium-oblique.woff") format("woff"),
+    url("/fonts/font-medium-oblique.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: Nunito Sans;
+}
+h1 {
+  font-family: font-medium;
+}

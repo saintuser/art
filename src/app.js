@@ -4,6 +4,8 @@ import { createRouter, createWebHistory, RouterView } from "vue-router";
 import * as components from "./components";
 import { fetchMessages, refreshUsers } from "./lib";
 
+import "./app.css";
+
 const routes = [
   {
     path: "/",
