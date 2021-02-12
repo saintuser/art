@@ -1,8 +1,8 @@
 import { createApp, h } from "vue";
 import { createRouter, createWebHistory, RouterView } from "vue-router";
 
-import * as components from "./components/index.js";
-import { sleep } from "./lib/index.js";
+import * as components from "./components";
+import { fetchMessages, refreshUsers } from "./lib";
 
 const routes = [
   {
@@ -13,6 +13,10 @@ const routes = [
     path: "/videostream-example",
     component: () => import("./pages/VideoStreamExample.vue"),
   },
+  {
+    path: "/chat-example",
+    component: () => import("./pages/ChatExample.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -22,6 +26,8 @@ const router = createRouter({
 
 const app = createApp({
   setup() {
+    fetchMessages();
+    refreshUsers();
     return () => h(RouterView);
   },
 });
