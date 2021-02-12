@@ -16,7 +16,7 @@ export const useChat = (channel) => {
     () => m.value,
     () => {
       allMessages.value = [
-        ...m.value.filter((m) => m.type === "CHAT"),
+        ...m.value.filter((m) => m.type === "CHAT" && m.channel === channel),
         ...allMessages.value,
       ];
     },
