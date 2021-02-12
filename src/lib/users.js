@@ -15,8 +15,8 @@ import {
 const initialUserId = randomId();
 const initialUserName = `${any(adjectives)} ${any(animals)}`;
 
-const userId = useLocalstorage("elektron_user_id", initialUserId);
-const userName = useLocalstorage("elektron_user_name", initialUserName);
+export const userId = useLocalstorage("elektron_user_id", initialUserId);
+export const userName = useLocalstorage("elektron_user_name", initialUserName);
 
 export const useUser = () => {
   const onUserNameChange = () => {

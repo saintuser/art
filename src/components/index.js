@@ -5,3 +5,5 @@ export const VideoStream = defineAsyncComponent(() =>
 );
 
 export const Overlay = defineAsyncComponent(() => import("./Overlay.vue"));
+
+export const Draggable = defineAsyncComponent(() => import("./Draggable.vue"));
