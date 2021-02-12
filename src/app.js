@@ -1,8 +1,9 @@
 import { createApp, h } from "vue";
-import { createRouter, createWebHistory, RouterView } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 import * as components from "./components";
-import { fetchMessages, refreshUsers } from "./lib";
+
+import App from "./App.vue";
 
 import "./app.css";
 
@@ -26,13 +27,7 @@ const router = createRouter({
   routes,
 });
 
-const app = createApp({
-  setup() {
-    fetchMessages();
-    refreshUsers();
-    return () => h(RouterView);
-  },
-});
+const app = createApp(App);
 
 app.use(router);
 
