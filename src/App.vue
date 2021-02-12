@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from "vue";
-import { fetchMessages, refreshUsers } from "./lib";
+import { loadMessages, loadSheet, loadCalendar, refreshUsers } from "./lib";
 import { Overlay } from "./components";
 
-fetchMessages();
+loadMessages();
+loadSheet();
+loadCalendar();
 refreshUsers();
 </script>
 

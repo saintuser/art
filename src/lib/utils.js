@@ -8,7 +8,8 @@ export function debounce(fn, timeout) {
   };
 }
 
-export const inject = (str, obj) => str.replace(/\${(.*?)}/g, (_, v) => obj[v]);
+export const replace = (str, obj) =>
+  str.replace(/\${(.*?)}/g, (_, v) => obj[v]);
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

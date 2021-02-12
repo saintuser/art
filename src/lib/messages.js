@@ -24,13 +24,13 @@ export const createMessage = (message) => {
 
 export const messages = ref([]);
 
-export const fetchMessages = () => {
+export const loadMessages = () => {
   fetch(config.historyUrl)
     .then((res) => res.json())
     .then(
-      (messagesHistory) =>
+      (loadedMessages) =>
         (messages.value = uniqueCollection(
-          [...messagesHistory, ...messages.value],
+          [...loadedMessages, ...messages.value],
           "id"
         ))
     );
