@@ -5,6 +5,8 @@ import * as components from "./components";
 
 import App from "./App.vue";
 
+import "./app.css";
+
 const routes = [
   {
     path: "/",
