@@ -11,16 +11,16 @@ import {
 } from "./index.js";
 
 export const useChat = (channel) => {
-  const chats = ref([]);
+  const chatMessages = ref([]);
 
   watch(
     () => messages.value,
     () => {
-      chats.value = [
+      chatMessages.value = [
         ...messages.value.filter(
           (m) => m.type === "CHAT" && m.channel === channel
         ),
-        ...chats.value,
+        ...chatMessages.value,
       ];
     },
     { immediate: true }
@@ -31,7 +31,7 @@ export const useChat = (channel) => {
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
     if (message?.type === "CHAT") {
-      chats.value = [...chats.value, message];
+      chatMessages.value = [...chatMessages.value, message];
     }
   });
 
@@ -68,11 +68,10 @@ export const useChat = (channel) => {
       });
     });
 
-  const chatsWithUsers = addUsers(chats);
+  const chats = addUsers(chatMessages);
 
   return {
     chats,
-    chatsWithUsers,
     newMessage,
     onNewMessage,
     scrollRef,
