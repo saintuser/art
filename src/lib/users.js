@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, watch, ref } from "vue";
 import { tryOnMounted, tryOnUnmounted } from "@vueuse/core";
-
+import { merge } from "lodash";
 import {
   adjectives,
   animals,
@@ -10,17 +10,16 @@ import {
   ws,
   useLocalstorage,
   safeJsonParse,
+  config,
 } from "../lib";
 
-const interval = ref(null);
+const initialUserId = randomId();
+const initialUserName = `${any(adjectives)} ${any(animals)}`;
+
+const userId = useLocalstorage("elektron_user_id", initialUserId);
+const userName = useLocalstorage("elektron_user_name", initialUserName);
 
 export const useUser = () => {
-  const initialUserId = randomId();
-  const initialUserName = `${any(adjectives)} ${any(animals)}`;
-
-  const userId = useLocalstorage("elektron_user_id", initialUserId);
-  const userName = useLocalstorage("elektron_user_name", initialUserName);
-
   const onUserNameChange = () => {
     const newName = window.prompt("Enter your name", userName.value);
     if (newName) {
@@ -40,24 +39,6 @@ export const useUser = () => {
     }
   );
 
-  // tryOnMounted(() => {
-  //   const outgoingMessage = createMessage({
-  //     type: "USER",
-  //   });
-  //   ws.send(outgoingMessage);
-
-  //   if (!interval.value) {
-  //     interval.value = setInterval(() => {
-  //       const outgoingMessage = createMessage({
-  //         type: "USER",
-  //       });
-  //       ws.send(outgoingMessage);
-  //     }, config.userIdle);
-  //   }
-  // });
-
-  // tryOnUnmounted(() => clearInterval(interval.value));
-
   return { userId, userName, onUserNameChange };
 };
 
@@ -71,10 +52,40 @@ export const updateUsers = () => {
         .reverse()
         .findIndex((u) => message.userId === u.userId);
       if (index > -1) {
-        users.value[index] = merge(users.value[index], message, {});
+        console.log(
+          users.value[index],
+          message,
+          merge(users.value[index], message)
+        );
+        //message.value = message.value ?? {};
+        users.value[index] = merge(users.value[index], message);
       } else {
         users.value = [...users.value, message];
       }
     }
   });
+};
+
+export const updateUser = () => {
+  const interval = ref(null);
+
+  onMounted(() => {
+    const outgoingMessage = createMessage({
+      type: "USER",
+      value: { userName: userName.value },
+    });
+    ws.send(outgoingMessage);
+
+    if (!interval.value) {
+      interval.value = setInterval(() => {
+        const outgoingMessage = createMessage({
+          type: "USER",
+          value: {},
+        });
+        ws.send(outgoingMessage);
+      }, config.userIdle);
+    }
+  });
+
+  onUnmounted(() => clearInterval(interval.value));
 };
