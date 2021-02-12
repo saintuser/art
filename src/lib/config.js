@@ -4,5 +4,5 @@ export const config = {
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
   userIdle: 10000,
-  messageDelay: 10,
+  messageDelay: 50,
 };

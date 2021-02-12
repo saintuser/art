@@ -30,6 +30,8 @@ const onUserDrag = debounce(({ x, y }) => {
       top: otherUser.value.userY + 'px',
       background: 'red',
       padding: '16px',
+      transition:
+        'all ' + config.messageDelay * 2 + 'ms cubic-bezier(0.16, 1, 0.3, 1)',
     }"
   >
     <pre>{{ otherUser.userId }}</pre>
