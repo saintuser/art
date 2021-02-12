@@ -5,9 +5,8 @@ import {
   useTextarea,
   useScrollToBottom,
   createMessage,
-  config,
   messages,
-  users,
+  addUsers,
 } from "./index.js";
 
 export const useChat = (channel) => {
@@ -48,27 +47,6 @@ export const useChat = (channel) => {
 
   const textareaRef = useTextarea(onNewMessage);
   const scrollRef = useScrollToBottom();
-
-  const addUsers = (messages) =>
-    computed(() => {
-      console.log(users.value);
-      const usersEntries = users.value
-        .map((user) => {
-          if (user.value?.userName) {
-            return [user.userId, user.value.userName];
-          } else {
-            return null;
-          }
-        })
-        .filter((user) => user);
-      const usersMap = Object.fromEntries(usersEntries);
-      return messages.value.map((message) => {
-        if (usersMap[message.userId]) {
-          message.userName = usersMap[message.userId];
-        }
-        return message;
-      });
-    });
 
   const chats = addUsers(chatMessages);
 

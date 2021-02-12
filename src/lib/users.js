@@ -1,5 +1,4 @@
-import { onMounted, onUnmounted, watch, ref } from "vue";
-import { tryOnMounted, tryOnUnmounted } from "@vueuse/core";
+import { onMounted, onUnmounted, watch, ref, computed } from "vue";
 import { merge } from "lodash";
 import {
   adjectives,
@@ -44,21 +43,21 @@ export const useUser = () => {
 
 export const users = ref([]);
 
-export const updateUsers = () => {
-  ws.addEventListener("message", ({ data }) => {
-    const message = safeJsonParse(data);
-    if (message?.type === "USER") {
-      const index = users.value
-        .reverse()
-        .findIndex((u) => message.userId === u.userId);
-      if (index > -1) {
-        users.value[index] = merge(users.value[index], message);
-      } else {
-        users.value = [...users.value, message];
-      }
-    }
-  });
-};
+// export const updateUsers = () => {
+//   ws.addEventListener("message", ({ data }) => {
+//     const message = safeJsonParse(data);
+//     if (message?.type === "USER") {
+//       const index = users.value
+//         .reverse()
+//         .findIndex((u) => message.userId === u.userId);
+//       if (index > -1) {
+//         users.value[index] = merge(users.value[index], message);
+//       } else {
+//         users.value = [...users.value, message];
+//       }
+//     }
+//   });
+// };
 
 export const refreshUsers = () => {
   ws.addEventListener("message", ({ data }) => {
@@ -97,3 +96,23 @@ export const refreshUsers = () => {
 
   onUnmounted(() => clearInterval(interval.value));
 };
+
+export const addUsers = (messages) =>
+  computed(() => {
+    const usersEntries = users.value
+      .map((user) => {
+        if (user.value?.userName) {
+          return [user.userId, user.value.userName];
+        } else {
+          return null;
+        }
+      })
+      .filter((user) => user);
+    const usersMap = Object.fromEntries(usersEntries);
+    return messages.value.map((message) => {
+      if (usersMap[message.userId]) {
+        message.userName = usersMap[message.userId];
+      }
+      return message;
+    });
+  });
