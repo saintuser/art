@@ -20,6 +20,10 @@ const routes = [
     path: "/chat-example",
     component: () => import("./pages/ChatExample.vue"),
   },
+  {
+    path: "/pages",
+    component: () => import("./pages/Pages.vue"),
+  },
 ];
 
 const router = createRouter({

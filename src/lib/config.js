@@ -3,6 +3,8 @@ export const config = {
   eventsUrl: import.meta.env.VITE_EVENTS_URL || "",
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
+  postsUrl: import.meta.env.VITE_POSTS_URL || "",
+  pagesUrl: import.meta.env.VITE_PAGES_URL || "",
   userIdle: 10000,
   messageDelay: 50,
 };
