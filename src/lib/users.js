@@ -52,12 +52,6 @@ export const updateUsers = () => {
         .reverse()
         .findIndex((u) => message.userId === u.userId);
       if (index > -1) {
-        console.log(
-          users.value[index],
-          message,
-          merge(users.value[index], message)
-        );
-        //message.value = message.value ?? {};
         users.value[index] = merge(users.value[index], message);
       } else {
         users.value = [...users.value, message];
