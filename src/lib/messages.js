@@ -24,7 +24,7 @@ export const createMessage = (message) => {
 
 export const messages = ref([]);
 
-export const fetchMessagesHistory = () => {
+export const fetchMessages = () => {
   fetch(config.historyUrl)
     .then((res) => res.json())
     .then(

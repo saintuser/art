@@ -1,12 +1,30 @@
 <script setup>
-import { useChat, useUser, users } from "../lib/index.js";
+import { ref, watch } from "vue";
+import { useChat, useUser, users, ws, createMessage } from "../lib/index.js";
+
 const { userId, onUserNameChange } = useUser();
 const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   "testing"
 );
+
+const slider = ref(0);
+
+watch(
+  () => slider.value,
+  () => {
+    const outgoingMessage = createMessage({
+      type: "USER",
+      channel: "testing",
+      value: { slider: slider.value },
+    });
+    ws.send(outgoingMessage);
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
+  <input type="range" v-model="slider" /> {{ slider }}
   <pre ref="scrollRef" style="height: 50vh; overflow: auto">{{ chats }}</pre>
   <textarea ref="textareaRef" v-model="newMessage"></textarea>
   <button @click="onNewMessage">Submit</button>
