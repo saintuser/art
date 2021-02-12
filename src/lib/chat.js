@@ -46,15 +46,15 @@ export const useChat = (channel) => {
     newMessage.value = "";
   };
 
-  const textareaEl = useTextarea(onNewMessage);
-  const scrollEl = useScrollToBottom();
+  const textareaRef = useTextarea(onNewMessage);
+  const scrollRef = useScrollToBottom();
 
   return {
     allMessages,
     messages,
     newMessage,
     onNewMessage,
-    scrollEl,
-    textareaEl,
+    scrollRef,
+    textareaRef,
   };
 };
