@@ -43,22 +43,6 @@ export const useUser = () => {
 
 export const users = ref([]);
 
-// export const updateUsers = () => {
-//   ws.addEventListener("message", ({ data }) => {
-//     const message = safeJsonParse(data);
-//     if (message?.type === "USER") {
-//       const index = users.value
-//         .reverse()
-//         .findIndex((u) => message.userId === u.userId);
-//       if (index > -1) {
-//         users.value[index] = merge(users.value[index], message);
-//       } else {
-//         users.value = [...users.value, message];
-//       }
-//     }
-//   });
-// };
-
 export const refreshUsers = () => {
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
