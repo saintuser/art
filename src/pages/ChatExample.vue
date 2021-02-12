@@ -14,7 +14,6 @@ watch(
   () => {
     const outgoingMessage = createMessage({
       type: "USER",
-      channel: "testing",
       value: { slider: slider.value },
     });
     ws.send(outgoingMessage);
