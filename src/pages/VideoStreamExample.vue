@@ -1,11 +1,10 @@
 <script setup>
 import { VideoStream } from "../components/index.js";
-import { inject, useEvents, config } from "../lib/index.js";
+import { replace, config } from "../lib/index.js";
 
 const urls = ["test2"].map((streamkey) =>
-  inject(config.streamUrl, { streamkey })
+  replace(config.streamUrl, { streamkey })
 );
-const events = useEvents();
 </script>
 
 <template>

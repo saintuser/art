@@ -1,3 +1,12 @@
+<script setup>
+import { defineProps, ref } from "vue";
+import { useVideoStream } from "../lib";
+
+const props = defineProps({ src: String });
+const { videoRef, status, width, height } = useVideoStream(props.src);
+const muted = ref(true);
+</script>
+
 <template>
   <div>
     <button @click="muted = !muted">{{ muted ? "unmute" : "mute" }}</button>
@@ -55,12 +64,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { defineProps, ref } from "vue";
-import { useVideoStream } from "../lib";
-
-const props = defineProps({ src: String });
-const { videoRef, status, width, height } = useVideoStream(props.src);
-const muted = ref(true);
-</script>

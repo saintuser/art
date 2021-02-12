@@ -1,3 +1,5 @@
+import { config, useLocalstorage } from ".";
+
 const parseSheet = (data) => {
   const title = data.feed.title.$t;
   const rows = data.feed.entry.map((entry) => {
@@ -16,11 +18,17 @@ const parseSheet = (data) => {
   return { title, rows };
 };
 
-export const getSheet = (url) => {
+export const fetchSheet = (url) => {
   const id = url.match(/[-\w]{25,}/)?.[0];
   return fetch(
     `https://spreadsheets.google.com/feeds/list/${id}/od6/public/values?alt=json`
   )
     .then((res) => res.json())
     .then((res) => parseSheet(res));
+};
+
+export const sheet = useLocalstorage("elektron_sheet", []);
+
+export const loadSheet = () => {
+  fetchSheet(config.sheetUrl).then(({ rows }) => (sheet.value = rows));
 };
