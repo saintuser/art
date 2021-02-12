@@ -28,17 +28,12 @@ const onUserDrag = debounce(({ x, y }) => {
       position: 'absolute',
       left: otherUser.value.userX + 'px',
       top: otherUser.value.userY + 'px',
-      background: 'red',
-      padding: '16px',
-      transition:
-        'all ' + config.messageDelay * 2 + 'ms cubic-bezier(0.16, 1, 0.3, 1)',
+      transition: 'all ' + config.messageDelay * 10 + 'ms linear',
     }"
   >
-    <pre>{{ otherUser.userId }}</pre>
+    <Dot color="#8800FF" opacity="0.5" />
   </div>
   <draggable x="10" y="10" @drag="onUserDrag"
-    ><div style="background: purple; padding: 16px">
-      <pre>{{ userId }}</pre>
-    </div>
-  </draggable>
+    ><Dot color="#8800FF" opacity="0.9"
+  /></draggable>
 </template>
