@@ -7,6 +7,7 @@ import {
   createMessage,
   config,
   messages,
+  users,
 } from "./index.js";
 
 export const useChat = (channel) => {

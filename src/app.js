@@ -2,7 +2,7 @@ import { createApp, h } from "vue";
 import { createRouter, createWebHistory, RouterView } from "vue-router";
 
 import * as components from "./components";
-import { fetchMessagesHistory } from "./lib";
+import { fetchMessagesHistory, updateUsers } from "./lib";
 
 const routes = [
   {
@@ -27,6 +27,7 @@ const router = createRouter({
 const app = createApp({
   setup() {
     fetchMessagesHistory();
+    updateUsers();
     return () => h(RouterView);
   },
 });

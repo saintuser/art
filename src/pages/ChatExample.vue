@@ -1,6 +1,5 @@
 <script setup>
-import { useChat, useUser, useUsers } from "../lib/index.js";
-const { users } = useUsers();
+import { useChat, useUser, users } from "../lib/index.js";
 const { userId, onUserNameChange } = useUser();
 const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   "testing"
@@ -14,6 +13,5 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   <div>
     {{ userId }} <button @click="onUserNameChange">Change username</button>
   </div>
-  <pre>{{ users.length }}</pre>
   <pre>{{ users }}</pre>
 </template>

@@ -4,6 +4,5 @@ export * from "./messages.js";
 export * from "./chat.js";
 export * from "./events.js";
 export * from "./names.js";
-export * from "./user.js";
 export * from "./users.js";
 export * from "./videostream.js";
