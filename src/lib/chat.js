@@ -6,32 +6,31 @@ import {
   useScrollToBottom,
   createMessage,
   config,
-  messages as m,
+  messages,
 } from "./index.js";
 
 export const useChat = (channel) => {
-  const allMessages = ref([]);
+  const chats = ref([]);
 
   watch(
-    () => m.value,
+    () => messages.value,
     () => {
-      allMessages.value = [
-        ...m.value.filter((m) => m.type === "CHAT" && m.channel === channel),
-        ...allMessages.value,
+      chats.value = [
+        ...messages.value.filter(
+          (m) => m.type === "CHAT" && m.channel === channel
+        ),
+        ...chats.value,
       ];
     },
     { immediate: true }
   );
 
-  const messages = computed(() =>
-    allMessages.value.filter((message) => message.channel === channel)
-  );
   const newMessage = ref("");
 
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
     if (message?.type === "CHAT") {
-      allMessages.value = [...allMessages.value, message];
+      chats.value = [...chats.value, message];
     }
   });
 
@@ -50,8 +49,7 @@ export const useChat = (channel) => {
   const scrollRef = useScrollToBottom();
 
   return {
-    allMessages,
-    messages,
+    chats,
     newMessage,
     onNewMessage,
     scrollRef,
