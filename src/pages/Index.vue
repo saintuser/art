@@ -7,7 +7,7 @@ const countdown = useCountdown(config.perfStart);
     <RouterLink
       v-for="(page, i) in content"
       :key="i"
-      :to="'/pages/' + page.slug"
+      :to="'/page/' + page.slug"
     >
       <Box
         :key="i"
