@@ -1,14 +1,10 @@
 <script setup>
-import { config, content, useCountdown } from "../lib";
+import { config, pages, useCountdown } from "../lib";
 const countdown = useCountdown(config.perfStart);
 </script>
 <template>
   <div>
-    <RouterLink
-      v-for="(page, i) in content"
-      :key="i"
-      :to="'/page/' + page.slug"
-    >
+    <RouterLink v-for="(page, i) in pages" :key="i" :to="'/page/' + page.slug">
       <Box
         :key="i"
         :style="{

@@ -1,10 +1,10 @@
 <script setup>
 import { computed, ref } from "vue";
-import { loadMessages, loadContent, loadCalendar, refreshUsers } from "./lib";
+import { loadMessages, loadPages, loadCalendar, refreshUsers } from "./lib";
 import { Overlay } from "./components";
 
 loadMessages();
-loadContent();
+loadPages();
 loadCalendar();
 refreshUsers();
 

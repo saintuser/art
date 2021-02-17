@@ -20,16 +20,16 @@ export const useCountdown = (initialDate) => {
     return formattedDuration;
   };
 
-  setInterval(
-    () =>
-      (duration.value = formatDuration(
-        intervalToDuration({
-          start: new Date("2021-04-01T18:00:00.002Z"),
-          end: new Date(),
-        })
-      )),
-    1000
-  );
+  const updateDuration = () =>
+    (duration.value = formatDuration(
+      intervalToDuration({
+        start: new Date(initialDate),
+        end: new Date(),
+      })
+    ));
+
+  updateDuration();
+  setInterval(updateDuration, 1000);
 
   return duration;
 };

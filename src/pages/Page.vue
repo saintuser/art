@@ -1,12 +1,12 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { content } from "../lib";
+import { pages } from "../lib";
 
 const { params } = useRoute();
 const page = computed(() => {
-  if (params.slug && content.value) {
-    const page = content.value.find((page) => page.slug === params.slug);
+  if (params.slug && pages.value) {
+    const page = pages.value.find((page) => page.slug === params.slug);
     return page?.content ?? null;
   }
   return null;
@@ -14,18 +14,22 @@ const page = computed(() => {
 </script>
 
 <template>
-  <div
-    style="
-      display: grid;
-      place-content: center;
-      padding: clamp(32px, 3vw, 128px) 0 16px 0;
-    "
-  >
-    <Parallax><RouterLink to="/" class="button">Go back</RouterLink></Parallax>
+  <div>
+    <div
+      style="
+        display: grid;
+        place-content: center;
+        padding: clamp(32px, 3vw, 128px) 0 16px 0;
+      "
+    >
+      <Parallax
+        ><RouterLink to="/" class="button">Go back</RouterLink></Parallax
+      >
+    </div>
+    <Transition name="fade">
+      <div v-if="page" v-html="page" class="wrapper"
+    /></Transition>
   </div>
-  <Transition name="fade">
-    <div v-if="page" v-html="page" class="wrapper"
-  /></Transition>
 </template>
 
 <style>
