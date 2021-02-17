@@ -1,6 +1,6 @@
 //@ts-check
 import { ref } from "vue";
-import { config, fetchSheet, fetchDoc } from ".";
+import { config, fetchSheet, fetchDoc } from "../lib";
 
 export const pages = ref([]);
 
