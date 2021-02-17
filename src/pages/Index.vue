@@ -6,14 +6,14 @@ import { content } from "../lib";
     <RouterLink
       v-for="(page, i) in content"
       :key="i"
-      :to="'/pages/' + page.link"
+      :to="'/pages/' + page.slug"
     >
       <Box
         :key="i"
         :style="{
           position: 'fixed',
-          top: i * 200 + 20 + 'px',
-          left: i * 200 + 20 + 'px',
+          top: i * 20 + 20 + 'px',
+          left: i * 300 + 20 + 'px',
           background: '#222222',
           color: 'white',
           padding: '110px',

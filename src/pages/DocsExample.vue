@@ -1,9 +1,24 @@
 <script setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 import { content } from "../lib";
+
+const { params } = useRoute();
+const page = computed(() => {
+  if (params.slug && content.value) {
+    console.log(content.value);
+    const page = content.value.find((page) => page.slug === params.slug);
+    return page?.content ?? null;
+  }
+  return null;
+});
 </script>
 
 <template>
-  <div v-html="content?.[0]?.content" class="wrapper" style=""></div>
+  <RouterLink to="/" style="display: flex; justify-content: center"
+    >Go back</RouterLink
+  >
+  <div v-html="page" class="wrapper" />
 </template>
 
 <style>
@@ -12,6 +27,7 @@ import { content } from "../lib";
   font-family: "font-medium", sans-serif;
   font-size: 4em;
   line-height: 1em;
+  font-weight: normal !important;
 }
 
 .subtitle {
