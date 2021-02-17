@@ -12,7 +12,7 @@ export default {
     vue(),
     fonts({
       google: {
-        families: [{ name: "Nunito Sans", weights: "wght@400;800" }],
+        families: [{ name: "Nunito Sans", weights: "ital,wght@0,700;1,400" }],
       },
     }),
   ],
