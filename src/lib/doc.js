@@ -6,9 +6,9 @@ export const fetchDoc = (url) => {
   const fetchUrl = replace(config.corsUrl, { url, random: Math.random() });
 
   return fetch(fetchUrl)
-    .then((res) => res.json())
+    .then((res) => res.text())
     .then((res) => {
-      const dom = new DOMParser().parseFromString(res.contents, "text/html");
+      const dom = new DOMParser().parseFromString(res, "text/html");
       const title = dom.getElementById("title").innerText;
       const content = dom.getElementById("contents").children[1].innerHTML;
       return { title, content };
