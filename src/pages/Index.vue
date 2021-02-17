@@ -1,5 +1,6 @@
 <script setup>
-import { content } from "../lib";
+import { config, content, useCountdown } from "../lib";
+const countdown = useCountdown(config.perfStart);
 </script>
 <template>
   <div>
@@ -16,13 +17,23 @@ import { content } from "../lib";
           left: page.x + 'px',
           background: page.color,
           color: 'white',
-          padding: '110px',
+          textAlign: 'center',
+          width: page.width + 'px',
+          height: page.height + 'px',
         }"
       >
-        {{ page.title }}
+        <h2>{{ page.title }}</h2>
+        <p
+          style="line-height: 1.3em"
+          v-if="page.about && page.slug !== 'festival'"
+        >
+          {{ page.about }}
+        </p>
+        <p v-if="page.slug === 'festival'">
+          {{ countdown.join("&nbsp;") + " to go" }}
+        </p>
       </Box>
     </RouterLink>
-
     <div style="position: fixed; top: 300px; left: 280px">
       <h1
         style="

@@ -68,6 +68,7 @@ h6 {
   margin: 0;
   font-family: "font-medium", sans-serif;
   line-height: 1.5em;
+  font-weight: normal;
 }
 
 /* Buttons */

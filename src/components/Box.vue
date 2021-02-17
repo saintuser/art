@@ -5,10 +5,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 75px;
       border-radius: 50px;
+      width: 300px;
+      height: 150px;
     "
   >
-    <h2><slot /></h2
-  ></Parallax>
+    <div><slot /></div>
+  </Parallax>
 </template>

@@ -7,4 +7,5 @@ export const config = {
   corsUrl: "https://api.allorigins.win/get?url=${url}&${random}",
   userIdle: 10000,
   messageDelay: 20,
+  perfStart: "2021-04-01T18:00:00.002Z",
 };

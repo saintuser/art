@@ -29,11 +29,13 @@ const onUserDrag = debounce(({ x, y }) => {
       left: otherUser.value.userX + 'px',
       top: otherUser.value.userY + 'px',
       transition: 'all ' + config.messageDelay * 10 + 'ms linear',
+      width: '300px',
+      height: '250px',
     }"
   >
     <Dot color="#8800FF" opacity="0.5" />
   </div>
-  <draggable x="100" y="100" @drag="onUserDrag"
+  <draggable x="20" y="20" @drag="onUserDrag"
     ><Dot color="#8800FF" opacity="0.9"
   /></draggable>
 </template>
