@@ -1,4 +1,5 @@
 <script setup>
+import { computed, ref } from "vue";
 import { loadMessages, loadSheet, loadCalendar, refreshUsers } from "./lib";
 import { Overlay } from "./components";
 
@@ -6,15 +7,30 @@ loadMessages();
 loadSheet();
 loadCalendar();
 refreshUsers();
+
+const theme = ref(0);
+const colors = [
+  { bg: "black", fg: "white" },
+  { bg: "white", fg: "black" },
+];
+const color = computed(() => colors[theme.value]);
 </script>
 
 <template>
-  <RouterView v-slot="{ Component }">
-    <Transition name="fade" appear>
-      <component :is="Component" />
-    </Transition>
-  </RouterView>
-  <Overlay />
+  <div class="App">
+    <div
+      style="position: fixed; left: 16px; bottom: 16px; cursor: pointer"
+      @click="theme = 1 - theme"
+    >
+      ⬤
+    </div>
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" appear>
+        <component :is="Component" />
+      </Transition>
+    </RouterView>
+    <Overlay />
+  </div>
 </template>
 
 <style>
@@ -40,6 +56,8 @@ refreshUsers();
 body {
   margin: 0;
   font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  line-height: 1.65em;
 }
 h1,
 h2,
@@ -68,5 +86,11 @@ h6 {
 
 [v-cloak] {
   display: none;
+}
+
+.App {
+  background: v-bind("color.bg");
+  color: v-bind("color.fg");
+  min-height: 100vh;
 }
 </style>

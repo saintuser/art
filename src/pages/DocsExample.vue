@@ -21,6 +21,7 @@ const { content } = useDoc(url);
 
 .subtitle {
   font-size: 1.75em;
+  line-height: 1.5em;
 }
 .c3 .c2 {
   font-style: italic;
