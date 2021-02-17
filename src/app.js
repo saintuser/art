@@ -13,12 +13,16 @@ const routes = [
     component: () => import("./pages/Index.vue"),
   },
   {
+    path: "/chat-example",
+    component: () => import("./pages/ChatExample.vue"),
+  },
+  {
     path: "/videostream-example",
     component: () => import("./pages/VideoStreamExample.vue"),
   },
   {
-    path: "/chat-example",
-    component: () => import("./pages/ChatExample.vue"),
+    path: "/counter-example",
+    component: () => import("./pages/CounterExample.vue"),
   },
 ];
 
