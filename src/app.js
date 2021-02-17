@@ -11,20 +11,16 @@ const routes = [
     component: () => import("./pages/Index.vue"),
   },
   {
-    path: "/chat-example",
-    component: () => import("./pages/ChatExample.vue"),
+    path: "/chat",
+    component: () => import("./pages/Chat.vue"),
   },
   {
-    path: "/videostream-example",
-    component: () => import("./pages/VideoStreamExample.vue"),
+    path: "/live",
+    component: () => import("./pages/Live.vue"),
   },
   {
-    path: "/counter-example",
-    component: () => import("./pages/CounterExample.vue"),
-  },
-  {
-    path: "/pages/:slug",
-    component: () => import("./pages/DocsExample.vue"),
+    path: "/page/:slug",
+    component: () => import("./pages/Page.vue"),
   },
 ];
 
