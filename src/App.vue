@@ -18,17 +18,17 @@ const color = computed(() => colors[theme.value]);
 
 <template>
   <div class="App">
-    <div
-      style="position: fixed; left: 16px; bottom: 16px; cursor: pointer"
-      @click="theme = 1 - theme"
-    >
-      ⬤
-    </div>
     <RouterView v-slot="{ Component }">
       <Transition name="fade" appear>
         <component :is="Component" />
       </Transition>
     </RouterView>
+    <div
+      style="position: fixed; left: 16px; bottom: 16px; cursor: pointer"
+      @click="theme = 1 - theme"
+    >
+      ◑
+    </div>
     <Overlay />
   </div>
 </template>
@@ -68,6 +68,27 @@ h6 {
   margin: 0;
   font-family: "font-medium", sans-serif;
   line-height: 1.5em;
+}
+
+/* Buttons */
+
+button,
+.button {
+  display: inline-block;
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background: none;
+  font: "Nunito Sans", sans-serif;
+  outline: none;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid v-bind("color.fg");
+  color: v-bind("color.fg");
+}
+button:hover,
+.button:hover {
+  filter: brightness(90%);
 }
 
 /* Transitions */

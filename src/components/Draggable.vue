@@ -82,7 +82,7 @@ watch([() => mouseX.value, () => mouseY.value], () => {
 
 const style = computed(() => {
   return {
-    position: "absolute",
+    position: "fixed",
     left: `${x.value}px`,
     top: `${y.value}px`,
     cursor: dragStarted.value ? "grabbing" : "grab",

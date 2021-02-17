@@ -6,7 +6,6 @@ import { content } from "../lib";
 const { params } = useRoute();
 const page = computed(() => {
   if (params.slug && content.value) {
-    console.log(content.value);
     const page = content.value.find((page) => page.slug === params.slug);
     return page?.content ?? null;
   }
@@ -15,10 +14,18 @@ const page = computed(() => {
 </script>
 
 <template>
-  <RouterLink to="/" style="display: flex; justify-content: center"
-    >Go back</RouterLink
+  <div
+    style="
+      display: grid;
+      place-content: center;
+      padding: clamp(32px, 3vw, 128px) 0 16px 0;
+    "
   >
-  <div v-html="page" class="wrapper" />
+    <Parallax><RouterLink to="/" class="button">Go back</RouterLink></Parallax>
+  </div>
+  <Transition name="fade">
+    <div v-if="page" v-html="page" class="wrapper"
+  /></Transition>
 </template>
 
 <style>
@@ -27,9 +34,11 @@ const page = computed(() => {
   font-family: "font-medium", sans-serif;
   font-size: 4em;
   line-height: 1em;
-  font-weight: normal !important;
 }
-
+.title > * {
+  font-weight: normal !important;
+  font-style: normal !important;
+}
 .subtitle {
   font-size: 1.75em;
   line-height: 1.5em;
