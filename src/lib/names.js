@@ -1,3 +1,4 @@
+//@ts-check
 // Sample data
 
 export const adjectives = [

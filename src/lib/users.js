@@ -1,3 +1,4 @@
+//@ts-check
 import { onMounted, onUnmounted, watch, ref, computed } from "vue";
 import { merge } from "lodash";
 import {

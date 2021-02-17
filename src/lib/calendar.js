@@ -1,3 +1,4 @@
+//@ts-check
 import { config, useLocalstorage } from "./index.js";
 
 export const calendar = useLocalstorage("elektron_calendar", []);

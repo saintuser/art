@@ -5,6 +5,7 @@ import { useUser, randomId, config, uniqueCollection } from ".";
 
 // Websocket
 
+//@ts-check
 export const ws = new ReconnectingWebsocket(config.wsUrl);
 
 // Create message

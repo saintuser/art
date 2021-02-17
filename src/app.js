@@ -23,7 +23,7 @@ const routes = [
     component: () => import("./pages/CounterExample.vue"),
   },
   {
-    path: "/docs-example",
+    path: "/pages/:page",
     component: () => import("./pages/DocsExample.vue"),
   },
 ];

@@ -1,9 +1,30 @@
+<script setup>
+import { content } from "../lib";
+</script>
 <template>
   <div>
-    <Box style="position: fixed; top: 80px; left: 160px; background: #0485ff"
+    <RouterLink
+      v-for="(page, i) in content"
+      :key="i"
+      :to="'/pages/' + page.link"
+    >
+      <Box
+        :key="i"
+        :style="{
+          position: 'fixed',
+          top: i * 200 + 20 + 'px',
+          left: i * 200 + 20 + 'px',
+          background: '#222222',
+          color: 'white',
+          padding: '110px',
+        }"
+      >
+        {{ page.title }}
+      </Box>
+    </RouterLink>
+    <!-- <Box style="position: fixed; top: 80px; left: 160px; background: #0485ff"
       >elektron.experiments</Box
     >
-
     <Box
       style="
         position: fixed;
@@ -42,6 +63,6 @@
           Welcome to<br />elektron
         </h1></Parallax
       >
-    </div>
+    </div> -->
   </div>
 </template>

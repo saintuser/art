@@ -1,3 +1,4 @@
+//@ts-check
 import { ref, onMounted, onUnmounted } from "vue";
 
 export const useMouse = () => {

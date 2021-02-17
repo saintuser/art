@@ -1,14 +1,9 @@
 <script setup>
-import { useDoc } from "../lib";
-
-const url =
-  "https://docs.google.com/document/d/e/2PACX-1vQTwG3_l3c5SLgb12Gp6JnJOYDZmq3Rj4BlEtLQ_7-w3LjOmXVB_Su5Lh2S8RlqBdXPmsN8ocU-vey4/pub";
-
-const { content } = useDoc(url);
+import { content } from "../lib";
 </script>
 
 <template>
-  <div v-html="content" class="wrapper" style=""></div>
+  <div v-html="content?.[0]?.content" class="wrapper" style=""></div>
 </template>
 
 <style>
