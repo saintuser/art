@@ -1,41 +1,48 @@
 <script setup>
-import { ref } from "vue";
-const title = ref("");
-const content = ref("");
+import { useDoc } from "../lib";
+
 const url =
   "https://docs.google.com/document/d/e/2PACX-1vQTwG3_l3c5SLgb12Gp6JnJOYDZmq3Rj4BlEtLQ_7-w3LjOmXVB_Su5Lh2S8RlqBdXPmsN8ocU-vey4/pub";
-fetch(
-  `https://api.allorigins.win/get?url=${encodeURIComponent(
-    url
-  )}&${Math.random()}`
-)
-  .then((res) => res.json())
-  .then((res) => {
-    const dom = new DOMParser().parseFromString(res.contents, "text/html");
-    title.value = dom.getElementById("title").innerText;
-    content.value = dom.getElementById("contents").children[1].innerHTML;
-    //console.log(a);
-  });
+
+const { content } = useDoc(url);
 </script>
 
 <template>
-  <h1>{{ title }}</h1>
-  <div v-html="content" style="padding: 32px"></div>
+  <div v-html="content" class="wrapper" style=""></div>
 </template>
 
 <style>
 .title {
   margin: 0;
   font-family: "font-medium", sans-serif;
-  font-size: 2.5em;
+  font-size: 4em;
+  line-height: 1em;
 }
+
 .subtitle {
   font-size: 1.75em;
 }
-.c6 {
+.c6:not(.title) {
   font-style: italic;
 }
 .c5 {
   font-weight: bold;
+}
+
+.wrapper {
+  padding: clamp(1rem, 5vw, 3rem);
+  display: grid;
+  grid-template-columns:
+    1fr
+    min(65ch, 100%)
+    1fr;
+}
+.wrapper > * {
+  grid-column: 2;
+  border: 2px solid red;
+}
+.full-bleed {
+  width: 100%;
+  grid-column: 1 / 4;
 }
 </style>
