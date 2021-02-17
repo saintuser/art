@@ -6,7 +6,7 @@ const parallaxRef = ref(null);
 const { tilt, roll } = useParallax(parallaxRef);
 
 const style = computed(() => ({
-  transform: `rotateX(${roll.value * 15}deg) rotateY(${tilt.value * 15}deg)`,
+  transform: `rotateX(${roll.value * 20}deg) rotateY(${tilt.value * 20}deg)`,
 }));
 </script>
 

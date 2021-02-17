@@ -1,3 +1,4 @@
+//@ts-check
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
 export function debounce(fn, timeout) {

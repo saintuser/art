@@ -1,5 +1,4 @@
-import { config, useLocalstorage } from ".";
-
+//@ts-check
 const parseSheet = (data) => {
   const title = data.feed.title.$t;
   const rows = data.feed.entry.map((entry) => {
@@ -25,10 +24,4 @@ export const fetchSheet = (url) => {
   )
     .then((res) => res.json())
     .then((res) => parseSheet(res));
-};
-
-export const sheet = useLocalstorage("elektron_sheet", []);
-
-export const loadSheet = () => {
-  fetchSheet(config.sheetUrl).then(({ rows }) => (sheet.value = rows));
 };

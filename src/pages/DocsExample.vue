@@ -1,14 +1,31 @@
 <script setup>
-import { useDoc } from "../lib";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { content } from "../lib";
 
-const url =
-  "https://docs.google.com/document/d/e/2PACX-1vQTwG3_l3c5SLgb12Gp6JnJOYDZmq3Rj4BlEtLQ_7-w3LjOmXVB_Su5Lh2S8RlqBdXPmsN8ocU-vey4/pub";
-
-const { content } = useDoc(url);
+const { params } = useRoute();
+const page = computed(() => {
+  if (params.slug && content.value) {
+    const page = content.value.find((page) => page.slug === params.slug);
+    return page?.content ?? null;
+  }
+  return null;
+});
 </script>
 
 <template>
-  <div v-html="content" class="wrapper" style=""></div>
+  <div
+    style="
+      display: grid;
+      place-content: center;
+      padding: clamp(32px, 3vw, 128px) 0 16px 0;
+    "
+  >
+    <Parallax><RouterLink to="/" class="button">Go back</RouterLink></Parallax>
+  </div>
+  <Transition name="fade">
+    <div v-if="page" v-html="page" class="wrapper"
+  /></Transition>
 </template>
 
 <style>
@@ -18,7 +35,10 @@ const { content } = useDoc(url);
   font-size: 4em;
   line-height: 1em;
 }
-
+.title > * {
+  font-weight: normal !important;
+  font-style: normal !important;
+}
 .subtitle {
   font-size: 1.75em;
   line-height: 1.5em;

@@ -1,3 +1,4 @@
+//@ts-check
 import { ref, computed, watch } from "vue";
 import {
   safeJsonParse,

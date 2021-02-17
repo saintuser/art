@@ -25,7 +25,7 @@ const onUserDrag = debounce(({ x, y }) => {
     v-for="(otherUser, i) in otherUsers"
     :key="i"
     :style="{
-      position: 'absolute',
+      position: 'fixed',
       left: otherUser.value.userX + 'px',
       top: otherUser.value.userY + 'px',
       transition: 'all ' + config.messageDelay * 10 + 'ms linear',
@@ -33,7 +33,7 @@ const onUserDrag = debounce(({ x, y }) => {
   >
     <Dot color="#8800FF" opacity="0.5" />
   </div>
-  <draggable x="10" y="10" @drag="onUserDrag"
+  <draggable x="100" y="100" @drag="onUserDrag"
     ><Dot color="#8800FF" opacity="0.9"
   /></draggable>
 </template>
