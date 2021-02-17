@@ -22,7 +22,7 @@ const { content } = useDoc(url);
 .subtitle {
   font-size: 1.75em;
 }
-.c6:not(.title) {
+.c3 .c2 {
   font-style: italic;
 }
 .c5 {
@@ -32,6 +32,7 @@ const { content } = useDoc(url);
 .wrapper {
   padding: clamp(1rem, 5vw, 3rem);
   display: grid;
+  gap: 24px;
   grid-template-columns:
     1fr
     min(65ch, 100%)
@@ -39,7 +40,9 @@ const { content } = useDoc(url);
 }
 .wrapper > * {
   grid-column: 2;
-  border: 2px solid red;
+}
+.wrapper p {
+  margin: 0;
 }
 .full-bleed {
   width: 100%;

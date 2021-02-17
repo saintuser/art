@@ -4,7 +4,7 @@ export const config = {
   sheetUrl: import.meta.env.VITE_SHEET_URL || "",
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
-  corsUrl: "https://api.allorigins.win/get?url=${url}&{random}",
+  corsUrl: "https://api.allorigins.win/get?url=${url}&${random}",
   userIdle: 10000,
   messageDelay: 20,
 };
