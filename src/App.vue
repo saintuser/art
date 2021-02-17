@@ -10,8 +10,8 @@ refreshUsers();
 
 const theme = ref(0);
 const colors = [
-  { bg: "black", fg: "white" },
   { bg: "white", fg: "black" },
+  { bg: "black", fg: "white" },
 ];
 const color = computed(() => colors[theme.value]);
 </script>
