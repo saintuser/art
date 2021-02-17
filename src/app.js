@@ -24,6 +24,10 @@ const routes = [
     path: "/counter-example",
     component: () => import("./pages/CounterExample.vue"),
   },
+  {
+    path: "/docs-example",
+    component: () => import("./pages/DocsExample.vue"),
+  },
 ];
 
 const router = createRouter({
