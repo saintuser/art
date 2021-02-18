@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
 import { loadMessages, loadPages, loadCalendar, refreshUsers } from "./lib";
-import { Overlay } from "./components";
 
 loadMessages();
 loadPages();
@@ -29,7 +28,7 @@ const color = computed(() => colors[theme.value]);
     >
       ◑
     </div>
-    <Overlay />
+    <Users />
   </div>
 </template>
 
@@ -92,6 +91,26 @@ button:hover,
   filter: brightness(90%);
 }
 
+.circle-button {
+  display: inline-block;
+  border-radius: 100px;
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  background: none;
+  font: "Nunito Sans", sans-serif;
+  outline: none;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid v-bind("color.fg");
+  color: v-bind("color.fg");
+  display: grid;
+  place-items: center;
+}
+.circle-button :hover {
+  filter: brightness(90%);
+}
+
 /* Transitions */
 
 .fade-enter-active,
@@ -114,5 +133,6 @@ button:hover,
   background: v-bind("color.bg");
   color: v-bind("color.fg");
   min-height: 100vh;
+  transition: background 1s;
 }
 </style>

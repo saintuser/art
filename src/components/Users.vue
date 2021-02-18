@@ -1,6 +1,14 @@
 <script setup>
 import { computed } from "vue";
-import { ws, createMessage, debounce, config, users, userId } from "../lib";
+import {
+  ws,
+  createMessage,
+  debounce,
+  config,
+  users,
+  userId,
+  useWindow,
+} from "../lib";
 
 const otherUsers = computed(() =>
   users.value
@@ -8,16 +16,24 @@ const otherUsers = computed(() =>
     .sort((a, b) => a.userId > b.userId)
 );
 
+const { centerX, centerY } = useWindow();
+
 const onUserDrag = debounce(({ x, y }) => {
   const outgoingMessage = createMessage({
     type: "USER",
     value: {
-      userX: x,
-      userY: y,
+      userX: x - centerX.value,
+      userY: y - centerY.value,
     },
   });
   ws.send(outgoingMessage);
 }, config.messageDelay);
+
+const otherUserStyle = (otherUser) =>
+  computed(() => ({
+    left: `${otherUser.value.userX + centerX.value}px`,
+    top: `${otherUser.value.userY + centerY.value}px`,
+  }));
 </script>
 
 <template>
@@ -25,12 +41,9 @@ const onUserDrag = debounce(({ x, y }) => {
     v-for="(otherUser, i) in otherUsers"
     :key="i"
     :style="{
+      ...otherUserStyle(otherUser).value,
       position: 'fixed',
-      left: otherUser.value.userX + 'px',
-      top: otherUser.value.userY + 'px',
       transition: 'all ' + config.messageDelay * 10 + 'ms linear',
-      width: '300px',
-      height: '250px',
     }"
   >
     <Dot color="#8800FF" opacity="0.5" />
