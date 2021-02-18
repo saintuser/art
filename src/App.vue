@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
 import { loadMessages, loadPages, loadCalendar, refreshUsers } from "./lib";
-import { Overlay } from "./components";
 
 loadMessages();
 loadPages();
@@ -29,7 +28,7 @@ const color = computed(() => colors[theme.value]);
     >
       ◑
     </div>
-    <Overlay />
+    <Users />
   </div>
 </template>
 

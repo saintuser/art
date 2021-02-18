@@ -29,8 +29,6 @@ const onUserDrag = debounce(({ x, y }) => {
       left: otherUser.value.userX + 'px',
       top: otherUser.value.userY + 'px',
       transition: 'all ' + config.messageDelay * 10 + 'ms linear',
-      width: '300px',
-      height: '250px',
     }"
   >
     <Dot color="#8800FF" opacity="0.5" />
