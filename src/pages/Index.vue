@@ -1,6 +1,14 @@
 <script setup>
-import { config, pages, useCountdown } from "../lib";
+import { computed } from "vue";
+import { config, pages, useCountdown, useWindow } from "../lib";
+
 const countdown = useCountdown(config.perfStart);
+const { centerX, centerY } = useWindow();
+const pageStyle = (page) =>
+  computed(() => ({
+    left: `${parseFloat(page.x) + centerX.value}px`,
+    top: `${parseFloat(page.y) + centerY.value}px`,
+  }));
 </script>
 <template>
   <div>
@@ -8,14 +16,14 @@ const countdown = useCountdown(config.perfStart);
       <Box
         :key="i"
         :style="{
+          ...pageStyle(page).value,
+          transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          top: page.y + 'px',
-          left: page.x + 'px',
           background: page.color,
           color: 'white',
           textAlign: 'center',
-          width: page.width + 'px',
-          height: page.height + 'px',
+          width: page.radius * 2 + 'px',
+          height: page.radius * 2 + 'px',
         }"
       >
         <h2>{{ page.title }}</h2>
@@ -30,13 +38,23 @@ const countdown = useCountdown(config.perfStart);
         </p>
       </Box>
     </RouterLink>
-    <div style="position: fixed; top: 300px; left: 280px">
+    <div
+      style="
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+      "
+    >
       <h1
         style="
-          font-size: 90px;
+          font-size: clamp(32px, 10vw, 90px);
           text-align: center;
           line-height: 1em;
-          pointer-events: none;
           white-space: nowrap;
         "
       >

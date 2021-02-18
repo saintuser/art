@@ -23,7 +23,7 @@ const page = computed(() => {
       "
     >
       <Parallax
-        ><RouterLink to="/" class="button">Go back</RouterLink></Parallax
+        ><RouterLink to="/" class="circle-button">❮</RouterLink></Parallax
       >
     </div>
     <Transition name="fade">
