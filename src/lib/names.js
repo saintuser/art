@@ -110,7 +110,7 @@ export const adjectives = [
   "Lighthearted",
   "Limping",
   "Linear",
-  "Lively",
+  "Evently",
   "Lofty",
   "Lovely",
   "Lulling",

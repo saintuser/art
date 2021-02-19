@@ -69,7 +69,10 @@ h6 {
   line-height: 1.5em;
   font-weight: normal;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
 /* Buttons */
 
 button,

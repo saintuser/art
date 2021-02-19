@@ -1,6 +1,7 @@
 export const config = {
   streamUrl: import.meta.env.VITE_STREAM_URL || "",
   calendarUrl: import.meta.env.VITE_CALENDAR_URL || "",
+  eventsUrl: import.meta.env.VITE_EVENTS_URL || "",
   indexUrl: import.meta.env.VITE_INDEX_URL || "",
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
