@@ -19,12 +19,12 @@ const routes = [
     component: () => import("./pages/Chat.vue"),
   },
   {
-    path: "/live",
-    component: () => import("./pages/Live.vue"),
-  },
-  {
     path: "/page/:slug",
     component: () => import("./pages/Page.vue"),
+  },
+  {
+    path: "/:streamkey",
+    component: () => import("./pages/Live.vue"),
   },
 ];
 
