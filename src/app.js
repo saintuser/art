@@ -24,7 +24,7 @@ const routes = [
   },
   {
     path: "/:streamkey",
-    component: () => import("./pages/Live.vue"),
+    component: () => import("./pages/Event.vue"),
   },
 ];
 
