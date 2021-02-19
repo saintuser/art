@@ -13,7 +13,7 @@ const pageStyle = (page) =>
 <template>
   <div>
     <RouterLink v-for="(page, i) in pages" :key="i" :to="'/page/' + page.slug">
-      <Box
+      <Disc
         :key="i"
         :style="{
           ...pageStyle(page).value,
@@ -36,7 +36,7 @@ const pageStyle = (page) =>
         <p v-if="page.slug === 'festival'">
           {{ countdown.join("&nbsp;") + " to go" }}
         </p>
-      </Box>
+      </Disc>
     </RouterLink>
     <div
       style="

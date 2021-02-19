@@ -11,6 +11,10 @@ const routes = [
     component: () => import("./pages/Index.vue"),
   },
   {
+    path: "/events",
+    component: () => import("./pages/Events.vue"),
+  },
+  {
     path: "/chat",
     component: () => import("./pages/Chat.vue"),
   },
