@@ -38,8 +38,7 @@ const eventsVisible = ref(false);
     </Transition>
 
     <div style="position: fixed; left: 16px; top: 16px">
-      <RouterLink class="button" to="/">❮</RouterLink>
-      <button @click="eventsVisible = !eventsVisible">≡</button>
+      <Button @click="eventsVisible = !eventsVisible">Menu</Button>
     </div>
 
     <Users />
@@ -54,8 +53,8 @@ const eventsVisible = ref(false);
   transition: background 1s;
 }
 .EventsWrapper {
-  background: v-bind("color.bg");
-  color: v-bind("color.fg");
+  background: v-bind(color.bg);
+  color: v-bind(color.fg);
   position: fixed;
   top: 0;
   bottom: 0;

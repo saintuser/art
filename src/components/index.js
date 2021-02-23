@@ -1,19 +1,10 @@
-import { defineAsyncComponent } from "vue";
-
-export const Disc = defineAsyncComponent(() => import("./Disc.vue"));
-export const Dot = defineAsyncComponent(() => import("./Dot.vue"));
-export const Draggable = defineAsyncComponent(() => import("./Draggable.vue"));
-export const Events = defineAsyncComponent(() => import("./Events.vue"));
-export const EventCard = defineAsyncComponent(() => import("./EventCard.vue"));
-// export const EventDetails = defineAsyncComponent({
-//   loader: () => import("./EventDetails.vue"),
-//   onError: (e) => console.log(e),
-// });
+export { default as Button } from "./Button.vue";
+export { default as Disc } from "./Disc.vue";
+export { default as Dot } from "./Dot.vue";
+export { default as Draggable } from "./Draggable.vue";
+export { default as EventCard } from "./EventCard.vue";
 export { default as EventDetails } from "./EventDetails.vue";
-export const Parallax = defineAsyncComponent(() => import("./Parallax.vue"));
-export const Users = defineAsyncComponent(() => import("./Users.vue"));
-// export const VideoStream = defineAsyncComponent({
-//   loader: () => import("./VideoStream.vue"),
-//   onError: (e) => console.log(e),
-// });
+export { default as Events } from "./Events.vue";
+export { default as Parallax } from "./Parallax.vue";
+export { default as Users } from "./Users.vue";
 export { default as VideoStream } from "./VideoStream.vue";
