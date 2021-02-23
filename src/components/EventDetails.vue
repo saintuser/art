@@ -1,9 +1,10 @@
 <script setup>
+import { defineProps } from "vue";
 defineProps({ event: { type: Object } });
 </script>
 
 <template>
-  <h3>{{ event.title }}</h3>
+  <h2>{{ event.title }}</h2>
   <p class="date" v-if="event.from">{{ event.from }} → {{ event.to }}</p>
   <div v-html="event.description" />
 </template>

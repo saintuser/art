@@ -13,6 +13,8 @@ const colors = [
   { bg: "black", fg: "white" },
 ];
 const color = computed(() => colors[theme.value]);
+
+const eventsVisible = ref(false);
 </script>
 
 <template>
@@ -28,9 +30,18 @@ const color = computed(() => colors[theme.value]);
     >
       ◑
     </div>
-    <div class="EventsWrapper">
-      <Events />
+
+    <Transition name="fade">
+      <div v-if="eventsVisible" class="EventsWrapper">
+        <Events />
+      </div>
+    </Transition>
+
+    <div style="position: fixed; left: 16px; top: 16px">
+      <RouterLink class="button" to="/">❮</RouterLink>
+      <button @click="eventsVisible = !eventsVisible">≡</button>
     </div>
+
     <Users />
   </div>
 </template>
@@ -46,10 +57,12 @@ const color = computed(() => colors[theme.value]);
   background: v-bind("color.bg");
   color: v-bind("color.fg");
   position: fixed;
-  right: 0;
   top: 0;
-  height: 50vh;
+  bottom: 0;
+  left: 0;
   width: 300px;
   overflow: auto;
+  padding: 72px 24px 24px 24px;
+  opacity: 0.9;
 }
 </style>

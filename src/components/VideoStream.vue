@@ -9,10 +9,6 @@ const muted = ref(true);
 
 <template>
   <div>
-    <button @click="muted = !muted">{{ muted ? "unmute" : "mute" }}</button>
-    <!-- <div>{{ isLoading ? "loading" : "playing" }}</div> -->
-    {{ status }}
-    <div>{{ width }} {{ height }}</div>
     <div class="debug" style="position: relative; background: rgba(0, 0, 0, 1)">
       <video
         ref="videoRef"
@@ -62,5 +58,6 @@ const muted = ref(true);
         </div>
       </transition>
     </div>
+    <button @click="muted = !muted">{{ muted ? "unmute" : "mute" }}</button>
   </div>
 </template>

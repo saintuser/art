@@ -51,8 +51,7 @@ button,
   outline: none;
   text-decoration: none;
   font-weight: bold;
-  border: 2px solid v-bind("color.fg");
-  color: v-bind("color.fg");
+  border: none;
 }
 button:hover,
 .button:hover {

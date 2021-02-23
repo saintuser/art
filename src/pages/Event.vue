@@ -17,8 +17,7 @@ const src = computed(() => {
 </script>
 
 <template>
-  <div style="padding: 32px">
-    <RouterLink to="/" class="button">Back</RouterLink>
+  <div style="padding: 64px 32px 32px 32px">
     <div style="display: grid; grid-template-columns: 2fr 1fr">
       <video-stream :src="src" />
     </div>
