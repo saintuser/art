@@ -48,15 +48,15 @@ const eventsVisible = ref(false);
 </template>
 
 <style>
-.App {
-  background: v-bind("color.bg");
-  color: v-bind("color.fg");
-  min-height: 100vh;
-  transition: background 1s;
-}
-.EventsWrapper {
-  background: v-bind(color.bg);
-  color: v-bind(color.fg);
+  .App {
+    background: v-bind("color.bg");
+    color: v-bind("color.fg");
+    min-height: 100vh;
+    transition: background 1s;
+  }
+  .EventsWrapper {
+    background: v-bind(color.bg);
+    color: v-bind(color.fg);
   position: fixed;
   top: 0;
   bottom: 0;
