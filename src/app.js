@@ -4,15 +4,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import * as components from "./components";
 
 import App from "./App.vue";
+import "./app.css";
 
 const routes = [
   {
     path: "/",
     component: () => import("./pages/Index.vue"),
-  },
-  {
-    path: "/events",
-    component: () => import("./pages/Events.vue"),
   },
   {
     path: "/chat",

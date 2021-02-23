@@ -14,22 +14,9 @@ const page = computed(() => {
 </script>
 
 <template>
-  <div>
-    <div
-      style="
-        display: grid;
-        place-content: center;
-        padding: clamp(32px, 3vw, 128px) 0 16px 0;
-      "
-    >
-      <Parallax
-        ><RouterLink to="/" class="circle-button">❮</RouterLink></Parallax
-      >
-    </div>
-    <Transition name="fade">
-      <div v-if="page" v-html="page" class="wrapper"
-    /></Transition>
-  </div>
+  <Transition name="fade">
+    <div v-if="page" v-html="page" class="wrapper"
+  /></Transition>
 </template>
 
 <style>
