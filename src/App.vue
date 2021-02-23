@@ -1,10 +1,10 @@
 <script setup>
 import { computed, ref } from "vue";
-import { loadMessages, loadPages, loadCalendar, refreshUsers } from "./lib";
+import { loadMessages, loadPages, loadEvents, refreshUsers } from "./lib";
 
+loadEvents();
 loadMessages();
 loadPages();
-loadCalendar();
 refreshUsers();
 
 const theme = ref(0);
