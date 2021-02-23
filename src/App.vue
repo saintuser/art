@@ -1,6 +1,12 @@
 <script setup>
 import { computed, ref } from "vue";
-import { loadMessages, loadPages, loadEvents, refreshUsers } from "./lib";
+import {
+  loadMessages,
+  loadPages,
+  loadEvents,
+  refreshUsers,
+  useUser,
+} from "./lib";
 
 loadEvents();
 loadMessages();
@@ -15,6 +21,8 @@ const colors = [
 const color = computed(() => colors[theme.value]);
 
 const eventsVisible = ref(false);
+
+const { userName, onUserNameChange } = useUser();
 </script>
 
 <template>
@@ -43,20 +51,24 @@ const eventsVisible = ref(false);
       <Button @click="eventsVisible = !eventsVisible">Menu</Button>
     </div>
 
+    <div style="position: fixed; right: 16px; top: 16px">
+      {{ userName }}&nbsp;<Button @click="onUserNameChange">Change</Button>
+    </div>
+
     <Users />
   </div>
 </template>
 
 <style>
-  .App {
-    background: v-bind("color.bg");
-    color: v-bind("color.fg");
-    min-height: 100vh;
-    transition: background 1s;
-  }
-  .EventsWrapper {
-    background: v-bind(color.bg);
-    color: v-bind(color.fg);
+.App {
+  background: v-bind("color.bg");
+  color: v-bind("color.fg");
+  min-height: 100vh;
+  transition: background 1s;
+}
+.EventsWrapper {
+  background: v-bind(color.bg);
+  color: v-bind(color.fg);
   position: fixed;
   top: 0;
   bottom: 0;

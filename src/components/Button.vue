@@ -16,7 +16,7 @@ const color = computed(() => colors[theme.value]);
 <style scoped>
 .Button {
   display: inline-grid;
-  align-items: center;
+  place-items: center;
   border-radius: 100px;
   border: 2px solid black;
   padding: 0 8px;
