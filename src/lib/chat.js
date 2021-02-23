@@ -14,7 +14,7 @@ export const useChat = (channel) => {
   const chatMessages = ref([]);
 
   watch(
-    [() => messages.value],
+    () => messages.value,
     () => {
       chatMessages.value = [
         ...messages.value.filter(
