@@ -18,11 +18,20 @@ const channel = computed(() => params.value.streamkey);
 </script>
 
 <template>
-  <div style="padding: 64px 32px 32px 32px">
-    <div style="display: grid; grid-template-columns: 2fr 1fr">
+  <div class="Event">
+    <div>
       <video-stream :src="src" />
-      <chat class="debug" :channel="channel" />
+      <EventDetails v-if="event" :event="event" />
     </div>
-    <EventDetails v-if="event" :event="event" />
+    <chat class="debug" :channel="channel" />
   </div>
 </template>
+
+<style scoped>
+.Event {
+  padding: 64px 32px 32px 32px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 2fr 1fr;
+}
+</style>

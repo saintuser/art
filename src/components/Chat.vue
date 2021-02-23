@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from "vue";
+import { watchEffect, defineProps } from "vue";
 import { useChat } from "../lib/index.js";
 
 const props = defineProps({ channel: String });
