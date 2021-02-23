@@ -4,11 +4,8 @@ import { events, fetchSheet, config } from "../lib";
 </script>
 
 <template>
-  <div>
-    <div class="Events">
-      <EventCard v-for="(event, i) in events" :key="i" :event="event" />
-    </div>
-    <pre>{{ events }}</pre>
+  <div class="Events">
+    <EventCard v-for="(event, i) in events" :key="i" :event="event" />
   </div>
 </template>
 

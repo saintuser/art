@@ -12,12 +12,14 @@ const createDate = (dateStr, timeStr, tz = "+02:00") =>
 const processEvent = (event) => {
   if (event.description) {
     event.intro = `${event.description.split(".")[0]}.`;
+    event.description = `<p>${event.description.replace(/\n/g, "</p><p>")}</p>`;
   }
   event.from = createDate(event.fromdate, event.fromtime);
   event.to = createDate(event.todate, event.totime);
   if (event.streamkey) {
     event.streamkey = event.streamkey.split(",");
   }
+
   return event;
 };
 
