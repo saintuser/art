@@ -58,6 +58,7 @@ const muted = ref(true);
         </div>
       </transition>
     </div>
-    <button @click="muted = !muted">{{ muted ? "unmute" : "mute" }}</button>
+    <p />
+    <Button @click="muted = !muted">{{ muted ? "Unmute" : "Mute" }}</Button>
   </div>
 </template>
