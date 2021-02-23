@@ -14,12 +14,14 @@ const src = computed(() => {
   }
   return null;
 });
+const channel = computed(() => params.value.streamkey);
 </script>
 
 <template>
   <div style="padding: 64px 32px 32px 32px">
     <div style="display: grid; grid-template-columns: 2fr 1fr">
       <video-stream :src="src" />
+      <chat class="debug" :channel="channel" />
     </div>
     <EventDetails v-if="event" :event="event" />
   </div>

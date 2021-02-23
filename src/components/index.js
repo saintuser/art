@@ -1,4 +1,6 @@
 export { default as Button } from "./Button.vue";
+export { default as Chat } from "./Chat.vue";
+export { default as ChatCard } from "./ChatCard.vue";
 export { default as Disc } from "./Disc.vue";
 export { default as Dot } from "./Dot.vue";
 export { default as Draggable } from "./Draggable.vue";

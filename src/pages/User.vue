@@ -32,16 +32,12 @@ watch(
 
 <template>
   <div>
-    <router-link to="/">Index</router-link>&nbsp;
-    <router-link to="/videostream-example">VideoStreamExample</router-link
-    >&nbsp;
-    <router-link to="/chat-example">ChatExample</router-link>
     <input type="range" v-model="slider" /> {{ slider }}
     <pre ref="scrollRef" style="height: 50vh; overflow: auto">{{ chats }}</pre>
     <textarea ref="textareaRef" v-model="newMessage"></textarea>
-    <button @click="onNewMessage">Submit</button>
+    <Button @click="onNewMessage">Submit</Button>
     <div>
-      {{ userId }} <button @click="onUserNameChange">Change username</button>
+      {{ userId }} <Button @click="onUserNameChange">Change username</Button>
     </div>
     <pre>{{ users }}</pre>
   </div>
