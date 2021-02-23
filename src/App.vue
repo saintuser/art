@@ -24,12 +24,12 @@ const eventsVisible = ref(false);
         <component :is="Component" />
       </Transition>
     </RouterView>
-    <div
-      style="position: fixed; left: 16px; bottom: 16px; cursor: pointer"
+    <Button
+      style="position: fixed; right: 16px; bottom: 16px; cursor: pointer"
       @click="theme = 1 - theme"
     >
       ◑
-    </div>
+    </Button>
 
     <Transition name="fade">
       <div v-if="eventsVisible" class="EventsWrapper">
@@ -38,6 +38,8 @@ const eventsVisible = ref(false);
     </Transition>
 
     <div style="position: fixed; left: 16px; top: 16px">
+      <RouterLink to="/"><Button>Frontpage</Button></RouterLink
+      >&nbsp;
       <Button @click="eventsVisible = !eventsVisible">Menu</Button>
     </div>
 
