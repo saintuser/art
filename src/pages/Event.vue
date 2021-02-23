@@ -23,7 +23,7 @@ const channel = computed(() => params.value.streamkey);
       <video-stream :src="src" />
       <EventDetails v-if="event" :event="event" />
     </div>
-    <chat class="debug" :channel="channel" />
+    <chat :channel="channel" />
   </div>
 </template>
 
