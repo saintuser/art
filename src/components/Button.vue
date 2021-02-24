@@ -1,12 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-
-const theme = ref(0);
-const colors = [
-  { bg: "white", fg: "black" },
-  { bg: "black", fg: "white" },
-];
-const color = computed(() => colors[theme.value]);
+import { theme } from "../lib";
 </script>
 
 <template>
@@ -18,7 +12,6 @@ const color = computed(() => colors[theme.value]);
   display: inline-grid;
   place-items: center;
   border-radius: 100px;
-  border: 2px solid black;
   padding: 0 8px;
   font-family: "Nunito Sans", sans-serif;
   font-size: 16px;
@@ -28,7 +21,8 @@ const color = computed(() => colors[theme.value]);
   outline: none;
   text-decoration: none;
   cursor: pointer;
-  background: v-bind(color.bg);
-  color: v-bind(color.fg);
+  border: 2px solid v-bind("theme.fg");
+  background: v-bind("theme.bg");
+  color: v-bind("theme.fg");
 }
 </style>

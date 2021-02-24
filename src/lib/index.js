@@ -12,6 +12,7 @@ export * from "./messages.js";
 export * from "./mouse.js";
 export * from "./names.js";
 export * from "./sheet.js";
+export * from "./theme.js";
 export * from "./users.js";
 export * from "./videostream.js";
 export * from "./window.js";
