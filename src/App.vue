@@ -6,19 +6,15 @@ import {
   loadEvents,
   refreshUsers,
   useUser,
+  theme,
+  toggleTheme,
+  activeTheme,
 } from "./lib";
 
 loadEvents();
 loadMessages();
 loadPages();
 refreshUsers();
-
-const theme = ref(0);
-const colors = [
-  { bg: "white", fg: "black" },
-  { bg: "black", fg: "white" },
-];
-const color = computed(() => colors[theme.value]);
 
 const eventsVisible = ref(false);
 
@@ -32,12 +28,6 @@ const { userName, onUserNameChange } = useUser();
         <component :is="Component" />
       </Transition>
     </RouterView>
-    <Button
-      style="position: fixed; right: 16px; bottom: 16px; cursor: pointer"
-      @click="theme = 1 - theme"
-    >
-      ◑
-    </Button>
 
     <Transition name="fade">
       <div v-if="eventsVisible" class="EventsWrapper">
@@ -46,13 +36,18 @@ const { userName, onUserNameChange } = useUser();
     </Transition>
 
     <div style="position: fixed; left: 16px; top: 16px">
-      <RouterLink to="/"><Button>Frontpage</Button></RouterLink
-      >&nbsp;
-      <Button @click="eventsVisible = !eventsVisible">Menu</Button>
+      <RouterLink to="/"><Button>Frontpage</Button></RouterLink>
     </div>
 
-    <div style="position: fixed; right: 16px; top: 16px">
+    <div
+      style="position: fixed; right: 16px; top: 16px; display: flex; gap: 8px"
+    >
       {{ userName }}&nbsp;<Button @click="onUserNameChange">Change</Button>
+      <Button @click="toggleTheme"> ◑ </Button>
+    </div>
+
+    <div style="position: fixed; left: 16px; bottom: 16px">
+      <Button @click="eventsVisible = !eventsVisible">Menu</Button>
     </div>
 
     <Users />
@@ -61,14 +56,14 @@ const { userName, onUserNameChange } = useUser();
 
 <style>
 .App {
-  background: v-bind("color.bg");
-  color: v-bind("color.fg");
+  background: v-bind("theme.bg");
+  color: v-bind("theme.fg");
   min-height: 100vh;
   transition: background 1s;
 }
 .EventsWrapper {
-  background: v-bind(color.bg);
-  color: v-bind(color.fg);
+  background: v-bind("theme.bg");
+  color: v-bind("theme.fg");
   position: fixed;
   top: 0;
   bottom: 0;
