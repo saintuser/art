@@ -81,23 +81,3 @@ export const refreshUsers = () => {
 
   onUnmounted(() => clearInterval(interval.value));
 };
-
-export const addUsers = (messages) =>
-  computed(() => {
-    const usersEntries = users.value
-      .map((user) => {
-        if (user.value?.userName) {
-          return [user.userId, user.value.userName];
-        } else {
-          return null;
-        }
-      })
-      .filter((user) => user);
-    const usersMap = Object.fromEntries(usersEntries);
-    return messages.value.map((message) => {
-      if (usersMap[message.userId]) {
-        message.userName = usersMap[message.userId];
-      }
-      return message;
-    });
-  });
