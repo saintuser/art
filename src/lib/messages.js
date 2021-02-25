@@ -1,7 +1,14 @@
 import ReconnectingWebsocket from "reconnecting-websocket";
 
-import { ref } from "vue";
-import { useUser, randomId, config, uniqueCollection } from ".";
+import { ref, computed } from "vue";
+import {
+  useUser,
+  randomId,
+  config,
+  uniqueCollection,
+  safeJsonParse,
+  users,
+} from ".";
 
 // Websocket
 
@@ -35,4 +42,32 @@ export const loadMessages = () => {
           "id"
         ))
     );
+
+  // @TODO: Remove duplicates
+
+  ws.addEventListener("message", ({ data }) => {
+    const message = safeJsonParse(data);
+    if (message?.history === true) {
+      messages.value = [...messages.value, message];
+    }
+  });
 };
+
+export const messagesWithUsers = computed(() => {
+  const usersEntries = users.value
+    .map((user) => {
+      if (user.value?.userName) {
+        return [user.userId, user.value.userName];
+      } else {
+        return null;
+      }
+    })
+    .filter((user) => user);
+  const usersMap = Object.fromEntries(usersEntries);
+  return messages.value.map((message) => {
+    if (usersMap[message.userId]) {
+      message.userName = usersMap[message.userId];
+    }
+    return message;
+  });
+});

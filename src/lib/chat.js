@@ -1,44 +1,29 @@
 //@ts-check
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, isRef, watchEffect } from "vue";
 import {
-  safeJsonParse,
   ws,
   useTextarea,
   useScrollToBottom,
   createMessage,
-  messages,
-  addUsers,
+  messagesWithUsers,
 } from "./index.js";
 
 export const useChat = (channel) => {
-  const chatMessages = ref([]);
+  const ch = isRef(channel) ? channel : ref(channel);
+  watchEffect(() => console.log("!!", ch.value));
 
-  watch(
-    () => messages.value,
-    () => {
-      chatMessages.value = [
-        ...messages.value.filter(
-          (m) => m.type === "CHAT" && m.channel === channel
-        ),
-        ...chatMessages.value,
-      ];
-    },
-    { immediate: true }
+  const chats = computed(() =>
+    messagesWithUsers.value.filter(
+      (m) => m.type === "CHAT" && m.channel === ch.value
+    )
   );
 
   const newMessage = ref("");
 
-  ws.addEventListener("message", ({ data }) => {
-    const message = safeJsonParse(data);
-    if (message?.type === "CHAT") {
-      chatMessages.value = [...chatMessages.value, message];
-    }
-  });
-
   const onNewMessage = () => {
     const outgoingMessage = createMessage({
       type: "CHAT",
-      channel: channel,
+      channel: ch.value,
       value: newMessage.value,
       history: true,
     });
@@ -48,8 +33,6 @@ export const useChat = (channel) => {
 
   const textareaRef = useTextarea(onNewMessage);
   const scrollRef = useScrollToBottom();
-
-  const chats = addUsers(chatMessages);
 
   return {
     chats,

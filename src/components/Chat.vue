@@ -1,22 +1,26 @@
 <script setup>
-import { watchEffect, defineProps } from "vue";
+import { watchEffect, defineProps, toRefs } from "vue";
 import { useChat } from "../lib/index.js";
 
 const props = defineProps({ channel: String });
+const { channel } = toRefs(props);
 const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
-  props.channel
+  channel
 );
 </script>
 
 <template>
-  <div class="Chat">
-    <div class="ChatCards" ref="scrollRef">
-      <TransitionGroup name="fade">
-        <chat-card v-for="(chat, i) in chats" :key="i" :chat="chat"
-      /></TransitionGroup>
+  <div>
+    <h2>{{ channel }}</h2>
+    <div class="Chat">
+      <div class="ChatCards" ref="scrollRef">
+        <TransitionGroup name="fade">
+          <chat-card v-for="(chat, i) in chats" :key="i" :chat="chat"
+        /></TransitionGroup>
+      </div>
+      <textarea ref="textareaRef" v-model="newMessage"></textarea>
+      <Button @click="onNewMessage">Submit</Button>
     </div>
-    <textarea ref="textareaRef" v-model="newMessage"></textarea>
-    <Button @click="onNewMessage">Submit</Button>
   </div>
 </template>
 
