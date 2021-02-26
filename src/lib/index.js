@@ -1,5 +1,6 @@
 //@ts-check
 export * from "./utils.js";
+export * from "./events.js";
 export * from "./config.js";
 
 export * from "./calendar.js";
@@ -7,7 +8,6 @@ export * from "./chat.js";
 export * from "./pages.js";
 export * from "./date.js";
 export * from "./doc.js";
-export * from "./events.js";
 export * from "./messages.js";
 export * from "./mouse.js";
 export * from "./names.js";

@@ -6,7 +6,7 @@ import { replace, config, events } from "../lib/index.js";
 const { params } = toRefs(useRoute());
 
 const event = computed(() =>
-  events.value.find((event) => event.link === params.value.link)
+  events.value.find((event) => event.eventid === params.value.eventid)
 );
 const src = computed(() => {
   if (params.value.eventid) {

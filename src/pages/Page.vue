@@ -1,22 +1,35 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { pages } from "../lib";
+import { pages, events } from "../lib";
 
 const { params } = useRoute();
+
+// @TODO: Simplify
 const page = computed(() => {
+  let p = { content: "", events: [] };
   if (params.pageid && pages.value) {
-    const page = pages.value.find((page) => page.pageid === params.pageid);
-    return page?.content ?? null;
+    const currentPage = pages.value.find(
+      (page) => page.pageid === params.pageid
+    );
+    if (currentPage) {
+      p = currentPage;
+    }
+    if (events.value) {
+      p.events = events.value.filter((event) => event.pageid == params.pageid);
+    }
   }
-  return null;
+  return p;
 });
 </script>
 
 <template>
   <Transition name="fade">
-    <div v-if="page" v-html="page" class="wrapper"
-  /></Transition>
+    <div>
+      <div v-if="page" v-html="page.content" class="wrapper" />
+      <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
+    </div>
+  </Transition>
 </template>
 
 <style>
