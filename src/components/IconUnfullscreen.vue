@@ -9,10 +9,10 @@
     stroke-width="1.5"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="feather feather-volume-x"
+    class="feather feather-minimize"
   >
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <line x1="23" y1="9" x2="17" y2="15"></line>
-    <line x1="17" y1="9" x2="23" y2="15"></line>
+    <path
+      d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"
+    ></path>
   </svg>
 </template>
