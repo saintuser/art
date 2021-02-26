@@ -43,7 +43,6 @@ const pageStyle = (page) =>
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
-          opacity: 0.2,
         }"
       >
         <h2>{{ page.title }}</h2>
@@ -81,6 +80,5 @@ const pageStyle = (page) =>
         Welcome to<br />eˉlektron
       </h1>
     </div>
-    <pre>{{ pagesWithEvents }}</pre>
   </div>
 </template>
