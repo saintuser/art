@@ -6,15 +6,15 @@ import { replace, config, events } from "../lib/index.js";
 const { params } = toRefs(useRoute());
 
 const event = computed(() =>
-  events.value.find((event) => event.streamkey[0] === params.value.streamkey)
+  events.value.find((event) => event.eventid === params.value.eventid)
 );
 const src = computed(() => {
-  if (params.value.streamkey) {
-    return replace(config.streamUrl, { streamkey: params.value.streamkey });
+  if (params.value.eventid) {
+    return replace(config.streamUrl, { streamkey: params.value.eventid });
   }
   return null;
 });
-const channel = computed(() => params.value.streamkey);
+const channel = computed(() => params.value.link);
 </script>
 
 <template>

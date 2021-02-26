@@ -4,10 +4,8 @@ import { config, pages, events, useCountdown, useWindow } from "../lib";
 
 const pagesWithEvents = computed(() =>
   pages.value.map((page) => {
-    if (page.eventlink) {
-      page.event = events.value.find(
-        (event) => event.streamkey[0] === page.eventlink
-      );
+    if (page.eventid) {
+      page.event = events.value.find((event) => event.eventid === page.eventid);
     }
     return page;
   })
@@ -27,9 +25,7 @@ const pageStyle = (page) =>
       v-for="(page, i) in pagesWithEvents"
       :key="i"
       :to="
-        page.event?.streamkey
-          ? '/' + page.event?.streamkey[0]
-          : '/page/' + page.link
+        page.event?.eventid ? '/' + page.event?.eventid : '/page/' + page.pageid
       "
     >
       <Disc
@@ -39,7 +35,9 @@ const pageStyle = (page) =>
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
           backgroundColor: page.color,
-          backgroundImage: page.event?.image
+          backgroundImage: page.image
+            ? 'url(' + page.image + ')'
+            : page.event?.image
             ? 'url(' + page.event.image + ')'
             : '',
           backgroundSize: 'cover',

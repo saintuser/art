@@ -2,7 +2,7 @@
 defineProps({ event: { type: Object } });
 </script>
 <template>
-  <RouterLink :to="'/' + event.streamkey[0]">
+  <RouterLink :to="'/' + event.eventid">
     <h3>{{ event.title }}</h3>
     <p class="date" v-if="event.from">{{ event.from }} → {{ event.to }}</p>
     <p>{{ event.intro }}</p>
