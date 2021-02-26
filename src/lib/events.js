@@ -16,8 +16,9 @@ const processEvent = (event) => {
   }
   event.from = createDate(event.fromdate, event.fromtime);
   event.to = createDate(event.todate, event.totime);
-  if (event.streamkey) {
-    event.streamkey = event.streamkey.split(",");
+  if (event.streamkeys) {
+    // @TODO: Add eventkey key?
+    event.streamkeys = event.streamkeys.split(",").trim((key) => key.trim());
   }
 
   return event;

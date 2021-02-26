@@ -5,8 +5,8 @@ import { pages } from "../lib";
 
 const { params } = useRoute();
 const page = computed(() => {
-  if (params.link && pages.value) {
-    const page = pages.value.find((page) => page.link === params.link);
+  if (params.pageid && pages.value) {
+    const page = pages.value.find((page) => page.pageid === params.pageid);
     return page?.content ?? null;
   }
   return null;

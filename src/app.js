@@ -16,11 +16,11 @@ const routes = [
     component: () => import("./pages/User.vue"),
   },
   {
-    path: "/page/:link",
+    path: "/page/:pageid",
     component: () => import("./pages/Page.vue"),
   },
   {
-    path: "/:streamkey",
+    path: "/:eventid",
     component: () => import("./pages/Event.vue"),
   },
 ];
