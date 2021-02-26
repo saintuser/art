@@ -7,6 +7,8 @@ export { default as Draggable } from "./Draggable.vue";
 export { default as EventCard } from "./EventCard.vue";
 export { default as EventDetails } from "./EventDetails.vue";
 export { default as Events } from "./Events.vue";
+export { default as IconMute } from "./IconMute.vue";
+export { default as IconUnmute } from "./IconUnmute.vue";
 export { default as Parallax } from "./Parallax.vue";
 export { default as Users } from "./Users.vue";
 export { default as VideoStream } from "./VideoStream.vue";
