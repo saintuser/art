@@ -12,7 +12,7 @@ const pageStyle = (page) =>
 </script>
 <template>
   <div>
-    <RouterLink v-for="(page, i) in pages" :key="i" :to="'/page/' + page.slug">
+    <RouterLink v-for="(page, i) in pages" :key="i" :to="'/page/' + page.link">
       <Disc
         :key="i"
         :style="{
@@ -29,11 +29,11 @@ const pageStyle = (page) =>
         <h2>{{ page.title }}</h2>
         <p
           style="line-height: 1.3em"
-          v-if="page.about && page.slug !== 'festival'"
+          v-if="page.about && page.link !== 'festival'"
         >
           {{ page.about }}
         </p>
-        <p v-if="page.slug === 'festival'">
+        <p v-if="page.link === 'festival'">
           {{ countdown.join("&nbsp;") + " to go" }}
         </p>
       </Disc>

@@ -6,14 +6,17 @@ export const pages = ref([]);
 
 export const loadPages = () => {
   fetchSheet(config.indexUrl).then(({ rows }) => {
-    pages.value = rows;
+    const publicRows = rows.filter((row) => row.hidden !== "TRUE");
+    pages.value = publicRows;
     // We fetch each Google doc and add them to content collection
     // Docs do not have to arrive in the same time so we do not
     // neet to use Promise.all()
-    rows.forEach((row, i) => {
-      fetchDoc(row.publicurl).then(
-        (res) => (pages.value[i].content = res.content)
-      );
+    publicRows.forEach((row, i) => {
+      if (row.publicurl) {
+        fetchDoc(row.publicurl).then(
+          (res) => (pages.value[i].content = res.content)
+        );
+      }
     });
   });
 };
