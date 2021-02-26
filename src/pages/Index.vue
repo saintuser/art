@@ -1,6 +1,17 @@
 <script setup>
 import { computed } from "vue";
-import { config, pages, useCountdown, useWindow } from "../lib";
+import { config, pages, events, useCountdown, useWindow } from "../lib";
+
+const pagesWithEvents = computed(() =>
+  pages.value.map((page) => {
+    if (page.eventlink) {
+      page.event = events.value.find(
+        (event) => event.streamkey[0] === page.eventlink
+      );
+    }
+    return page;
+  })
+);
 
 const countdown = useCountdown(config.perfStart);
 const { centerX, centerY } = useWindow();
@@ -12,7 +23,15 @@ const pageStyle = (page) =>
 </script>
 <template>
   <div>
-    <RouterLink v-for="(page, i) in pages" :key="i" :to="'/page/' + page.link">
+    <RouterLink
+      v-for="(page, i) in pagesWithEvents"
+      :key="i"
+      :to="
+        page.event?.streamkey
+          ? '/' + page.event?.streamkey[0]
+          : '/page/' + page.link
+      "
+    >
       <Disc
         :key="i"
         :style="{
@@ -24,6 +43,7 @@ const pageStyle = (page) =>
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
+          opacity: 0.2,
         }"
       >
         <h2>{{ page.title }}</h2>
@@ -61,5 +81,6 @@ const pageStyle = (page) =>
         Welcome to<br />eˉlektron
       </h1>
     </div>
+    <pre>{{ pagesWithEvents }}</pre>
   </div>
 </template>
