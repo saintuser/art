@@ -5,7 +5,7 @@ export const config = {
   indexUrl: import.meta.env.VITE_INDEX_URL || "",
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
-  corsUrl: "https://api.allorigins.win/raw?url=${url}&${random}",
+  corsUrl: import.meta.env.VITE_CORS_URL || "${url}",
   userIdle: 10000,
   messageDelay: 20,
   perfStart: "2021-04-01T18:00:00.002Z",

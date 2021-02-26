@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { config, replace } from "../lib";
 
 export const fetchDoc = (url) => {
-  const fetchUrl = replace(config.corsUrl, { url, random: Math.random() });
+  const fetchUrl = replace(config.corsUrl, { url });
 
   return fetch(fetchUrl)
     .then((res) => res.text())
