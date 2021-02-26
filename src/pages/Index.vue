@@ -1,6 +1,17 @@
 <script setup>
 import { computed } from "vue";
-import { config, pages, useCountdown, useWindow } from "../lib";
+import { config, pages, events, useCountdown, useWindow } from "../lib";
+
+const pagesWithEvents = computed(() =>
+  pages.value.map((page) => {
+    if (page.eventlink) {
+      page.event = events.value.find(
+        (event) => event.streamkey[0] === page.eventlink
+      );
+    }
+    return page;
+  })
+);
 
 const countdown = useCountdown(config.perfStart);
 const { centerX, centerY } = useWindow();
@@ -12,28 +23,41 @@ const pageStyle = (page) =>
 </script>
 <template>
   <div>
-    <RouterLink v-for="(page, i) in pages" :key="i" :to="'/page/' + page.slug">
+    <RouterLink
+      v-for="(page, i) in pagesWithEvents"
+      :key="i"
+      :to="
+        page.event?.streamkey
+          ? '/' + page.event?.streamkey[0]
+          : '/page/' + page.link
+      "
+    >
       <Disc
         :key="i"
         :style="{
           ...pageStyle(page).value,
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          background: page.color,
+          backgroundColor: page.color,
+          backgroundImage: page.event?.image
+            ? 'url(' + page.event.image + ')'
+            : '',
+          backgroundSize: 'cover',
           color: 'white',
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
+          padding: '24px',
         }"
       >
         <h2>{{ page.title }}</h2>
         <p
           style="line-height: 1.3em"
-          v-if="page.about && page.slug !== 'festival'"
+          v-if="page.about && page.link !== 'festival'"
         >
           {{ page.about }}
         </p>
-        <p v-if="page.slug === 'festival'">
+        <p v-if="page.link === 'festival'">
           {{ countdown.join("&nbsp;") + " to go" }}
         </p>
       </Disc>
