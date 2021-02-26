@@ -57,9 +57,14 @@ const muted = ref(true);
           Loading
         </div>
       </transition>
+      <transition name="fade">
+        <div
+          style="position: absolute; right: 16px; bottom: 16px; color: white"
+        >
+          <IconUnmute v-if="muted" @click="muted = !muted" />
+          <IconMute v-if="!muted" @click="muted = !muted" />
+        </div>
+      </transition>
     </div>
-    <p />
-    <!-- <Button @click="muted = !muted">{{ muted ? "Unmute" : "Mute" }}</Button> -->
-    <IconMute /> <IconUnmute />
   </div>
 </template>
