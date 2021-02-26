@@ -38,11 +38,16 @@ const pageStyle = (page) =>
           ...pageStyle(page).value,
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          background: page.color,
+          backgroundColor: page.color,
+          backgroundImage: page.event?.image
+            ? 'url(' + page.event.image + ')'
+            : '',
+          backgroundSize: 'cover',
           color: 'white',
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
+          padding: '24px',
         }"
       >
         <h2>{{ page.title }}</h2>
