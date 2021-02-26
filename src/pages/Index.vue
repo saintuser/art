@@ -35,7 +35,9 @@ const pageStyle = (page) =>
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
           backgroundColor: page.color,
-          backgroundImage: page.event?.image
+          backgroundImage: page.image
+            ? 'url(' + page.image + ')'
+            : page.event?.image
             ? 'url(' + page.event.image + ')'
             : '',
           backgroundSize: 'cover',

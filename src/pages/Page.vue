@@ -25,8 +25,8 @@ const page = computed(() => {
 
 <template>
   <Transition name="fade">
-    <div>
-      <div v-if="page" v-html="page.content" class="wrapper" />
+    <div class="wrapper">
+      <div v-if="page" v-html="page.content" />
       <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
     </div>
   </Transition>
