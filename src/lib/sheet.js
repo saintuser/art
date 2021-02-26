@@ -1,3 +1,5 @@
+import { replace, config } from ".";
+
 //@ts-check
 const parseSheet = (data) => {
   const title = data.feed.title.$t;
@@ -17,11 +19,12 @@ const parseSheet = (data) => {
   return { title, rows };
 };
 
-export const fetchSheet = (url) => {
-  const id = url.match(/[-\w]{25,}/)?.[0];
-  return fetch(
-    `https://spreadsheets.google.com/feeds/list/${id}/od6/public/values?alt=json`
-  )
+export const fetchSheet = (sheetUrl) => {
+  const sheetId = sheetUrl.match(/[-\w]{25,}/)?.[0];
+  const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/od6/public/values?alt=json`;
+  const fetchUrl = replace(config.corsUrl, { url });
+
+  return fetch(fetchUrl)
     .then((res) => res.json())
     .then((res) => parseSheet(res));
 };
