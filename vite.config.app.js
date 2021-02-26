@@ -5,8 +5,10 @@ import fonts from "vite-plugin-fonts";
  * @type {import('vite').UserConfig}
  */
 export default {
-  alias: {
-    vue: "vue/dist/vue.esm-bundler.js",
+  resolve: {
+    alias: {
+      vue: "vue/dist/vue.esm-bundler.js",
+    },
   },
   plugins: [
     vue(),
