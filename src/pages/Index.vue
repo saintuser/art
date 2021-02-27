@@ -69,19 +69,23 @@ const pageStyle = (page) =>
         left: 0;
         display: grid;
         place-items: center;
-        pointer-events: none;
       "
     >
-      <h1
-        style="
-          font-size: clamp(32px, 10vw, 90px);
-          text-align: center;
-          line-height: 1em;
-          white-space: nowrap;
-        "
-      >
-        Welcome to<br />eˉlektron
-      </h1>
+      <div style="display: grid; place-items: center; gap: 16px">
+        <h1
+          style="
+            font-size: clamp(32px, 10vw, 90px);
+            text-align: center;
+            line-height: 1em;
+            white-space: nowrap;
+            pointer-events: none;
+          "
+        >
+          Welcome to<br />eˉlektron
+          <br />
+        </h1>
+        <Social />
+      </div>
     </div>
   </div>
 </template>

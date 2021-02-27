@@ -9,4 +9,8 @@ export const config = {
   userIdle: 10000,
   messageDelay: 20,
   perfStart: "2021-04-01T18:00:00.002Z",
+  facebookUrl: import.meta.env.VITE_FACEBOOK_URL || "",
+  instagramUrl: import.meta.env.VITE_INSTAGRAM_URL || "",
+  twitterUrl: import.meta.env.VITE_TWITTER_URL || "",
+  youtubeUrl: import.meta.env.VITE_YOUTUBE_URL || "",
 };
