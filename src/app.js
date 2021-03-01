@@ -12,8 +12,8 @@ const routes = [
     component: () => import("./pages/Index.vue"),
   },
   {
-    path: "/user",
-    component: () => import("./pages/User.vue"),
+    path: "/test",
+    component: () => import("./pages/Test.vue"),
   },
   {
     path: "/page/:pageid",
