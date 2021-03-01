@@ -41,13 +41,14 @@ const page = computed(() => {
   font-family: "font-medium", sans-serif;
   font-size: clamp(3rem, 5vw, 5rem);
   line-height: 1.2em;
+  word-wrap: break-word;
 }
 .title > * {
   font-weight: normal !important;
   font-style: normal !important;
 }
 .subtitle {
-  font-size: 1.75em;
+  font-size: 1.6em;
   line-height: 1.5em;
 }
 .c5 {
@@ -58,7 +59,7 @@ const page = computed(() => {
   padding: clamp(1rem, 3vw, 2rem);
   padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
-  gap: 32px;
+  gap: 24px;
   grid-template-columns:
     1fr
     min(65ch, 100%)
@@ -70,6 +71,13 @@ const page = computed(() => {
 }
 .wrapper p {
   margin: 0;
+}
+.wrapper a {
+  text-decoration: underline;
+}
+.wrapper img {
+  width: 100%;
+  display: block;
 }
 .full-bleed {
   width: 100%;

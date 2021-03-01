@@ -5,7 +5,7 @@ defineProps({ color: { type: String, default: "black" } });
 </script>
 
 <template>
-  <svg width="30" height="30">
-    <circle cx="15" cy="15" r="15" :fill="color" />
+  <svg width="28" height="28">
+    <circle cx="14" cy="14" r="14" :fill="color" />
   </svg>
 </template>

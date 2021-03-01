@@ -15,7 +15,8 @@ export const loadPages = () => {
       .filter((row) => row.publicurl)
       .forEach((row, i) => {
         fetchDoc(row.publicurl).then(
-          (res) => (pages.value[i].content = res.content)
+          (res) =>
+            (pages.value[i].content = res.content.replace(/style="[^"]*"/g, ""))
         );
       });
   });

@@ -49,6 +49,6 @@ const otherUserStyle = (otherUser) =>
     <Dot color="#8800FF" opacity="0.5" />
   </div>
   <draggable x="100" y="100" @drag="onUserDrag"
-    ><Dot color="#8800FF" opacity="0.9"
+    ><Dot color="red" opacity="0.9"
   /></draggable>
 </template>
