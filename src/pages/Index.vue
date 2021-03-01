@@ -45,18 +45,12 @@ const pageStyle = (page) =>
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
-          padding: '24px',
+          padding: '32px',
         }"
       >
         <h2>{{ page.title }}</h2>
-        <p
-          style="line-height: 1.3em"
-          v-if="page.about && page.link !== 'festival'"
-        >
+        <p style="line-height: 1.3em" v-if="page.about">
           {{ page.about }}
-        </p>
-        <p v-if="page.link === 'festival'">
-          {{ countdown.join("&nbsp;") + " to go" }}
         </p>
       </Disc>
     </RouterLink>

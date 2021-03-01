@@ -9,6 +9,7 @@ import {
   theme,
   toggleTheme,
   activeTheme,
+  config,
 } from "./lib";
 
 loadEvents();
@@ -35,20 +36,18 @@ const { userName, onUserNameChange } = useUser();
       </div>
     </Transition>
 
-    <div style="position: fixed; left: 16px; top: 16px">
-      <RouterLink to="/"><Button>Frontpage</Button></RouterLink>
-    </div>
+    <template v-if="config.showButtons">
+      <div
+        style="position: fixed; right: 16px; top: 16px; display: flex; gap: 8px"
+      >
+        {{ userName }}&nbsp;<Button @click="onUserNameChange">Change</Button>
+        <Button @click="toggleTheme"> ◑ </Button>
+      </div>
 
-    <div
-      style="position: fixed; right: 16px; top: 16px; display: flex; gap: 8px"
-    >
-      {{ userName }}&nbsp;<Button @click="onUserNameChange">Change</Button>
-      <Button @click="toggleTheme"> ◑ </Button>
-    </div>
-
-    <div style="position: fixed; left: 16px; bottom: 16px">
-      <Button @click="eventsVisible = !eventsVisible">Menu</Button>
-    </div>
+      <div style="position: fixed; left: 16px; bottom: 16px">
+        <Button @click="eventsVisible = !eventsVisible">Menu</Button>
+      </div>
+    </template>
 
     <Users />
   </div>

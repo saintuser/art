@@ -12,7 +12,7 @@ import { theme } from "../lib";
   display: inline-grid;
   place-items: center;
   border-radius: 100px;
-  padding: 0 8px;
+  padding: 0 12px;
   font-family: "Nunito Sans", sans-serif;
   font-size: 16px;
   font-weight: bold;

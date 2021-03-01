@@ -21,7 +21,7 @@ const parseSheet = (data) => {
 
 export const fetchSheet = (sheetUrl) => {
   const sheetId = sheetUrl.match(/[-\w]{25,}/)?.[0];
-  const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/od6/public/values?alt=json`;
+  const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/od6/public/values?alt=json&${Math.random()}`;
   const fetchUrl = replace(config.corsUrl, { url });
 
   return fetch(fetchUrl)

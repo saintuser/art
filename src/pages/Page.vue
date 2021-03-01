@@ -25,19 +25,22 @@ const page = computed(() => {
 
 <template>
   <Transition name="fade">
-    <div class="wrapper">
-      <div v-if="page" v-html="page.content" />
-      <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
+    <div>
+      <div v-if="page" v-html="page.content" class="wrapper" />
+      <!-- <EventCard v-for="(event, i) in page.events" :key="i" :event="event" /> -->
+      <div style="position: fixed; left: 16px; top: 16px">
+        <RouterLink to="/"><Button>‹ elektron.art</Button></RouterLink>
+      </div>
     </div>
   </Transition>
 </template>
 
 <style>
 .title {
-  margin: 0;
+  margin: 0 0 32px 9;
   font-family: "font-medium", sans-serif;
-  font-size: 4em;
-  line-height: 1em;
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1.2em;
 }
 .title > * {
   font-weight: normal !important;
@@ -47,22 +50,21 @@ const page = computed(() => {
   font-size: 1.75em;
   line-height: 1.5em;
 }
-.c3 .c2 {
-  font-style: italic;
-}
 .c5 {
   font-weight: bold;
 }
 
 .wrapper {
-  padding: clamp(1rem, 5vw, 3rem);
+  padding: clamp(1rem, 3vw, 2rem);
+  padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
-  gap: 24px;
+  gap: 32px;
   grid-template-columns:
     1fr
     min(65ch, 100%)
     1fr;
 }
+
 .wrapper > * {
   grid-column: 2;
 }

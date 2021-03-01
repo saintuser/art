@@ -13,4 +13,5 @@ export const config = {
   instagramUrl: import.meta.env.VITE_INSTAGRAM_URL || "",
   twitterUrl: import.meta.env.VITE_TWITTER_URL || "",
   youtubeUrl: import.meta.env.VITE_YOUTUBE_URL || "",
+  showButtons: import.meta.env.VITE_SHOW_BUTTONS || false,
 };
