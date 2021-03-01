@@ -4,8 +4,8 @@ import { computed, ref } from "vue";
 export const activeTheme = ref(0);
 
 const themeVars = [
-  { bg: "white", fg: "black" },
   { bg: "black", fg: "white" },
+  { bg: "white", fg: "black" },
 ];
 
 export const theme = computed(() => themeVars[activeTheme.value]);

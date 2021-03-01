@@ -69,6 +69,7 @@ const pageStyle = (page) =>
         left: 0;
         display: grid;
         place-items: center;
+        pointer-events: none;
       "
     >
       <div style="display: grid; place-items: center; gap: 16px">
@@ -78,13 +79,12 @@ const pageStyle = (page) =>
             text-align: center;
             line-height: 1em;
             white-space: nowrap;
-            pointer-events: none;
           "
         >
           Welcome to<br />eˉlektron
           <br />
         </h1>
-        <Social />
+        <Social style="pointer-events: auto" />
       </div>
     </div>
   </div>
