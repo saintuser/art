@@ -22,7 +22,9 @@ import { theme, config } from "../lib";
 <style scoped>
 .Social {
   display: flex;
-  gap: 8px;
+  grid-auto-columns: min-content;
+  justify-content: center;
+  gap: 18px;
 }
 .Social > a {
   display: grid;

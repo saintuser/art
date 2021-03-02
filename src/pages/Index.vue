@@ -61,22 +61,22 @@ const pageStyle = (page) =>
         right: 0;
         bottom: 0;
         left: 0;
-        display: grid;
-        place-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         pointer-events: none;
       "
     >
-      <div style="display: grid; place-items: center; gap: 16px">
+      <div style="display: grid; gap: 16px">
         <h1
           style="
-            font-size: clamp(32px, 10vw, 90px);
+            font-size: clamp(32px, 12vw, 100px);
             text-align: center;
             line-height: 1em;
             white-space: nowrap;
           "
         >
-          Welcome to<br />eˉlektron
-          <br />
+          eˉlektron
         </h1>
         <Social style="pointer-events: auto" />
       </div>
