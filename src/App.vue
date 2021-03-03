@@ -36,7 +36,7 @@ const { userName, onUserNameChange } = useUser();
       </div>
     </Transition>
 
-    <template v-if="config.showButtons">
+    <template v-if="config.newFeatures">
       <div
         style="position: fixed; right: 16px; top: 16px; display: flex; gap: 8px"
       >

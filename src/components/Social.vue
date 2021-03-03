@@ -16,15 +16,16 @@ import { theme, config } from "../lib";
     <a v-if="config.youtubeUrl" :href="config.youtubeUrl" target="_blank">
       <IconYoutube />
     </a>
+    <a v-if="config.emailUrl" :href="config.emailUrl" target="_blank">
+      <IconEmail />
+    </a>
   </div>
 </template>
 
 <style scoped>
 .Social {
   display: flex;
-  grid-auto-columns: min-content;
   justify-content: center;
-  gap: 18px;
 }
 .Social > a {
   display: grid;
@@ -34,8 +35,12 @@ import { theme, config } from "../lib";
   width: 48px;
   height: 48px;
   border-radius: 10000px;
+  margin-right: 8px;
+}
+.Social > a:last-child {
+  margin-right: 0;
 }
 .Social > a > svg {
-  transform: scale(1.4);
+  transform: scale(1.3);
 }
 </style>

@@ -29,7 +29,7 @@ const page = computed(() => {
       <div v-if="page" v-html="page.content" class="wrapper" />
       <!-- <EventCard v-for="(event, i) in page.events" :key="i" :event="event" /> -->
       <div style="position: fixed; left: 16px; top: 16px">
-        <RouterLink to="/"><Button>‹ elektron.art</Button></RouterLink>
+        <RouterLink to="/"><Button>← elektron.art</Button></RouterLink>
       </div>
     </div>
   </Transition>
