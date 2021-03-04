@@ -3,9 +3,22 @@
 </script>
 
 <template>
-  <h1>Template here</h1>
+<div 
+class="Test">
+
+  <h1>Template here ....</h1>
+  <IconVideo/> 
+  
+  <IconUnvideo/>
+  </div>
+
 </template>
+
 
 <style>
 /* CSS here */
+.Test {
+  padding: 32px;
+
+ }
 </style>
