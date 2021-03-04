@@ -1,8 +1,16 @@
-import { createApp, defineAsyncComponent } from "vue";
-import { createRouter, createWebHistory } from "vue-router";
+import './app.css';
 
-import App from "./App.vue";
-import "./app.css";
+import {
+  createApp,
+  defineAsyncComponent,
+} from 'vue';
+
+import {
+  createRouter,
+  createWebHistory,
+} from 'vue-router';
+
+import App from './App.vue';
 
 const components = import.meta.glob("./components/*.vue");
 
@@ -10,6 +18,10 @@ const routes = [
   {
     path: "/",
     component: () => import("./pages/Index.vue"),
+  },
+  {
+    path: "/config",
+    component: () => import("./pages/Config.vue"),
   },
   {
     path: "/test",

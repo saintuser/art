@@ -1,12 +1,11 @@
 <script setup>
-import { config, users } from "../lib/index.js";
+// JS here
 </script>
 
 <template>
-  <div style="padding: 32px">
-    <h1>Config</h1>
-    <pre>{{ config }}</pre>
-    <h1>Users</h1>
-    <pre>{{ users.sort((a, b) => a.userId > b.userId) }}</pre>
-  </div>
+  <h1>Template here</h1>
 </template>
+
+<style>
+/* CSS here */
+</style>
