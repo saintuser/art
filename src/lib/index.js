@@ -9,6 +9,7 @@ export * from "./pages.js";
 export * from "./date.js";
 export * from "./doc.js";
 export * from "./messages.js";
+export * from "./fienta.js";
 export * from "./mouse.js";
 export * from "./names.js";
 export * from "./sheet.js";

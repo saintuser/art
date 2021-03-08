@@ -15,4 +15,7 @@ export const config = {
   youtubeUrl: import.meta.env.VITE_YOUTUBE_URL || "",
   emailUrl: import.meta.env.VITE_EMAIL_URL || "",
   newFeatures: import.meta.env.VITE_NEW_FEATURES === "true" || false,
+  fientaUrl: import.meta.env.VITE_FIENTA_URL || "",
+  fientaToken: import.meta.env.VITE_FIENTA_TOKEN || "",
+  fientaTestcode: import.meta.env.VITE_FIENTA_TESTCODE || "",
 };
