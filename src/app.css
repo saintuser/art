@@ -58,6 +58,9 @@ textarea {
   color: var(--fg);
   background: var(--bg);
 }
+p {
+  margin-top: 0;
+}
 /* Transitions */
 
 .fade-enter-active,

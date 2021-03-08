@@ -20,12 +20,12 @@ const channel = computed(() => params.value.link);
 <template>
   <div>
     <div class="Event">
-      <div class="EventVideo">
+      <div class="EventContent">
         <VideoStream :src="src" />
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
-    <Chat class="EventChat" :channel="channel" />
+    <Chat class="EventChat debug" :channel="channel" />
     <EventOverlay v-if="event && event.tickets" :event="event" />
     <ButtonBack />
   </div>
@@ -42,10 +42,15 @@ const channel = computed(() => params.value.link);
     grid-template-columns: 1fr;
   }
 }
-.EventVideo {
+.EventContent {
   padding: 64px 32px 32px 32px;
   display: grid;
   gap: 16px;
+}
+.EventContent > *:last-child {
+  border: 2px solid red;
+  height: calc(100vh - 64px - 64px);
+  overflow: auto;
 }
 .EventChat {
   position: fixed;
@@ -60,6 +65,11 @@ const channel = computed(() => params.value.link);
   .EventChat {
     position: static;
     width: inherit;
+    height: calc(100vh - 64px);
+    padding-top: 32px;
+  }
+  .Event .EventDetails {
+    height: calc(100vh - 64px);
   }
 }
 </style>

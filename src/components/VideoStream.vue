@@ -13,7 +13,6 @@ const muted = ref(true);
       <video
         ref="videoRef"
         autoplay
-        inline
         :muted="muted"
         :style="{
           opacity: status === 'nodata' ? 0 : 1,
