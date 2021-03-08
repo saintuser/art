@@ -9,7 +9,7 @@ const muted = ref(true);
 
 <template>
   <div>
-    <div style="position: relative; background: rgba(0, 0, 0, 1)">
+    <div style="position: relative; background: var(--bgdark)">
       <video
         ref="videoRef"
         autoplay

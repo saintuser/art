@@ -1,3 +1,7 @@
+:root {
+  --bg: black;
+  --fg: white;
+}
 @font-face {
   font-family: "font-medium";
   src: url("/fonts/font-medium.woff") format("woff"),
@@ -18,10 +22,13 @@
   box-sizing: border-box;
 }
 body {
+  background: var(--bg);
+  color: var(--fg);
   margin: 0;
   font-family: "Nunito Sans", sans-serif;
   font-size: 18px;
   line-height: 1.65em;
+  transition: background 500ms;
 }
 h1,
 h2,

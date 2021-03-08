@@ -6,9 +6,7 @@ import {
   loadEvents,
   refreshUsers,
   useUser,
-  theme,
   toggleTheme,
-  activeTheme,
   config,
 } from "./lib";
 
@@ -30,24 +28,17 @@ const { userName, onUserNameChange } = useUser();
       </Transition>
     </RouterView>
 
+    <div
+      v-if="config.newFeatures"
+      style="position: fixed; right: 16px; top: 16px; display: flex"
+    >
+      <Button @click="toggleTheme">Theme</Button>
+    </div>
     <Transition name="fade">
       <div v-if="eventsVisible" class="EventsWrapper">
         <Events />
       </div>
     </Transition>
-
-    <template v-if="config.newFeatures">
-      <div
-        style="position: fixed; right: 16px; top: 16px; display: flex; gap: 8px"
-      >
-        {{ userName }}&nbsp;<Button @click="onUserNameChange">Change</Button>
-        <Button @click="toggleTheme"> ◑ </Button>
-      </div>
-
-      <div style="position: fixed; left: 16px; bottom: 16px">
-        <Button @click="eventsVisible = !eventsVisible">Menu</Button>
-      </div>
-    </template>
 
     <Users />
   </div>
@@ -55,21 +46,6 @@ const { userName, onUserNameChange } = useUser();
 
 <style>
 .App {
-  background: v-bind("theme.bg");
-  color: v-bind("theme.fg");
   min-height: 100vh;
-  transition: background 1s;
-}
-.EventsWrapper {
-  background: v-bind("theme.bg");
-  color: v-bind("theme.fg");
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 300px;
-  overflow: auto;
-  padding: 72px 24px 24px 24px;
-  opacity: 0.9;
 }
 </style>

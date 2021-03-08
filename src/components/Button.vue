@@ -1,8 +1,3 @@
-<script setup>
-import { ref, computed } from "vue";
-import { theme } from "../lib";
-</script>
-
 <template>
   <div class="Button"><slot /></div>
 </template>
@@ -21,8 +16,8 @@ import { theme } from "../lib";
   outline: none;
   text-decoration: none;
   cursor: pointer;
-  border: 2px solid v-bind("theme.fg");
-  background: v-bind("theme.bg");
-  color: v-bind("theme.fg");
+  border: 2px solid var(--fg);
+  background: var(--bg);
+  color: var(--fg);
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import { theme, config } from "../lib";
+import { config } from "../lib";
 </script>
 
 <template>
@@ -30,8 +30,8 @@ import { theme, config } from "../lib";
 .Social > a {
   display: grid;
   place-items: center;
-  background: v-bind("theme.fg");
-  color: v-bind("theme.bg");
+  background: var(--fg);
+  color: var(--bg);
   width: 48px;
   height: 48px;
   border-radius: 10000px;
