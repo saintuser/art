@@ -25,7 +25,7 @@ const channel = computed(() => params.value.link);
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
-    <Chat class="EventChat debug" :channel="channel" />
+    <Chat class="EventChat" :channel="channel" />
     <EventOverlay v-if="event && event.tickets" :event="event" />
     <ButtonBack />
   </div>
@@ -48,7 +48,6 @@ const channel = computed(() => params.value.link);
   gap: 16px;
 }
 .EventContent > *:last-child {
-  border: 2px solid red;
   height: calc(100vh - 64px - 64px);
   overflow: auto;
 }
