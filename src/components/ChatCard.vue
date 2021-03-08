@@ -9,4 +9,4 @@ defineProps({ chat: { type: Object } });
   </div>
 </template>
 
-<style scoped></style>
+<style></style>

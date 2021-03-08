@@ -17,45 +17,49 @@ const src = computed(() => {
 const channel = computed(() => params.value.link);
 </script>
 
-<!--template>
-  <div>
-    <video-stream :src="src" />
-  </div>
-</template-->
-
 <template>
   <div>
     <div class="Event">
-      <div>
-        <video-stream :src="src" />
+      <div class="EventVideo">
+        <VideoStream :src="src" />
         <EventDetails v-if="event" :event="event" />
       </div>
-      <chat :channel="channel" />
     </div>
-    <Overlay v-if="event && event.tickets" style="position: fixed">
-      <div>
-        <h1>{{ event.title }}</h1>
-        <div>This event has not yet started.</div>
-        <div>
-          <a v-if="event.moreinfo" :href="event.moreinfo">
-            <Button>More info →</Button>
-          </a>
-          &ensp;
-          <a :href="event.tickets">
-            <Button>Get tickets →</Button>
-          </a>
-        </div>
-      </div>
-    </Overlay>
+    <Chat class="EventChat" :channel="channel" />
+    <EventOverlay v-if="event && event.tickets" :event="event" />
     <ButtonBack />
   </div>
 </template>
 
 <style>
 .Event {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 100vh;
+}
+@media (max-width: 800px) {
+  .Event {
+    grid-template-columns: 1fr;
+  }
+}
+.EventVideo {
   padding: 64px 32px 32px 32px;
   display: grid;
-  gap: 24px;
-  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+.EventChat {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  padding: 64px 32px 32px 32px;
+  background: var(--bglight);
+}
+@media (max-width: 800px) {
+  .EventChat {
+    position: static;
+    width: inherit;
+  }
 }
 </style>

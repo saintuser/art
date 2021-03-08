@@ -9,7 +9,7 @@
     stroke-width="1.5"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="feather feather-volume-2"
+    class="Icon"
   >
     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
     <path

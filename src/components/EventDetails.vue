@@ -5,7 +5,7 @@ defineProps({ event: { type: Object } });
 
 <template>
   <h2>{{ event.title }}</h2>
-  <p class="date" v-if="event.from">{{ event.from }} → {{ event.to }}</p>
+  <div class="date" v-if="event.from">{{ event.from }} → {{ event.to }}</div>
   <div v-html="event.description" />
 </template>
 
