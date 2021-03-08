@@ -20,6 +20,7 @@
 }
 * {
   box-sizing: border-box;
+  transition: background 300ms;
 }
 body {
   background: var(--bg);
@@ -28,7 +29,6 @@ body {
   font-family: "Nunito Sans", sans-serif;
   font-size: 18px;
   line-height: 1.65em;
-  transition: background 500ms;
 }
 h1,
 h2,
@@ -45,7 +45,18 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
+input,
+textarea {
+  background: none;
+  border: 2px solid var(--fg);
+  border-radius: 3px;
+  outline: none;
+  padding: 8px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: var(--fg);
+}
 /* Transitions */
 
 .fade-enter-active,

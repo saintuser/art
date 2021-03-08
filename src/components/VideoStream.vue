@@ -21,42 +21,13 @@ const muted = ref(true);
           aspectRatio: width + ' / ' + height,
         }"
       />
-      <transition name="fade" appear>
-        <div
-          v-if="status === 'nodata'"
-          style="
-            position: absolute;
-            display: inline-flex;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 24px;
-          "
-        >
-          No data
-        </div>
-      </transition>
-      <transition name="fade" appear>
-        <div
-          v-if="status === 'loading'"
-          style="
-            position: absolute;
-            display: inline-flex;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 24px;
-          "
-        >
-          Loading
-        </div>
-      </transition>
+      <slot :status="status">
+        <transition name="fade" appear v-if="status !== 'playing'">
+          <Overlay>
+            {{ status }}
+          </Overlay>
+        </transition>
+      </slot>
       <transition name="fade">
         <div
           style="position: absolute; right: 16px; bottom: 16px; color: white"

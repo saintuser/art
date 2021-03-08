@@ -28,9 +28,7 @@ const page = computed(() => {
     <div>
       <div v-if="page" v-html="page.content" class="wrapper" />
       <!-- <EventCard v-for="(event, i) in page.events" :key="i" :event="event" /> -->
-      <div style="position: fixed; left: 16px; top: 16px">
-        <RouterLink to="/"><Button>← elektron.art</Button></RouterLink>
-      </div>
+      <ButtonBack />
     </div>
   </Transition>
 </template>
@@ -62,7 +60,7 @@ const page = computed(() => {
   gap: clamp(8px, 3vw, 16px) 0;
   grid-template-columns:
     1fr
-    min(60ch, 100%)
+    min(65ch, 100%)
     1fr;
 }
 

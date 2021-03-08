@@ -17,6 +17,12 @@ const src = computed(() => {
 const channel = computed(() => params.value.link);
 </script>
 
+<!--template>
+  <div>
+    <video-stream :src="src" />
+  </div>
+</template-->
+
 <template>
   <div>
     <div class="Event">
@@ -26,7 +32,7 @@ const channel = computed(() => params.value.link);
       </div>
       <chat :channel="channel" />
     </div>
-    <div v-if="event && event.tickets" class="EventOverlay">
+    <Overlay v-if="event && event.tickets" style="position: fixed">
       <div>
         <h1>{{ event.title }}</h1>
         <div>This event has not yet started.</div>
@@ -40,10 +46,8 @@ const channel = computed(() => params.value.link);
           </a>
         </div>
       </div>
-    </div>
-    <div style="position: fixed; left: 16px; top: 16px">
-      <RouterLink to="/"><Button>← elektron.art</Button></RouterLink>
-    </div>
+    </Overlay>
+    <ButtonBack />
   </div>
 </template>
 
@@ -53,22 +57,5 @@ const channel = computed(() => params.value.link);
   display: grid;
   gap: 24px;
   grid-template-columns: 2fr 1fr;
-}
-.EventOverlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-}
-.EventOverlay > div {
-  display: grid;
-  gap: 16px;
-  text-align: center;
 }
 </style>

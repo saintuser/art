@@ -14,7 +14,7 @@ const themeVars = {
 
 const themeValues = [
   { bg: "#111", bgdark: "#000", fg: "#fff" },
-  { bg: "#fff", bgdark: "#dadada", fg: "#000" },
+  { bg: "#fff", bgdark: "#ddd", fg: "#000" },
 ];
 
 export const activeTheme = ref(0);

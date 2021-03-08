@@ -1,16 +1,20 @@
 //@ts-check
-import { ref, computed, watch, isRef, watchEffect } from "vue";
 import {
-  ws,
-  useTextarea,
-  useScrollToBottom,
+  computed,
+  isRef,
+  ref,
+} from 'vue';
+
+import {
   createMessage,
   messagesWithUsers,
-} from "./index.js";
+  useScrollToBottom,
+  useTextarea,
+  ws,
+} from './index.js';
 
 export const useChat = (channel) => {
   const ch = isRef(channel) ? channel : ref(channel);
-  watchEffect(() => console.log("!!", ch.value));
 
   const chats = computed(() =>
     messagesWithUsers.value.filter(

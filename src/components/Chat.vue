@@ -18,8 +18,12 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
           <chat-card v-for="(chat, i) in chats" :key="i" :chat="chat"
         /></TransitionGroup>
       </div>
-      <textarea ref="textareaRef" v-model="newMessage"></textarea>
-      <Button @click="onNewMessage">Submit</Button>
+      <textarea
+        ref="textareaRef"
+        v-model="newMessage"
+        placeholder="Write a chat message here"
+      ></textarea>
+      <Button @click="onNewMessage">Send</Button>
     </div>
   </div>
 </template>
