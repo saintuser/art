@@ -1,5 +1,10 @@
 //@ts-check
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  ref,
+} from 'vue';
 
 export function debounce(fn, timeout) {
   let t;
@@ -118,3 +123,7 @@ export const randomId = (length = 16) => {
 
 export const wsToUrl = (ws) =>
   ws.replace("ws://", "http://").replace("wss://", "https://");
+
+export const scale = (value, start1, stop1, start2, stop2) => {
+  return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
+};

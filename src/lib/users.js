@@ -1,17 +1,26 @@
 //@ts-check
-import { onMounted, onUnmounted, watch, ref, computed } from "vue";
-import { merge } from "lodash";
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from 'vue';
+
+import { differenceInSeconds } from 'date-fns';
+import { merge } from 'lodash';
+
 import {
   adjectives,
   animals,
   any,
+  config,
   createMessage,
   randomId,
-  ws,
-  useLocalstorage,
   safeJsonParse,
-  config,
-} from "../lib";
+  useLocalstorage,
+  ws,
+} from '../lib';
 
 const initialUserId = randomId();
 const initialUserName = `${any(adjectives)} ${any(animals)}`;
@@ -44,6 +53,16 @@ export const useUser = () => {
 
 export const users = ref([]);
 
+export const updatedUsers = computed(() =>
+  users.value.map((user) => {
+    user.updatedSince = differenceInSeconds(
+      new Date(),
+      new Date(user.datetime)
+    );
+    return user;
+  })
+);
+
 export const refreshUsers = () => {
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
@@ -75,7 +94,7 @@ export const refreshUsers = () => {
           value: {},
         });
         ws.send(outgoingMessage);
-      }, config.userIdle);
+      }, config.userUpdateRate);
     }
   });
 

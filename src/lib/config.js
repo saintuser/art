@@ -6,9 +6,6 @@ export const config = {
   wsUrl: import.meta.env.VITE_WS_URL || "",
   historyUrl: import.meta.env.VITE_HISTORY_URL || "",
   corsUrl: import.meta.env.VITE_CORS_URL || "${url}",
-  userIdle: 10000,
-  messageDelay: 20,
-  perfStart: "2021-04-01T18:00:00.002Z",
   facebookUrl: import.meta.env.VITE_FACEBOOK_URL || "",
   instagramUrl: import.meta.env.VITE_INSTAGRAM_URL || "",
   twitterUrl: import.meta.env.VITE_TWITTER_URL || "",
@@ -18,4 +15,8 @@ export const config = {
   fientaUrl: import.meta.env.VITE_FIENTA_URL || "",
   fientaToken: import.meta.env.VITE_FIENTA_TOKEN || "",
   fientaTestcode: import.meta.env.VITE_FIENTA_TESTCODE || "",
+  userUpdateRate: 10 * 1000,
+  userUpdatedSinceLimit: 60 * 1000,
+  messageDelay: 20,
+  perfStart: "2021-04-01T18:00:00.002Z",
 };

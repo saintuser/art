@@ -20,12 +20,12 @@ const routes = [
     component: () => import("./pages/Index.vue"),
   },
   {
-    path: "/fienta",
-    component: () => import("./pages/Fienta.vue"),
+    path: "/users",
+    component: () => import("./pages/Users.vue"),
   },
   {
-    path: "/config",
-    component: () => import("./pages/Config.vue"),
+    path: "/fienta",
+    component: () => import("./pages/Fienta.vue"),
   },
   {
     path: "/test",
