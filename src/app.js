@@ -24,6 +24,10 @@ const routes = [
     component: () => import("./pages/Users.vue"),
   },
   {
+    path: "/threesixty",
+    component: () => import("./pages/Threesixty.vue"),
+  },
+  {
     path: "/fienta",
     component: () => import("./pages/Fienta.vue"),
   },
