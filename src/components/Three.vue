@@ -33,6 +33,7 @@ renderer.setSize(width, height);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.1;
+controls.enableZoom = true;
 
 controls.addEventListener("start", () => (interacting.value = true));
 controls.addEventListener("end", () => (interacting.value = false));

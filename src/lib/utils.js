@@ -1,10 +1,5 @@
 //@ts-check
-import {
-  computed,
-  onMounted,
-  onUnmounted,
-  ref,
-} from 'vue';
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 export function debounce(fn, timeout) {
   let t;
@@ -136,3 +131,5 @@ export const range = (from, to, step = 1) => {
   const length = Math.floor((to - from) / step) + 1;
   return Array.from({ length }).map((_, i) => from + i * step);
 };
+
+export const unique = (arr) => [...new Set(arr)];
