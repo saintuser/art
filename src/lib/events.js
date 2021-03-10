@@ -1,6 +1,10 @@
 //@ts-check
-import { ref } from "vue";
-import { config, fetchSheet } from ".";
+import { ref } from 'vue';
+
+import {
+  config,
+  fetchSheet,
+} from './';
 
 export const events = ref([]);
 
@@ -14,8 +18,10 @@ const processEvent = (event) => {
     event.intro = `${event.description.split(".")[0]}.`;
     event.description = `<p>${event.description.replace(/\n/g, "</p><p>")}</p>`;
   }
-  event.from = createDate(event.fromdate, event.fromtime);
-  event.to = createDate(event.todate, event.totime);
+  const fromDate = createDate(event.fromdate, event.fromtime);
+  const toDate = createDate(event.todate, event.totime);
+  event.from = fromDate !== "Invalid Date" ? fromDate : "";
+  event.to = toDate !== "Invalid Date" ? toDate : "";
   if (event.streamkeys) {
     // @TODO: Add eventkey key?
     event.streamkeys = event.streamkeys.split(",").trim((key) => key.trim());
