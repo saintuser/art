@@ -127,3 +127,12 @@ export const wsToUrl = (ws) =>
 export const scale = (value, start1, stop1, start2, stop2) => {
   return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
 };
+
+export const deg2rad = (deg) => (deg * Math.PI) / 180;
+
+export const rad2deg = (rad) => (rad * 180) / Math.PI;
+
+export const range = (from, to, step = 1) => {
+  const length = Math.floor((to - from) / step) + 1;
+  return Array.from({ length }).map((_, i) => from + i * step);
+};
