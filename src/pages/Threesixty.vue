@@ -18,7 +18,7 @@ const muted = ref(true);
       ref="videoRef"
       autoplay
       :muted="muted"
-      style="opacity: 0.5; width: 640px"
+      style="width: 640px"
       crossorigin="anonymous"
       playsinline
     />
