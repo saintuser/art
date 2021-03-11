@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useLocalstorage, fienta, unique } from "../lib";
+import { useLocalstorage, fienta, uniqueCollection, events } from "../lib";
 
 const router = useRouter();
 const { query } = useRoute();
@@ -11,7 +11,10 @@ const status = ref("");
 
 const codes = useLocalstorage("elektron_codes", []);
 
-const isLocalCode = computed(() => codes.value.includes(code.value));
+const localTicket = computed(() => {
+  const ticket = codes.value?.find((ticket) => ticket.code === code.value);
+  return ticket;
+});
 
 const onCheck = async () => {
   if (code.value) {
@@ -20,9 +23,12 @@ const onCheck = async () => {
       .json()
       .then((res) => {
         status.value = res?.ticket?.status;
+        codes.value = uniqueCollection(
+          [...codes.value, { code: code.value, fientaid: res.ticket.event_id }],
+          "code"
+        );
       })
       .catch((e) => (status.value = "DOES NOT EXIST"));
-    codes.value = unique([...codes.value, code.value]);
   }
   router.push({ path: "/fienta" });
 };
@@ -47,12 +53,13 @@ const onUse = async () => {
 //   .put(`tickets/${code}`, { json: { status: "USED" } })
 //   .json();
 
-const statusString = computed(() => {
+const ticketStatusString = computed(() => {
   let statuses = [];
-  if (code.value) {
-    statuses.push(
-      `Local status: ${isLocalCode.value ? "HAS TICKET" : "NO TICKET"}`
-    );
+  if (code.value && localTicket.value) {
+    statuses.push(`HAS LOCAL TICKET ${JSON.stringify(localTicket.value)}`);
+  }
+  if (code.value && !localTicket.value) {
+    statuses.push(`NO LOCAL TICKET`);
   }
   if (code.value && status.value) {
     statuses.push(`Fienta server status: ${status.value} TICKET`);
@@ -61,15 +68,37 @@ const statusString = computed(() => {
   }
   return statuses.join("\n");
 });
+
+const eventid = ref("");
+const eventString = ref("");
+const checkEvent = () => {
+  if (eventid.value) {
+    let lines = [];
+    const e = events.value.find((event) => event.eventid === eventid.value);
+    // We use double equal since fientaid can be either int or number
+    const ticket = codes.value?.find((code) => code.fientaid == e.fientaid);
+    if (ticket) {
+      lines.push(`LOCAL TICKET`);
+      lines.push(JSON.stringify(ticket));
+    } else {
+      lines.push(`NO LOCAL TICKET`);
+    }
+    eventString.value = lines.join("\n");
+  }
+};
 </script>
 
 <template>
   <div>
     <Overlay>
+      <h1>Check your event ticket</h1>
+      <input v-model="eventid" placeholder="Enter event id" />
+      <Button @click="checkEvent">Check my event ticket</Button>
+      <pre>{{ eventString }}</pre>
       <h1>Check your ticket</h1>
       <input v-model="code" placeholder="Enter ticket code" />
       <Button @click="onCheck">Check my ticket</Button>
-      <pre>{{ statusString }}</pre>
+      <pre>{{ ticketStatusString }}</pre>
       <Button v-if="status && status === 'USED'" @click="onUnuse">
         Unuse ticket
       </Button>
