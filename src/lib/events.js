@@ -22,11 +22,11 @@ const processEvent = (event) => {
   const toDate = createDate(event.todate, event.totime);
   event.from = fromDate !== "Invalid Date" ? fromDate : "";
   event.to = toDate !== "Invalid Date" ? toDate : "";
-  if (event.streamkeys) {
-    // @TODO: Add eventkey key?
-    event.streamkeys = event.streamkeys.split(",").trim((key) => key.trim());
+  if (event.streamkey) {
+    event.streamkeys = event.streamkey.split(",").map((key) => key.trim());
+  } else {
+    event.streamkeys = [event.eventid];
   }
-
   return event;
 };
 

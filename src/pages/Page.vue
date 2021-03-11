@@ -35,8 +35,8 @@ const page = computed(() => {
         backgroundSize: 'cover',
         color: 'white',
         textAlign: 'center',
-        width: '600px',
-        height: '600px',
+        width: '400px',
+        height: '400px',
         pointerEvents: 'none',
         zIndex: -1000,
       }"

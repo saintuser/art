@@ -17,6 +17,7 @@ const muted = ref(true);
     <video
       ref="videoRef"
       autoplay
+      loop
       :muted="muted"
       style="width: 640px"
       crossorigin="anonymous"

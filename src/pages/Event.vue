@@ -8,11 +8,23 @@ const { params } = toRefs(useRoute());
 const event = computed(() =>
   events.value.find((event) => event.eventid === params.value.eventid)
 );
-const src = computed(() => {
-  if (params.value.eventid) {
-    return replace(config.streamUrl, { streamkey: params.value.eventid });
+
+const formatStreamUrl = (streamkey) => {
+  if (streamkey.endsWith("m3u8")) {
+    return streamkey;
+  } else {
+    return replace(config.streamUrl, { streamkey });
   }
-  return null;
+};
+
+const srcs = computed(() => {
+  if (event.value && event.value.streamkeys) {
+    return event.value.streamkeys.map(formatStreamUrl);
+  } else if (params.value.eventid) {
+    return [formatStreamUrl(params.value.eventid)];
+  } else {
+    return [];
+  }
 });
 const channel = computed(() => params.value.link);
 </script>
@@ -21,7 +33,22 @@ const channel = computed(() => params.value.link);
   <div>
     <div class="Event">
       <div class="EventContent">
-        <VideoStream :src="src" />
+        <!-- @TODO Make VideoStream reactive -->
+        <div v-if="event">
+          <component
+            v-for="(src, i) in srcs"
+            :key="i"
+            :is="
+              event && event.is360 === 'TRUE'
+                ? 'video-stream-three'
+                : 'video-stream'
+            "
+            :src="src"
+          />
+        </div>
+        <div v-else>
+          <VideoStream :src="srcs[0]" />
+        </div>
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>

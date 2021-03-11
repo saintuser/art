@@ -13,7 +13,10 @@ const muted = ref(true);
       <video
         ref="videoRef"
         autoplay
+        loop
         :muted="muted"
+        crossorigin="anonymous"
+        playsinline
         :style="{
           opacity: status === 'nodata' ? 0 : 1,
           display: 'block',

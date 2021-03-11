@@ -17,7 +17,7 @@ import { range } from "../lib";
 
 const el = ref(null);
 const width = 640;
-const height = 300;
+const height = 360;
 
 const interacting = ref(false);
 
