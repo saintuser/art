@@ -1,13 +1,19 @@
 <script setup>
-import { toRefs, computed, watchEffect } from "vue";
-import { useRoute } from "vue-router";
-import { replace, config, events } from "../lib/index.js";
+import { toRefs, computed } from "vue";
+import { useRoute, onBeforeRouteLeave } from "vue-router";
+import { replace, config, events, pages, activeTheme } from "../lib/index.js";
 
 const { params } = toRefs(useRoute());
 
-const event = computed(() =>
-  events.value.find((event) => event.eventid === params.value.eventid)
-);
+const event = computed(() => {
+  const e = events.value.find(
+    (event) => event.eventid === params.value.eventid
+  );
+  if (e && e.pageid && pages.value) {
+    e.page = pages.value.find((page) => page.pageid === e.pageid);
+  }
+  return e;
+});
 
 const formatStreamUrl = (streamkey) => {
   if (streamkey.endsWith("m3u8")) {
@@ -58,7 +64,7 @@ const channel = computed(() => params.value.link);
   </div>
 </template>
 
-<style>
+<style scoped>
 .Event {
   display: grid;
   grid-template-columns: 1fr 300px;

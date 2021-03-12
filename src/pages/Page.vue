@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { pages, events } from "../lib";
+import { useRoute, onBeforeRouteLeave } from "vue-router";
+import { pages, events, activeTheme } from "../lib";
 
 const { params } = useRoute();
 
@@ -20,6 +20,13 @@ const page = computed(() => {
     }
   }
   return p;
+});
+
+onBeforeRouteLeave(() => {
+  console.log(page.value);
+  if (page.value && page.value.theme === "light") {
+    activeTheme.value = 0;
+  }
 });
 </script>
 
@@ -108,7 +115,8 @@ const page = computed(() => {
 }
 .EventCards {
   display: grid;
+  grid-auto-rows: max-content;
   gap: 32px;
-  padding-top: clamp(0.5rem, 1vw, 2rem);
+  padding-top: clamp(0.5rem, 1.2vw, 2rem);
 }
 </style>
