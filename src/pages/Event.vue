@@ -131,6 +131,7 @@ watch(
 .EventContent {
   padding: 64px 32px 32px 32px;
   display: grid;
+  grid-auto-rows: max-content;
   gap: 16px;
 }
 .EventContent > *:last-child {
