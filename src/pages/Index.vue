@@ -34,7 +34,7 @@ const pageStyle = (page) =>
           ...pageStyle(page).value,
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          color: page.color || 'var(--fg)',
+          color: page.color !== '' ? page.color : 'white',
           backgroundColor: page.background,
           backgroundImage: page.image
             ? 'url(' + page.image + ')'
