@@ -30,7 +30,7 @@ const page = computed(() => {
         position: 'absolute',
         top: '-150px',
         left: '100px',
-        backgroundColor: page.color,
+        backgroundColor: page.background,
         backgroundImage: page.image ? 'url(' + page.image + ')' : '',
         backgroundSize: 'cover',
         color: 'white',

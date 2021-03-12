@@ -34,14 +34,14 @@ const pageStyle = (page) =>
           ...pageStyle(page).value,
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          backgroundColor: page.color,
+          color: page.color || 'var(--fg)',
+          backgroundColor: page.background,
           backgroundImage: page.image
             ? 'url(' + page.image + ')'
             : page.event?.image
             ? 'url(' + page.event.image + ')'
             : '',
           backgroundSize: 'cover',
-          color: 'white',
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
