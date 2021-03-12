@@ -1,5 +1,11 @@
 //@ts-check
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import {
+  computed,
+  isRef,
+  onMounted,
+  onUnmounted,
+  ref,
+} from 'vue';
 
 export function debounce(fn, timeout) {
   let t;
@@ -123,6 +129,50 @@ export const scale = (value, start1, stop1, start2, stop2) => {
   return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
 };
 
+// https://github.com/fregante/intrinsic-scale/blob/master/index.js
+export const fit = (parentWidth, parentHeight, childWidth, childHeight) => {
+  const doRatio = childWidth / childHeight;
+  const cRatio = parentWidth / parentHeight;
+  let width = parentWidth;
+  let height = parentHeight;
+
+  if (doRatio < cRatio) {
+    height = width / doRatio;
+  } else {
+    width = height * doRatio;
+  }
+
+  return {
+    x: (parentWidth - width) / 2,
+    y: (parentHeight - height) / 2,
+    width,
+    height,
+  };
+};
+
+export const useSetInterval = (
+  callback,
+  timeout,
+  every = 1,
+  condition = true
+) => {
+  let a = 0;
+  const interval = ref(null);
+  interval.value = setInterval(() => {
+    const n = isRef(every) ? every.value : every;
+    a = a >= n - 1 ? 0 : a + 1;
+    const cond = isRef(condition) ? condition.value : condition;
+    if (a === 0 && cond) {
+      callback();
+    }
+  }, timeout);
+  onUnmounted(() => {
+    if (interval.value) {
+      clearInterval(interval.value);
+    }
+  });
+  return interval;
+};
 export const deg2rad = (deg) => (deg * Math.PI) / 180;
 
 export const rad2deg = (rad) => (rad * 180) / Math.PI;
@@ -132,4 +182,5 @@ export const range = (from, to, step = 1) => {
   return Array.from({ length }).map((_, i) => from + i * step);
 };
 
+// @ts-ignore
 export const unique = (arr) => [...new Set(arr)];

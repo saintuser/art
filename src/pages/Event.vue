@@ -1,6 +1,8 @@
 <script setup>
-import { toRefs, computed } from "vue";
+import { toRefs, computed, watch } from "vue";
 import { useRoute, onBeforeRouteLeave } from "vue-router";
+import { useCssVar } from "@vueuse/core";
+
 import { replace, config, events, pages, activeTheme } from "../lib/index.js";
 
 const { params } = toRefs(useRoute());
@@ -33,6 +35,41 @@ const srcs = computed(() => {
   }
 });
 const channel = computed(() => params.value.link);
+
+const eventAudienceWidth = useCssVar("--event-audience-width");
+const eventAudienceColumns = useCssVar("--event-audience-columns");
+
+const audienceColumns = computed(
+  () => {
+    let images = false;
+    let chat = true;
+    let snapshot = false;
+    if (event.value) {
+      if (event.value.chat === "FALSE") {
+        chat = false;
+      }
+      if (event.value.images === "TRUE") {
+        images = true;
+      }
+      if (event.value.snapshot === "TRUE") {
+        snapshot = true;
+      }
+    }
+    return { images, chat, snapshot };
+  },
+  { immediate: true }
+);
+
+watch(
+  audienceColumns,
+  () => {
+    const columns = Object.values(audienceColumns.value).filter((col) => col);
+
+    eventAudienceWidth.value = `${columns.length * 300}px`;
+    eventAudienceColumns.value = columns.map((_) => "1fr").join(" ");
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -58,7 +95,22 @@ const channel = computed(() => params.value.link);
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
-    <Chat class="EventChat" :channel="channel" />
+    <Transition name="fade">
+      <div
+        v-if="
+          audienceColumns.images ||
+          audienceColumns.chat ||
+          audienceColumns.snapshot
+        "
+        class="EventAudience"
+      >
+        <div v-if="audienceColumns.images" style="display: grid">Images</div>
+        <Chat v-if="audienceColumns.chat" :channel="channel" />
+        <div v-if="audienceColumns.snapshot" style="display: grid">
+          Snapshot
+        </div>
+      </div>
+    </Transition>
     <EventOverlay v-if="event && event.tickets" :event="event" />
     <ButtonBack />
   </div>
@@ -67,8 +119,9 @@ const channel = computed(() => params.value.link);
 <style scoped>
 .Event {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr var(--event-audience-width);
   min-height: 100vh;
+  transition: 200ms;
 }
 @media (max-width: 800px) {
   .Event {
@@ -84,17 +137,21 @@ const channel = computed(() => params.value.link);
   height: calc(100vh - 64px - 64px);
   overflow: auto;
 }
-.EventChat {
+.EventAudience {
+  padding: 64px 32px 32px 32px;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 300px;
-  padding: 64px 32px 32px 32px;
+  width: var(--event-audience-width);
   background: var(--bglight);
+  display: grid;
+  grid-template-columns: var(--event-audience-columns);
+  gap: 16px;
+  transition: 200ms;
 }
 @media (max-width: 800px) {
-  .EventChat {
+  .EventAudience {
     position: static;
     width: inherit;
     height: calc(100vh - 64px);
