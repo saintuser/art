@@ -29,13 +29,12 @@ const columns = computed(() => {
 </script>
 
 <template>
-  {{ columns }} / {{ count }}
   <div
-    class="grid"
     style="
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-auto-rows: max-content;
+      gap: 6px;
     "
     :style="{
       gridTemplateColumns: 'repeat(' + columns + ', 1fr)',

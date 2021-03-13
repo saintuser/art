@@ -27,15 +27,15 @@ const pageStyle = (page) =>
     top: `${parseFloat(page.y) + centerY.value}px`,
   }));
 
-onBeforeRouteLeave((to) => {
-  const pageid = to.params?.pageid;
-  if (pageid && pages.value) {
-    const toPage = pages.value.find((page) => page.pageid === pageid);
-    if (toPage.theme === "light") {
-      activeTheme.value = 1;
-    }
-  }
-});
+// onBeforeRouteLeave((to) => {
+//   const pageid = to.params?.pageid;
+//   if (pageid && pages.value) {
+//     const toPage = pages.value.find((page) => page.pageid === pageid);
+//     if (toPage.theme === "light") {
+//       activeTheme.value = 1;
+//     }
+//   }
+// });
 </script>
 <template>
   <div>

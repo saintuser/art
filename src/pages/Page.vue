@@ -22,12 +22,11 @@ const page = computed(() => {
   return p;
 });
 
-onBeforeRouteLeave(() => {
-  console.log(page.value);
-  if (page.value && page.value.theme === "light") {
-    activeTheme.value = 0;
-  }
-});
+// onBeforeRouteLeave(() => {
+//   if (page.value && page.value.theme === "light") {
+//     activeTheme.value = 0;
+//   }
+// });
 </script>
 
 <template>
