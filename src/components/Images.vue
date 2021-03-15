@@ -26,7 +26,6 @@ const started = ref(false);
 <template>
   <div>
     <div style="display: grid; gap: 16px; grid-rows-auto: auto">
-      <h3>Live audience</h3>
       Please allow access to your camera to be a public audience member in our
       venue
       <Button
@@ -37,7 +36,7 @@ const started = ref(false);
             started = !started;
           }
         "
-        >Start</Button
+        >Start my camera</Button
       >
       <Button
         v-show="started"
@@ -47,7 +46,7 @@ const started = ref(false);
             started = !started;
           }
         "
-        >Stop</Button
+        >Stop my camera</Button
       >
     </div>
     <div>
@@ -70,7 +69,7 @@ const started = ref(false);
         v-for="(user, i) in usersWithImages"
         :src="user.value.image"
         :key="i"
-        style="display: block; width: 100%; height: auto; border-radius: 4px"
+        style="display: block; width: 100%; height: auto"
       />
     </ImageGrid>
   </div>

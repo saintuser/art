@@ -95,20 +95,30 @@ watch(
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
-    <!-- <Transition name="fade"> -->
     <div
       v-if="
         audienceColumns.images ||
         audienceColumns.chat ||
         audienceColumns.snapshot
       "
-      class="EventAudience"
+      class="EventPanels"
     >
-      <Images v-if="audienceColumns.images" />
-      <Chat v-if="audienceColumns.chat" :channel="channel" />
+      <EventPanel
+        v-if="audienceColumns.images"
+        title="Audience"
+        style="background: var(--bglight)"
+      >
+        <Images />
+      </EventPanel>
+      <EventPanel
+        v-if="audienceColumns.chat"
+        title="Chat"
+        style="background: var(--bglighter)"
+      >
+        <Chat :channel="channel"
+      /></EventPanel>
       <div v-if="audienceColumns.snapshot" style="display: grid">Snapshot</div>
     </div>
-    <!-- </Transition> -->
     <EventOverlay v-if="event && event.tickets" :event="event" />
     <ButtonBack />
   </div>
@@ -136,27 +146,21 @@ watch(
   height: calc(100vh - 64px - 64px);
   overflow: auto;
 }
-.EventAudience {
-  padding: 64px 32px 32px 32px;
+.EventPanels {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   width: var(--event-audience-width);
-  background: var(--bglight);
   display: grid;
   grid-template-columns: var(--event-audience-columns);
   transition: 200ms;
 }
 @media (max-width: 800px) {
-  .EventAudience {
+  .EventPanels {
     position: static;
     width: inherit;
-    padding-top: 32px;
     grid-template-columns: 1fr;
-  }
-  .Event .EventDetails {
-    /* max-height: calc(50vh - 64px); @TODO: Bring it back*/
   }
 }
 </style>

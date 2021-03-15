@@ -31,7 +31,7 @@ const usersWithImages = computed(() =>
         style="opacity: 1; pointer-events: none"
         class="debug"
       />
-      <canvas class="debug" ref="canvasRef" style="display: block" />
+      <canvas ref="canvasRef" style="display: block" />
     </div>
     <h1>Users</h1>
     <div style="width: 200px">

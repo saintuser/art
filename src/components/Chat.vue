@@ -19,7 +19,7 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
       v-model="newMessage"
       placeholder="Write a chat message here"
     ></textarea>
-    <Button @click="onNewMessage">Send</Button>
+    <Button @click="onNewMessage">Send chat message</Button>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   display: grid;
   gap: 16px;
   grid-template-rows: 1fr auto auto;
+  height: 100%;
 }
 .ChatCards {
   display: grid;

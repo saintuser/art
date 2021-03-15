@@ -34,7 +34,7 @@ const columns = computed(() => {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-auto-rows: max-content;
-      gap: 6px;
+      gap: 0px;
     "
     :style="{
       gridTemplateColumns: 'repeat(' + columns + ', 1fr)',
