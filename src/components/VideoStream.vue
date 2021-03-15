@@ -25,11 +25,13 @@ const muted = ref(true);
         }"
       />
       <slot :status="status">
-        <transition name="fade" appear v-if="status !== 'playing'">
+        <Transition name="fade" appear v-if="status !== 'playing'">
+          <!-- <div v-if="status !== 'playing'"> -->
           <Overlay>
             {{ status }}
           </Overlay>
-        </transition>
+          <!-- </div> -->
+        </Transition>
       </slot>
       <transition name="fade">
         <div

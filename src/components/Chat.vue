@@ -12,9 +12,7 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
 <template>
   <div class="Chat">
     <div class="ChatCards" ref="scrollRef">
-      <TransitionGroup name="fade">
-        <ChatCard v-for="(chat, i) in chats" :key="i" :chat="chat"
-      /></TransitionGroup>
+      <ChatCard v-for="(chat, i) in chats" :key="i" :chat="chat" />
     </div>
     <textarea
       ref="textareaRef"

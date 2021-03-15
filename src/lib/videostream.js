@@ -88,7 +88,9 @@ export const useVideoStream = (src) => {
             xhr.addEventListener("error", (e) => {
               hls.loadSource(src);
               hls.startLoad();
-              videoRef.value.play();
+              if (videoRef.value) {
+                videoRef.value.play();
+              }
             });
           },
         });

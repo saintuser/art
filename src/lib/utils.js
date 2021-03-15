@@ -7,6 +7,8 @@ import {
   ref,
 } from 'vue';
 
+import { tryOnUnmounted } from '@vueuse/core';
+
 export function debounce(fn, timeout) {
   let t;
   return function () {
@@ -166,7 +168,7 @@ export const useSetInterval = (
       callback();
     }
   }, timeout);
-  onUnmounted(() => {
+  tryOnUnmounted(() => {
     if (interval.value) {
       clearInterval(interval.value);
     }

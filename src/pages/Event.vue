@@ -95,22 +95,20 @@ watch(
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
-    <Transition name="fade">
-      <div
-        v-if="
-          audienceColumns.images ||
-          audienceColumns.chat ||
-          audienceColumns.snapshot
-        "
-        class="EventAudience"
-      >
-        <Images v-if="audienceColumns.images" />
-        <Chat v-if="audienceColumns.chat" :channel="channel" />
-        <div v-if="audienceColumns.snapshot" style="display: grid">
-          Snapshot
-        </div>
-      </div>
-    </Transition>
+    <!-- <Transition name="fade"> -->
+    <div
+      v-if="
+        audienceColumns.images ||
+        audienceColumns.chat ||
+        audienceColumns.snapshot
+      "
+      class="EventAudience"
+    >
+      <Images v-if="audienceColumns.images" />
+      <Chat v-if="audienceColumns.chat" :channel="channel" />
+      <div v-if="audienceColumns.snapshot" style="display: grid">Snapshot</div>
+    </div>
+    <!-- </Transition> -->
     <EventOverlay v-if="event && event.tickets" :event="event" />
     <ButtonBack />
   </div>

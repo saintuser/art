@@ -22,13 +22,13 @@ const { userName, onUserNameChange } = useUser();
 
 <template>
   <div class="App">
-    <Suspense>
-      <RouterView v-slot="{ Component }">
-        <Transition name="fade" appear>
-          <component :is="Component" />
-        </Transition>
-      </RouterView>
-    </Suspense>
+    <!-- <Suspense> -->
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" appear>
+        <component :is="Component" />
+      </Transition>
+    </RouterView>
+    <!-- </Suspense> -->
 
     <div
       v-if="config.newFeatures"
