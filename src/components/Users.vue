@@ -11,8 +11,8 @@ import {
   userId,
   useWindow,
   scale,
-  useUser,
   userName,
+  userAbout,
 } from "../lib";
 
 const updatedUsers = computed(() =>
@@ -80,7 +80,10 @@ const otherUserStyle = (otherUser) =>
   <draggable x="100" y="100" @drag="onUserDrag">
     <div style="display: grid; grid-template-columns: auto auto; gap: 8px">
       <Dot color="red" opacity="0.8" />
-      <div>{{ userName }}</div>
+      <div>
+        <div style="font-size: 0.8em; opacity: 0.5">{{ userName }}</div>
+        <div>{{ userAbout }}</div>
+      </div>
     </div>
   </draggable>
 </template>

@@ -27,29 +27,27 @@ const initialUserName = `${any(adjectives)} ${any(animals)}`;
 
 export const userId = useLocalstorage("elektron_user_id", initialUserId);
 export const userName = useLocalstorage("elektron_user_name", initialUserName);
+export const userAbout = useLocalstorage("elektron_user_about", "");
 
-export const useUser = () => {
-  const onUserNameChange = () => {
-    const newName = window.prompt("Enter your name", userName.value);
-    if (newName) {
-      userName.value = newName;
-    }
-  };
+export const onUserNameChange = () => {
+  const newName = window.prompt("Enter your name", userName.value);
+  if (newName) {
+    userName.value = newName;
+  }
+};
 
+export const refreshUser = () =>
   watch(
     () => userName.value,
     () => {
       const outgoingMessage = createMessage({
         type: "USER",
         userId: userId.value,
-        value: { userName: userName.value },
+        value: { userName: userName.value, userAbout: userAbout.value },
       });
       ws.send(outgoingMessage);
     }
   );
-
-  return { userId, userName, onUserNameChange };
-};
 
 export const users = ref([]);
 

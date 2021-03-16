@@ -20,10 +20,6 @@ const routes = [
     component: () => import("./pages/Index.vue"),
   },
   {
-    path: "/users",
-    component: () => import("./pages/Users.vue"),
-  },
-  {
     path: "/threesixty",
     component: () => import("./pages/Threesixty.vue"),
   },
@@ -34,6 +30,10 @@ const routes = [
   {
     path: "/test",
     component: () => import("./pages/Test.vue"),
+  },
+  {
+    path: "/test2",
+    component: () => import("./pages/Test2.vue"),
   },
   {
     path: "/page/:pageid",

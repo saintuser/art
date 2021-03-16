@@ -4,16 +4,19 @@ import {
   loadMessages,
   loadPages,
   loadEvents,
+  refreshUser,
   refreshUsers,
-  useUser,
   toggleTheme,
   config,
   userName,
+  userAbout,
+  onUserNameChange,
 } from "./lib";
 
 loadEvents();
 loadMessages();
 loadPages();
+refreshUser();
 refreshUsers();
 
 const eventsVisible = ref(false);
@@ -29,18 +32,24 @@ const eventsVisible = ref(false);
     </RouterView>
     <!-- </Suspense> -->
 
-    <div style="position: fixed; right: 16px; bottom: 16px; display: flex">
+    <div style="position: fixed; right: 16px; top: 16px; display: flex">
       <Button @click="toggleTheme">◑</Button>
     </div>
-    <div style="position: fixed; right: 16px; top: 16px; display: flex">
-      <input v-model="userName" />
-    </div>
-    <Transition name="fade">
-      <div v-if="eventsVisible" class="EventsWrapper">
-        <Events />
+    <div style="position: fixed; left: 16px; bottom: 16px">
+      <div
+        style="display: flex; justify-content: space-between; font-size: 0.7em"
+      >
+        <div style="opacity: 0.5; line-height: 1em">{{ userName }}:</div>
+        <div @click="onUserNameChange" style="cursor: pointer">
+          Change your name
+        </div>
       </div>
-    </Transition>
-
+      <input
+        v-model="userAbout"
+        style="width: 300px"
+        placeholder="Write here a message"
+      />
+    </div>
     <Users />
   </div>
 </template>
