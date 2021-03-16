@@ -4,16 +4,19 @@ import {
   loadMessages,
   loadPages,
   loadEvents,
+  refreshUser,
   refreshUsers,
-  useUser,
   toggleTheme,
   config,
   userName,
+  userAbout,
+  onUserNameChange,
 } from "./lib";
 
 loadEvents();
 loadMessages();
 loadPages();
+refreshUser();
 refreshUsers();
 
 const eventsVisible = ref(false);
@@ -29,18 +32,12 @@ const eventsVisible = ref(false);
     </RouterView>
     <!-- </Suspense> -->
 
-    <div style="position: fixed; right: 16px; bottom: 16px; display: flex">
+    <div
+      v-if="config.newFeatures"
+      style="position: fixed; right: 16px; top: 16px; display: flex"
+    >
       <Button @click="toggleTheme">◑</Button>
     </div>
-    <div style="position: fixed; right: 16px; top: 16px; display: flex">
-      <input v-model="userName" />
-    </div>
-    <Transition name="fade">
-      <div v-if="eventsVisible" class="EventsWrapper">
-        <Events />
-      </div>
-    </Transition>
-
     <Users />
   </div>
 </template>
