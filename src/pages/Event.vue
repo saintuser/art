@@ -92,7 +92,6 @@ watch(
         <div v-else>
           <VideoStream :src="srcs[0]" />
         </div>
-        <div>
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
