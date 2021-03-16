@@ -92,6 +92,7 @@ watch(
         <div v-else>
           <VideoStream :src="srcs[0]" />
         </div>
+        <div>
         <EventDetails v-if="event" :event="event" />
       </div>
     </div>
@@ -137,7 +138,7 @@ watch(
   }
 }
 .EventContent {
-  padding: 64px 32px 32px 32px;
+  padding: 64px 32px 32px clamp(1.5rem, 5vw, 3rem);
   display: grid;
   grid-auto-rows: max-content;
   gap: 16px;

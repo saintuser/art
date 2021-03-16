@@ -60,7 +60,7 @@ const page = computed(() => {
 
 <style>
 .Page {
-  padding: clamp(1.5rem, 3vw, 2rem);
+  padding: clamp(1.5rem, 5vw, 3rem);
   padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
   grid-template-columns: 1fr 1fr;

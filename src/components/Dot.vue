@@ -6,6 +6,6 @@ defineProps({ color: { type: String, default: "black" } });
 
 <template>
   <svg width="28" height="28">
-    <circle cx="14" cy="14" r="14" :fill="color" />
+    <circle cx="14" cy="13" r="13" :fill="color" />
   </svg>
 </template>

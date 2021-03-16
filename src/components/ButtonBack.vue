@@ -5,7 +5,7 @@ const props = defineProps({ to: { type: String, default: "/" } });
 </script>
 
 <template>
-  <div style="position: fixed; left: 16px; top: 16px">
-    <RouterLink :to="to"><Button>‹</Button></RouterLink>
+  <div style="position: fixed; left: 10px; top: 10px">
+    <RouterLink :to="to"><IconLeft /></RouterLink>
   </div>
 </template>

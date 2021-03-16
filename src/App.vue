@@ -7,6 +7,7 @@ import {
   refreshUser,
   refreshUsers,
   toggleTheme,
+  activeTheme,
   config,
   userName,
   userAbout,
@@ -34,9 +35,10 @@ const eventsVisible = ref(false);
 
     <div
       v-if="config.newFeatures"
-      style="position: fixed; right: 16px; top: 16px; display: flex"
+      style="position: fixed; right: 12px; top: 12px; display: flex"
     >
-      <Button @click="toggleTheme">Theme</Button>
+      <IconSun v-if="!activeTheme" @click="toggleTheme" />
+      <IconMoon v-if="activeTheme" @click="toggleTheme" />
     </div>
     <Users />
   </div>
