@@ -73,7 +73,7 @@ export const uniqueCollection = (arr, key) => {
   return result.reverse();
 };
 
-export const useTextarea = (callback) => {
+export const useTextarea = (callback = () => {}) => {
   const el = ref(null);
 
   const onKeydown = (e) => {
