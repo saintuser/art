@@ -34,7 +34,7 @@ const srcs = computed(() => {
     return [];
   }
 });
-const channel = computed(() => params.value.link);
+const channel = computed(() => params.value.eventid);
 
 const eventAudienceWidth = useCssVar("--event-audience-width");
 const eventAudienceColumns = useCssVar("--event-audience-columns");

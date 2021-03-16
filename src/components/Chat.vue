@@ -2,10 +2,17 @@
 import { watchEffect, defineProps, toRefs } from "vue";
 import { useChat } from "../lib/index.js";
 
-const props = defineProps({ channel: String });
-const { channel } = toRefs(props);
+const props = defineProps({
+  channel: String,
+  sendType: String,
+  receiveType: String,
+});
+const { channel, sendType, receiveType } = toRefs(props);
+
 const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
-  channel
+  channel,
+  sendType,
+  receiveType
 );
 </script>
 

@@ -13,12 +13,14 @@ import {
   ws,
 } from './index.js';
 
-export const useChat = (channel) => {
-  const ch = isRef(channel) ? channel : ref(channel);
+export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
+  const chatChannel = isRef(channel) ? channel : ref(channel);
+  const chatSendType = isRef(sendType) ? sendType : ref(sendType);
+  const chatReceiveType = isRef(receiveType) ? receiveType : ref(receiveType);
 
   const chats = computed(() =>
     messagesWithUsers.value.filter(
-      (m) => m.type === "CHAT" && m.channel === ch.value
+      (m) => m.type === chatReceiveType.value && m.channel === chatChannel.value
     )
   );
 
@@ -26,8 +28,8 @@ export const useChat = (channel) => {
 
   const onNewMessage = () => {
     const outgoingMessage = createMessage({
-      type: "CHAT",
-      channel: ch.value,
+      type: chatSendType.value,
+      channel: chatChannel.value,
       value: newMessage.value,
       history: true,
     });

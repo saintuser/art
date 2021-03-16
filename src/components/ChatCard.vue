@@ -4,9 +4,11 @@ defineProps({ chat: { type: Object } });
 
 <template>
   <div class="ChatCard">
-    <div style="font-size: 0.8em">{{ chat.userName }}</div>
+    <div style="font-size: 0.8em; opacity: 0.5">
+      {{ chat.userName }}
+    </div>
     <div>{{ chat.value }}</div>
   </div>
 </template>
 
-<style></style>
+<style scoped></style>
