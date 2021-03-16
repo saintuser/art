@@ -16,7 +16,7 @@ export const config = {
   fientaToken: import.meta.env.VITE_FIENTA_TOKEN || "",
   fientaTestcode: import.meta.env.VITE_FIENTA_TESTCODE || "",
   userUpdateRate: 10 * 1000,
-  userUpdatedSinceLimit: 60 * 1000,
+  userUpdatedSinceLimit: 20 * 1000,
   messageDelay: 20,
   perfStart: "2021-04-01T18:00:00.002Z",
 };

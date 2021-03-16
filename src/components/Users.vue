@@ -11,6 +11,8 @@ import {
   userId,
   useWindow,
   scale,
+  useUser,
+  userName,
 } from "../lib";
 
 const updatedUsers = computed(() =>
@@ -66,13 +68,19 @@ const otherUserStyle = (otherUser) =>
       transition: 'all ' + config.messageDelay * 10 + 'ms linear',
     }"
   >
-    <Dot
-      color="#8800FF"
-      style="transition: opacity 1000ms"
-      :opacity="otherUser.opacity"
-    />
+    <div style="display: grid; grid-template-columns: auto auto; gap: 8px">
+      <Dot
+        color="#8800FF"
+        style="transition: opacity 1000ms"
+        :opacity="otherUser.opacity"
+      />
+      <div>{{ otherUser.value.userName }}</div>
+    </div>
   </div>
-  <draggable x="100" y="100" @drag="onUserDrag"
-    ><Dot color="red" opacity="0.8"
-  /></draggable>
+  <draggable x="100" y="100" @drag="onUserDrag">
+    <div style="display: grid; grid-template-columns: auto auto; gap: 8px">
+      <Dot color="red" opacity="0.8" />
+      <div>{{ userName }}</div>
+    </div>
+  </draggable>
 </template>

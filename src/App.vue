@@ -8,6 +8,7 @@ import {
   useUser,
   toggleTheme,
   config,
+  userName,
 } from "./lib";
 
 loadEvents();
@@ -16,8 +17,6 @@ loadPages();
 refreshUsers();
 
 const eventsVisible = ref(false);
-
-const { userName, onUserNameChange } = useUser();
 </script>
 
 <template>
@@ -30,8 +29,11 @@ const { userName, onUserNameChange } = useUser();
     </RouterView>
     <!-- </Suspense> -->
 
-    <div style="position: fixed; right: 16px; top: 16px; display: flex">
+    <div style="position: fixed; right: 16px; bottom: 16px; display: flex">
       <Button @click="toggleTheme">◑</Button>
+    </div>
+    <div style="position: fixed; right: 16px; top: 16px; display: flex">
+      <input v-model="userName" />
     </div>
     <Transition name="fade">
       <div v-if="eventsVisible" class="EventsWrapper">
