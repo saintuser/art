@@ -24,5 +24,7 @@
   display: grid;
   gap: 16px;
   text-align: center;
+  justify-content: center;
+  grid-auto-columns: 320px;
 }
 </style>

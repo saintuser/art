@@ -9,7 +9,7 @@ const { query } = useRoute();
 const code = ref(query.code);
 const status = ref("");
 
-const codes = useLocalstorage("elektron_codes", []);
+const codes = useLocalstorage("elektron_data", []);
 
 const localTicket = computed(() => {
   const ticket = codes.value?.find((ticket) => ticket.code === code.value);
@@ -55,12 +55,12 @@ const onUse = async () => {
 
 const ticketStatusString = computed(() => {
   let statuses = [];
-  if (code.value && localTicket.value) {
-    statuses.push(`HAS LOCAL TICKET ${JSON.stringify(localTicket.value)}`);
-  }
-  if (code.value && !localTicket.value) {
-    statuses.push(`NO LOCAL TICKET`);
-  }
+  // if (code.value && localTicket.value) {
+  //   statuses.push(`HAS LOCAL TICKET ${JSON.stringify(localTicket.value)}`);
+  // }
+  // if (code.value && !localTicket.value) {
+  //   statuses.push(`NO LOCAL TICKET`);
+  // }
   if (code.value && status.value) {
     statuses.push(`Fienta server status: ${status.value} TICKET`);
   } else {
@@ -91,10 +91,10 @@ const checkEvent = () => {
 <template>
   <div>
     <Overlay>
-      <h1>Check your event ticket</h1>
+      <!-- <h1>Check your event ticket</h1>
       <input v-model="eventid" placeholder="Enter event id" />
       <Button @click="checkEvent">Check my event ticket</Button>
-      <pre>{{ eventString }}</pre>
+      <pre>{{ eventString }}</pre> -->
       <h1>Check your ticket</h1>
       <input v-model="code" placeholder="Enter ticket code" />
       <Button @click="onCheck">Check my ticket</Button>

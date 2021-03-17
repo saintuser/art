@@ -1,11 +1,19 @@
 <script setup>
-import { toRefs, computed, watch } from "vue";
-import { useRoute, onBeforeRouteLeave } from "vue-router";
+import { ref, toRefs, computed, watch, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useCssVar } from "@vueuse/core";
 
-import { replace, config, events, pages, activeTheme } from "../lib/index.js";
+import {
+  replace,
+  config,
+  events,
+  pages,
+  activeTheme,
+  checkTicket,
+} from "../lib/index.js";
 
 const { params } = toRefs(useRoute());
+const router = useRouter();
 
 const event = computed(() => {
   const e = events.value.find(
@@ -70,6 +78,22 @@ watch(
   },
   { immediate: true }
 );
+
+const route = useRoute();
+const code = ref(route.query.code);
+const sumittedCode = ref(null);
+
+const { status, statusMessage } = checkTicket(sumittedCode, event);
+
+const onCheck = () => {
+  sumittedCode.value = code.value;
+};
+
+watch(status, () => {
+  if (status.value === "CHECKED" && route.query.code) {
+    router.push({ path: `/${params.value.eventid}` });
+  }
+});
 </script>
 
 <template>
@@ -119,7 +143,28 @@ watch(
       /></EventPanel>
       <div v-if="audienceColumns.snapshot" style="display: grid">Snapshot</div>
     </div>
-    <EventOverlay v-if="event && event.tickets" :event="event" />
+    <Overlay
+      v-if="event && event.fientaid && status !== 'CHECKED'"
+      :event="event"
+      style="position: fixed; top: 0; right: 0; bottom: 0; left: 0"
+    >
+      <h1>{{ event.title }}</h1>
+      <div>
+        This event has not yet started<br />but you can already check in
+      </div>
+      <input v-model="code" placeholder="Enter ticket code" />
+      <Button @click="onCheck">Enter</Button>
+      <p />
+      <div v-if="status === 'USED'">
+        This ticket has been used already. We only support using the ticket on a
+        single device, sorry.
+      </div>
+      <!-- <div>
+        <a v-if="event.moreinfo" :href="event.moreinfo">
+          <Button>More info →</Button>
+        </a>
+      </div> -->
+    </Overlay>
     <ButtonBack />
   </div>
 </template>
