@@ -78,7 +78,7 @@ const showMessages = ref(false);
         pointer-events: none;
         transition: opacity 600ms;
       "
-      :style="{ opacity: showMessages ? 0.9 : 0 }"
+      :style="{ opacity: showMessages ? 0.8 : 0 }"
     />
     <div style="position: fixed; left: 12px; bottom: 12px">
       <IconMessage @click="showMessages = !showMessages" />
@@ -86,9 +86,19 @@ const showMessages = ref(false);
     <transition name="fade">
       <div
         v-if="showMessages"
-        style="position: fixed; left: 12px; bottom: 48px"
+        style="
+          position: fixed;
+          left: 12px;
+          bottom: 54px;
+          padding: 16px;
+          background: var(--bglighter);
+          border-radius: 8px;
+          display: grid;
+          grid-auto-rows: max-height;
+          gap: 8px;
+        "
       >
-        <div style="display: flex; font-size: 0.7em">
+        <div style="display: flex; font-size: 0.8em">
           <div style="opacity: 0.5">
             <span style="color: red; transform: translateY(-20px)">⬤</span> My
             name is {{ userName }}
@@ -147,7 +157,7 @@ const showMessages = ref(false);
           >
             {{ userName }}
           </div>
-          <div>{{ userAbout }}</div>
+          <div style="font-size: 0.9em">{{ userAbout }}</div>
         </div>
       </div>
     </draggable>
