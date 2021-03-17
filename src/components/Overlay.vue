@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .Overlay {
   position: absolute;
   display: flex;
@@ -20,11 +20,13 @@
   opacity: 0.9;
   padding: 24px;
 }
-.Overlay > * {
+.Overlay > div {
   display: grid;
   gap: 16px;
   text-align: center;
   justify-content: center;
-  grid-auto-columns: 320px;
+}
+.Overlay > div > * {
+  justify-self: center;
 }
 </style>

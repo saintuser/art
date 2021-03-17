@@ -4,7 +4,10 @@ defineProps({ event: { type: Object } });
 </script>
 <template>
   <RouterLink class="EventCard" :to="'/' + event.eventid">
-    <IconStage />
+    <component
+      :is="event.fientaid ? 'icon-ticket' : 'icon-stage'"
+      :style="{ color: event.fientaid ? '#f2dc5d' : '' }"
+    />
     <div class="EventContent">
       <h3>{{ event.title }}</h3>
       <div class="EventDate" v-if="event.from">
@@ -23,7 +26,6 @@ defineProps({ event: { type: Object } });
 }
 .EventCard > .Icon {
   transform: scale(1.4) translateY(0.4ch);
-  opacity: 0.5;
 }
 .EventContent {
   display: grid;
