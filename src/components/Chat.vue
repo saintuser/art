@@ -1,6 +1,6 @@
 <script setup>
 import { watchEffect, defineProps, toRefs } from "vue";
-import { useChat } from "../lib/index.js";
+import { useChat, userName, onUserNameChange } from "../lib";
 
 const props = defineProps({
   channel: String,
@@ -21,11 +21,19 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
     <div class="ChatCards" ref="scrollRef">
       <ChatCard v-for="(chat, i) in chats" :key="i" :chat="chat" />
     </div>
-    <textarea
-      ref="textareaRef"
-      v-model="newMessage"
-      placeholder="Write a chat message here"
-    ></textarea>
+    <div>
+      <div style="display: flex; font-size: 0.8em">
+        <div style="opacity: 0.5">My name is {{ userName }}</div>
+        &ensp;
+        <div @click="onUserNameChange" style="cursor: pointer">Change</div>
+      </div>
+      <textarea
+        style="width: 100%"
+        ref="textareaRef"
+        v-model="newMessage"
+        placeholder="Write a chat message here"
+      ></textarea>
+    </div>
     <Button @click="onNewMessage">Send chat message</Button>
   </div>
 </template>

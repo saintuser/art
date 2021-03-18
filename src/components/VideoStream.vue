@@ -5,6 +5,12 @@ import { useVideoStream } from "../lib";
 const props = defineProps({ src: String });
 const { videoRef, status, width, height } = useVideoStream(props.src);
 const muted = ref(true);
+
+const statuses = {
+  nodata: "Stream is not playing",
+  loading: "Stream is loading",
+  playing: "",
+};
 </script>
 
 <template>
@@ -28,7 +34,7 @@ const muted = ref(true);
         <Transition name="fade" appear v-if="status !== 'playing'">
           <!-- <div v-if="status !== 'playing'"> -->
           <Overlay>
-            {{ status }}
+            {{ statuses[status] }}
           </Overlay>
           <!-- </div> -->
         </Transition>
