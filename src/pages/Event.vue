@@ -147,14 +147,15 @@ watch(status, () => {
       v-if="event && event.fientaid && status === 'CHECKED'"
       style="position: fixed; right: 12px; top: 12px"
     >
-      <IconTicket style="color: #f2dc5d" />
+      <IconCreditcard style="color: var(--ticket)" />
     </div>
     <Overlay
       v-if="event && event.fientaid && status !== 'CHECKED'"
       :event="event"
       style="position: fixed; top: 0; right: 0; bottom: 0; left: 0"
     >
-      <IconTicket style="transform: scale(2.5); color: #f2dc5d" />
+      <IconCreditcard style="transform: scale(3.5); color: var(--ticket)" />
+      <p />
       <p />
       <h1>{{ event.title }}</h1>
       <div>This event has not yet started but you can already enter.</div>

@@ -11,7 +11,8 @@ import {
   useScrollToBottom,
   useTextarea,
   ws,
-} from './index.js';
+} from './';
+import { userName } from './users';
 
 export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
   const chatChannel = isRef(channel) ? channel : ref(channel);
@@ -30,6 +31,7 @@ export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
     const outgoingMessage = createMessage({
       type: chatSendType.value,
       channel: chatChannel.value,
+      userName: userName.value,
       value: newMessage.value,
       history: true,
     });

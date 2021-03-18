@@ -35,7 +35,7 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   display: grid;
   gap: 16px;
   grid-template-rows: 1fr auto auto;
-  height: 100%;
+  height: 80vh;
 }
 .ChatCards {
   display: grid;

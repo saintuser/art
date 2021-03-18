@@ -1,4 +1,5 @@
 //@ts-check
+export * from "./names.js";
 export * from "./utils.js";
 export * from "./events.js";
 export * from "./config.js";
@@ -11,7 +12,6 @@ export * from "./fienta.js";
 export * from "./images.js";
 export * from "./messages.js";
 export * from "./mouse.js";
-export * from "./names.js";
 export * from "./pages.js";
 export * from "./sheet.js";
 export * from "./theme.js";
