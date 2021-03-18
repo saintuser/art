@@ -1,5 +1,7 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+
 import {
   loadMessages,
   loadPages,
@@ -20,18 +22,24 @@ loadPages();
 refreshUser();
 refreshUsers();
 
-const eventsVisible = ref(false);
+const route = useRoute();
+const showUsers = ref(false);
+watch(
+  () => route.matched,
+  () => {
+    showUsers.value = route.matched?.[0]?.path !== "/:eventid";
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
   <div class="App">
-    <!-- <Suspense> -->
     <RouterView v-slot="{ Component }">
       <Transition name="fade" appear>
         <component :is="Component" />
       </Transition>
     </RouterView>
-    <!-- </Suspense> -->
 
     <div
       v-if="config.newFeatures"
@@ -40,7 +48,7 @@ const eventsVisible = ref(false);
       <IconSun v-if="!activeTheme" @click="toggleTheme" />
       <IconMoon v-if="activeTheme" @click="toggleTheme" />
     </div>
-    <Users />
+    <Users v-if="showUsers" />
   </div>
 </template>
 
