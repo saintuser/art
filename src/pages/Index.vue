@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
 import {
   config,
   pages,
@@ -26,24 +25,18 @@ const pageStyle = (page) =>
     left: `${parseFloat(page.x) + centerX.value}px`,
     top: `${parseFloat(page.y) + centerY.value}px`,
   }));
-
-// onBeforeRouteLeave((to) => {
-//   const pageid = to.params?.pageid;
-//   if (pageid && pages.value) {
-//     const toPage = pages.value.find((page) => page.pageid === pageid);
-//     if (toPage.theme === "light") {
-//       activeTheme.value = 1;
-//     }
-//   }
-// });
 </script>
 <template>
   <div>
-    <RouterLink
+    <Link
       v-for="(page, i) in pagesWithEvents"
       :key="i"
-      :to="
-        page.event?.eventid ? '/' + page.event?.eventid : '/page/' + page.pageid
+      :src="
+        page.link
+          ? page.link
+          : page.event?.eventid
+          ? '/' + page.event?.eventid
+          : '/page/' + page.pageid
       "
     >
       <Disc
@@ -71,7 +64,7 @@ const pageStyle = (page) =>
           {{ page.about }}
         </p>
       </Disc>
-    </RouterLink>
+    </Link>
     <div
       style="
         position: fixed;
