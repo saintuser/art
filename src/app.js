@@ -11,13 +11,14 @@ import {
 } from 'vue-router';
 
 import App from './App.vue';
+import { config } from './lib';
 
 const components = import.meta.glob("./components/*.vue");
 
 const routes = [
   {
     path: "/",
-    component: () => import("./pages/Index.vue"),
+    component: () => import(`./pages/${config.indexComponent}.vue`),
   },
   {
     path: "/threesixty",

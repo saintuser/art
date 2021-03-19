@@ -6,6 +6,8 @@ import {
 
 import { useCssVar } from '@vueuse/core';
 
+import { config } from './';
+
 const themeVars = {
   bgdark: useCssVar("--bgdark"),
   bg: useCssVar("--bg"),
@@ -37,7 +39,7 @@ const themeValues = [
   },
 ];
 
-export const activeTheme = ref(0);
+export const activeTheme = ref(config.theme);
 
 watch(
   activeTheme,

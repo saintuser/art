@@ -157,7 +157,7 @@ watch(status, () => {
       :event="event"
       style="position: fixed; top: 0; right: 0; bottom: 0; left: 0"
     >
-      <IconCreditcard style="transform: scale(3.5); color: var(--ticket)" />
+      <IconCreditcard style="transform: scale(3); color: var(--ticket)" />
       <p />
       <p />
       <h1>{{ event.title }}</h1>
@@ -185,7 +185,6 @@ watch(status, () => {
       >
         No tickets yet? Get them here
       </a>
-      <p />
       <p />
       <p v-if="config.phoneUrl">
         <span style="opacity: 0.5">Having problems with getting in? Call</span

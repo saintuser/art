@@ -1,19 +1,17 @@
 <script setup>
 import { computed } from "vue";
-import { useRoute, onBeforeRouteLeave } from "vue-router";
 import { pages, events, activeTheme } from "../lib";
 
-const { params } = useRoute();
+const params = { pageid: "hope" };
 
-// @TODO: Simplify
 const page = computed(() => {
   let p = { content: "", events: [] };
   if (params.pageid && pages.value) {
-    const currentPage = pages.value.find(
+    const currentConference = pages.value.find(
       (page) => page.pageid === params.pageid
     );
-    if (currentPage) {
-      p = currentPage;
+    if (currentConference) {
+      p = currentConference;
     }
     if (events.value) {
       p.events = events.value.filter((event) => event.pageid == params.pageid);
@@ -25,20 +23,18 @@ const page = computed(() => {
 
 <template>
   <div>
-    <PageDisc :page="page" />
-    <div class="Page">
-      <div v-html="page.content" class="PageContent" />
+    <PageDisc v-if="page" :page="page" />
+    <div class="Conference">
+      <div v-html="page.content" class="ConferenceContent" />
       <div class="EventCards">
         <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
       </div>
     </div>
-
-    <ButtonBack />
   </div>
 </template>
 
 <style>
-.Page {
+.Conference {
   padding: clamp(1.5rem, 5vw, 3rem);
   padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
@@ -46,7 +42,7 @@ const page = computed(() => {
   gap: clamp(8px, 5vw, 64px);
 }
 @media (max-width: 800px) {
-  .Page {
+  .Conference {
     grid-template-columns: 1fr;
   }
 }
@@ -68,29 +64,24 @@ const page = computed(() => {
 .c5 {
   font-weight: bold;
 }
-.c12 {
-  padding: 4px 4px 4px 20px;
-  border-left: 5px solid var(--fg);
-  font-weight: bold;
-}
-.PageContent {
+.ConferenceContent {
   display: grid;
   grid-auto-rows: max-content;
   gap: clamp(8px, 1vw, 16px);
 }
-.PageContent > * {
+.ConferenceContent > * {
   grid-column: 1;
 }
-.PageContent p {
+.ConferenceContent p {
   margin: 0;
 }
-.PageContent a {
+.ConferenceContent a {
   text-decoration: underline;
 }
-.PageContent hr {
+.ConferenceContent hr {
   display: none;
 }
-.PageContent img {
+.ConferenceContent img {
   width: 100%;
   display: block;
   grid-column: ;
