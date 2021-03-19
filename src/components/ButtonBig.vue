@@ -1,9 +1,9 @@
 <template>
-  <div class="Button"><slot /></div>
+  <div class="ButtonBig"><slot /></div>
 </template>
 
 <style>
-.Button {
+.ButtonBig {
   display: inline-grid;
   place-items: center;
   border-radius: 100px;
@@ -11,7 +11,7 @@
   font-family: "Nunito Sans", sans-serif;
   font-size: 16px;
   font-weight: bold;
-  height: 32px;
+  height: 48px;
   background: none;
   outline: none;
   text-decoration: none;

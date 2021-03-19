@@ -31,31 +31,29 @@ const started = ref(false);
 </script>
 
 <template>
-  <div>
-    <div style="display: grid; gap: 16px; grid-rows-auto: auto">
-      Please allow access to your camera to be a public audience member in our
-      venue
-      <Button
-        v-show="!started"
-        @click="
-          () => {
-            onStart();
-            started = !started;
-          }
-        "
-        >Start my camera</Button
-      >
-      <Button
-        v-show="started"
-        @click="
-          () => {
-            onStop();
-            started = !started;
-          }
-        "
-        >Stop my camera</Button
-      >
-    </div>
+  <Vertical>
+    Please allow access to your camera to be a public audience member in our
+    venue
+    <Button
+      v-show="!started"
+      @click="
+        () => {
+          onStart();
+          started = !started;
+        }
+      "
+      >Start my camera</Button
+    >
+    <Button
+      v-show="started"
+      @click="
+        () => {
+          onStop();
+          started = !started;
+        }
+      "
+      >Stop my camera</Button
+    >
     <div>
       <video
         ref="videoRef"
@@ -79,5 +77,5 @@ const started = ref(false);
         style="display: block; width: 100%; height: auto"
       />
     </ImageGrid>
-  </div>
+  </Vertical>
 </template>

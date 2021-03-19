@@ -41,7 +41,7 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
 <style scoped>
 .Chat {
   display: grid;
-  gap: 16px;
+  gap: 8px;
   grid-template-rows: 1fr auto auto;
   height: 80vh;
 }

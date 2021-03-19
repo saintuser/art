@@ -63,7 +63,7 @@ const page = computed(() => {
   padding: clamp(1.5rem, 5vw, 3rem);
   padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: clamp(8px, 5vw, 64px);
 }
 @media (max-width: 800px) {
@@ -89,7 +89,11 @@ const page = computed(() => {
 .c5 {
   font-weight: bold;
 }
-
+.c12 {
+  padding: 4px 4px 4px 20px;
+  border-left: 5px solid var(--fg);
+  font-weight: bold;
+}
 .PageContent {
   display: grid;
   grid-auto-rows: max-content;

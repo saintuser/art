@@ -57,6 +57,7 @@ textarea {
   line-height: 1.5em;
   color: var(--fg);
   background: var(--bg);
+  width: 100%;
 }
 p {
   margin: 0;

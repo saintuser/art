@@ -28,15 +28,17 @@ export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
   const newMessage = ref("");
 
   const onNewMessage = () => {
-    const outgoingMessage = createMessage({
-      type: chatSendType.value,
-      channel: chatChannel.value,
-      userName: userName.value,
-      value: newMessage.value,
-      history: true,
-    });
-    ws.send(outgoingMessage);
-    newMessage.value = "";
+    if (newMessage.value) {
+      const outgoingMessage = createMessage({
+        type: chatSendType.value,
+        channel: chatChannel.value,
+        userName: userName.value,
+        value: newMessage.value,
+        history: true,
+      });
+      ws.send(outgoingMessage);
+      newMessage.value = "";
+    }
   };
 
   const textareaRef = useTextarea(onNewMessage);

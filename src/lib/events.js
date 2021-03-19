@@ -5,6 +5,7 @@ import {
   config,
   fetchSheet,
 } from './';
+import { replace } from './utils';
 
 export const events = ref([]);
 
@@ -26,6 +27,11 @@ const processEvent = (event) => {
     event.streamkeys = event.streamkey.split(",").map((key) => key.trim());
   } else {
     event.streamkeys = [event.eventid];
+  }
+  if (event.fientaid) {
+    event.ticketUrl = replace(config.fientaTicketUrl, {
+      fientaid: event.fientaid,
+    });
   }
   return event;
 };

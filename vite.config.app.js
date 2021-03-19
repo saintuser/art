@@ -1,5 +1,6 @@
-import vue from "@vitejs/plugin-vue";
-import fonts from "vite-plugin-fonts";
+import fonts from 'vite-plugin-fonts';
+
+import vue from '@vitejs/plugin-vue';
 
 /**
  * @type {import('vite').UserConfig}
@@ -14,7 +15,7 @@ export default {
     vue(),
     fonts({
       google: {
-        families: [{ name: "Nunito Sans", weights: "ital,wght@0,700;1,400" }],
+        families: [{ name: "Nunito Sans", weights: "ital,wght@0,800;1,400" }],
       },
     }),
   ],
