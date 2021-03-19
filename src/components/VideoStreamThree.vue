@@ -1,15 +1,19 @@
 <script setup>
 import { defineProps, ref } from "vue";
+import { useFullscreen } from "@vueuse/core";
 import { useVideoStream } from "../lib";
 
 const props = defineProps({ src: String });
 const { videoRef, status, width, height } = useVideoStream(props.src);
 
+const playerRef = ref(null);
+const { isFullscreen, enter, exit, toggle } = useFullscreen(playerRef);
+
 const muted = ref(true);
 </script>
 
 <template>
-  <div>
+  <div ref="playerRef" style="position: relative">
     <video
       ref="videoRef"
       autoplay
@@ -31,10 +35,27 @@ const muted = ref(true);
         <ThreeVideoStream :video="videoRef" />
         <ThreeDots />
       </Three>
-      <div class="mute">
-        <IconUnmute v-if="muted" @click="muted = !muted" />
-        <IconMute v-if="!muted" @click="muted = !muted" />
-      </div>
+      <transition name="fade">
+        <div
+          style="
+            position: absolute;
+            right: clamp(5px, 2vw, 24px);
+            bottom: clamp(5px, 2vw, 24px);
+            color: white;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <Small v-if="muted" @click="muted = !muted" style="cursor: pointer"
+            >Unmute&ensp;</Small
+          >
+          <IconMute v-if="!muted" @click="muted = !muted" />
+          <IconUnmute v-if="muted" @click="muted = !muted" />
+          &emsp;
+          <IconFullscreen v-if="!isFullscreen" @click="enter" />
+          <IconUnfullscreen v-if="isFullscreen" @click="exit" />
+        </div>
+      </transition>
     </div>
   </div>
 </template>
