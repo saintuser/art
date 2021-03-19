@@ -29,7 +29,11 @@ const page = computed(() => {
     <div class="Page">
       <div v-html="page.content" class="PageContent" />
       <div class="EventCards">
-        <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
+        <EventCard
+          v-for="(event, i) in page.events.slice(0, 1)"
+          :key="i"
+          :event="event"
+        />
       </div>
     </div>
 
@@ -55,7 +59,6 @@ const page = computed(() => {
   font-family: "font-medium", sans-serif;
   font-size: clamp(2.5rem, 5vw, 5rem);
   line-height: 1.2em;
-  word-wrap: break-word;
 }
 .title > * {
   font-weight: normal !important;
@@ -77,6 +80,7 @@ const page = computed(() => {
   display: grid;
   grid-auto-rows: max-content;
   gap: clamp(8px, 1vw, 16px);
+  word-wrap: break-word;
 }
 .PageContent > * {
   grid-column: 1;

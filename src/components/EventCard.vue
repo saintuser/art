@@ -13,9 +13,9 @@ defineProps({ event: { type: Object } });
       <div class="EventDate" v-if="event.from">
         {{ event.from }} {{ event.to ? "→" : "" }} {{ event.to }}
       </div>
-      <Small style="opacity: 0.8"
-        ><Vertical class="EventIntro" v-html="event.description"
-      /></Small>
+      <Small style="opacity: 0.8">
+        <Vertical class="EventIntro" v-html="event.description" />
+      </Small>
     </div>
   </RouterLink>
 </template>
@@ -39,5 +39,6 @@ defineProps({ event: { type: Object } });
 }
 .EventIntro {
   opacity: 0.85;
+  word-wrap: break-word;
 }
 </style>

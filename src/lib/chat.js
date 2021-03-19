@@ -8,8 +8,8 @@ import {
 import {
   createMessage,
   messagesWithUsers,
+  useChatTextarea,
   useScrollToBottom,
-  useTextarea,
   ws,
 } from './';
 import { userName } from './users';
@@ -41,7 +41,7 @@ export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
     }
   };
 
-  const textareaRef = useTextarea(onNewMessage);
+  const textareaRef = useChatTextarea(onNewMessage);
   const scrollRef = useScrollToBottom();
 
   return {

@@ -16,8 +16,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: var(--bgdark);
-  opacity: 0.9;
+  background: var(--overlay);
   padding: 24px;
 }
 .Overlay > div {

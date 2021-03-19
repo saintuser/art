@@ -8,7 +8,11 @@ defineProps({ chat: { type: Object } });
       {{ chat.userName }}
     </Smaller>
     <Small
-      style="border: 2px solid var(--fgdark); border-radius: 4px; padding: 12px"
+      style="
+        border: 2px solid var(--fgdark);
+        border-radius: 4px;
+        padding: 8px 12px;
+      "
     >
       {{ chat.value }}
     </Small>

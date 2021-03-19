@@ -10,7 +10,7 @@ defineProps({
   <div class="event-panel">
     <div class="header">
       <h3 name="title">{{ title }}</h3>
-      <div name="subtitle">{{ subtitle }}</div>
+      <small style="opacity: 0.8" name="subtitle">{{ subtitle }}</small>
     </div>
     <div>
       <slot />

@@ -40,10 +40,14 @@ h6 {
   font-family: "font-medium", sans-serif;
   line-height: 1.3em;
   font-weight: normal;
+  word-wrap: break-word;
+
 }
 a {
   text-decoration: none;
   color: inherit;
+  word-wrap: break-word;
+
 }
 input,
 textarea {
@@ -62,6 +66,10 @@ textarea {
 p {
   margin: 0;
 }
+img {
+  display: block;
+  width: 100%;
+}
 /* Transitions */
 
 .fade-enter-active,
@@ -78,6 +86,7 @@ p {
 
 .Icon {
   cursor: pointer;
+  display: block;
 }
 
 /* Other */

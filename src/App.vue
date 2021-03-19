@@ -43,7 +43,7 @@ watch(
 
     <div
       v-if="config.newFeatures"
-      style="position: fixed; right: 12px; bottom: 12px; display: flex"
+      style="position: fixed; right: 16px; bottom: 16px; display: flex"
     >
       <IconSun v-if="!activeTheme" @click="toggleTheme" />
       <IconMoon v-if="activeTheme" @click="toggleTheme" />

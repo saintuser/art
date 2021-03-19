@@ -33,7 +33,7 @@ const started = ref(false);
 <template>
   <Vertical>
     Please allow access to your camera to be a public audience member in our
-    venue
+    venue.
     <Button
       v-show="!started"
       @click="
@@ -54,6 +54,15 @@ const started = ref(false);
       "
       >Stop my camera</Button
     >
+    <p />
+    <ImageGrid class="grid-gap: 2px;">
+      <img
+        v-for="(user, i) in usersWithImages"
+        :src="user.value.image"
+        :key="i"
+        style="display: block; width: 100%; height: auto"
+      />
+    </ImageGrid>
     <div>
       <video
         ref="videoRef"
@@ -69,13 +78,5 @@ const started = ref(false);
       />
       <canvas ref="canvasRef" style="display: none" />
     </div>
-    <ImageGrid class="grid-gap: 2px;">
-      <img
-        v-for="(user, i) in usersWithImages"
-        :src="user.value.image"
-        :key="i"
-        style="display: block; width: 100%; height: auto"
-      />
-    </ImageGrid>
   </Vertical>
 </template>

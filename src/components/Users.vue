@@ -14,6 +14,7 @@ import {
   userName,
   userAbout,
   onUserNameChange,
+  useAboutTextarea,
 } from "../lib";
 
 const updatedUsers = computed(() =>
@@ -64,6 +65,8 @@ const otherUserStyle = (otherUser) =>
   }));
 
 const showMessages = ref(false);
+
+const textareaRef = useAboutTextarea(showMessages);
 </script>
 
 <template>
@@ -78,37 +81,21 @@ const showMessages = ref(false);
         pointer-events: none;
         transition: opacity 600ms;
       "
-      :style="{ opacity: showMessages ? 0.8 : 0 }"
+      :style="{ opacity: showMessages ? 0.9 : 0 }"
     />
     <div style="position: fixed; left: 12px; bottom: 12px">
       <IconMessage @click="showMessages = !showMessages" />
     </div>
     <transition name="fade">
-      <div
-        v-if="showMessages"
-        style="
-          position: fixed;
-          left: 12px;
-          bottom: 54px;
-          padding: 16px;
-          background: var(--bglighter);
-          border-radius: 8px;
-          display: grid;
-          grid-auto-rows: max-height;
-          gap: 8px;
-        "
-      >
+      <div v-show="showMessages" class="AboutPanel">
         <div style="display: flex; font-size: 0.8em">
-          <div style="opacity: 0.5">
-            <span style="color: red; transform: translateY(-20px)">⬤</span> My
-            name is {{ userName }}
-          </div>
+          <div style="opacity: 0.5">My name is {{ userName }}</div>
           &ensp;
           <div @click="onUserNameChange" style="cursor: pointer">Change</div>
         </div>
         <textarea
+          ref="textareaRef"
           v-model="userAbout"
-          style="width: 300px"
           placeholder="Write here a message"
         />
       </div>
@@ -163,3 +150,23 @@ const showMessages = ref(false);
     </draggable>
   </div>
 </template>
+
+<style>
+.AboutPanel {
+  position: fixed;
+  left: 12px;
+  bottom: 48px;
+  padding: 16px;
+  background: var(--bglight);
+  border-radius: 6px;
+  display: grid;
+  grid-auto-rows: max-height;
+  gap: 8px;
+  width: 300px;
+}
+@media (max-width: 800px) {
+  .AboutPanel {
+    width: calc(100vw - 12px - 12px);
+  }
+}
+</style>

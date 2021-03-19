@@ -10,7 +10,8 @@ import {
   pages,
   activeTheme,
   checkTicket,
-} from "../lib/index.js";
+  users,
+} from "../lib";
 
 const { params } = toRefs(useRoute());
 const router = useRouter();
@@ -138,6 +139,7 @@ watch(status, () => {
       <EventPanel
         v-if="audienceColumns.chat"
         title="Chat"
+        :subtitle="users.length + ' online'"
         style="background: var(--bglighter)"
       >
         <Chat :channel="channel"
