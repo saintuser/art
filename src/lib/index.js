@@ -9,6 +9,7 @@ export * from "./chat.js";
 export * from "./date.js";
 export * from "./doc.js";
 export * from "./dom.js";
+export * from "./emitter.js";
 export * from "./fienta.js";
 export * from "./images.js";
 export * from "./messages.js";

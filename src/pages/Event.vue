@@ -108,6 +108,8 @@ watch(status, () => {
             :is="
               event && event.is360 === 'TRUE'
                 ? 'video-stream-three'
+                : event && event.snapshot
+                ? 'video-stream-snapshot'
                 : 'video-stream'
             "
             :src="src"
@@ -144,7 +146,13 @@ watch(status, () => {
       >
         <Chat :channel="channel"
       /></EventPanel>
-      <div v-if="audienceColumns.snapshot" style="display: grid"></div>
+      <EventPanel
+        v-if="audienceColumns.snapshot"
+        title="Snapshot"
+        style="background: var(--bglighter)"
+      >
+        <Snapshot :channel="channel" />
+      </EventPanel>
     </div>
     <Flex
       v-if="event && event.fientaid && status === 'CHECKED'"
