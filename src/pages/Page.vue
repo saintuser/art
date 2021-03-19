@@ -29,11 +29,7 @@ const page = computed(() => {
     <div class="Page">
       <div v-html="page.content" class="PageContent" />
       <div class="EventCards">
-        <EventCard
-          v-for="(event, i) in page.events.slice(0, 1)"
-          :key="i"
-          :event="event"
-        />
+        <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
       </div>
     </div>
 
