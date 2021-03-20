@@ -12,6 +12,7 @@ defineProps({ chat: { type: Object } });
         border: 2px solid var(--fgdark);
         border-radius: 4px;
         padding: 8px 12px;
+        word-break: break-all;
       "
     >
       {{ chat.value }}
