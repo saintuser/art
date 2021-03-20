@@ -105,9 +105,9 @@ export const useVideoStream = (src) => {
         videoRef.value?.videoHeight > 0 ? videoRef.value?.videoHeight : -1;
     });
 
-    videoRef.value.addEventListener("emptied", (e) => {
-      status.value = "nodata";
-    });
+    // videoRef.value.addEventListener("emptied", (e) => {
+    //   status.value = "nodata";
+    // });
 
     videoRef.value.addEventListener("ended", (e) => {
       status.value = "nodata";
