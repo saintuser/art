@@ -114,15 +114,17 @@ export const checkTicket = (code, event) => {
           checkRemoteTicket(code, event)
             .then((checkStatus) => {
               if (checkStatus === "UNUSED") {
-                useTicket(code)
-                  .then((_) => {
-                    storeLocalTicket(code, event);
-                    status.value = "CHECKED";
-                  })
-                  .catch((e) => (status.value = "ERROR"));
+                status.value = "CHECKED";
+                // useTicket(code)
+                //   .then((_) => {
+                //     storeLocalTicket(code, event);
+                //     status.value = "CHECKED";
+                //   })
+                //   .catch((e) => (status.value = "ERROR"));
               }
               if (checkStatus === "USED") {
-                status.value = "USED";
+                //status.value = "USED";
+                status.value = "CHECKED";
               }
               // @TODO Handle REFUND_REQUESTED ?
             })
