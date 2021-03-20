@@ -172,8 +172,8 @@ watch(status, () => {
       <p />
       <h1>{{ event.title }}</h1>
       <div>
-        This event requires you have a ticket. Note that it will only work on a
-        single device.
+        This event requires a ticket. Note that it will only work on a single
+        device.
       </div>
       <!-- <div>This event has not yet started but you can already enter.</div> -->
       <input
