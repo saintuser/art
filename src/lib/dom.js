@@ -1,76 +1,85 @@
 import {
   nextTick,
-  onMounted,
   onUnmounted,
   ref,
   watch,
 } from 'vue';
 
+import { when } from '@vueuse/core';
+
 export const useChatTextarea = (callback = () => {}) => {
-  const el = ref(null);
+  const textareaRef = ref(null);
 
   const onKeydown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       callback();
-      el.value.style.height = "auto";
+      textareaRef.value.style.height = "auto";
     }
   };
 
   const onInput = (e) => {
-    el.value.style.height = "auto";
-    el.value.style.height = el.value.scrollHeight + "px";
+    textareaRef.value.style.height = "auto";
+    textareaRef.value.style.height = textareaRef.value.scrollHeight + "px";
   };
 
-  onMounted(() => {
-    if (el.value) {
-      //el.value.focus();
-      el.value.addEventListener("keydown", onKeydown);
-      // @TODO Run when event exists
-      onInput();
-      el.value.addEventListener("input", onInput);
-    }
-  });
+  when(textareaRef)
+    .toBeTruthy()
+    .then(() => {
+      if (textareaRef.value) {
+        //textareaRef.value.focus();
+        textareaRef.value.addEventListener("keydown", onKeydown);
+        // @TODO Run when event exists
+        onInput();
+        textareaRef.value.addEventListener("input", onInput);
+      }
+    });
 
   onUnmounted(() => {
-    if (el.value) {
-      el.value.removeEventListener("keydown", onKeydown);
-      el.value.removeEventListener("input", onInput);
+    if (textareaRef.value) {
+      textareaRef.value.removeEventListener("keydown", onKeydown);
+      textareaRef.value.removeEventListener("input", onInput);
     }
   });
 
-  return el;
+  return textareaRef;
 };
 
 export const useAboutTextarea = (visible) => {
-  const el = ref(null);
+  const textareaRef = ref(null);
 
   watch(
-    [() => el.value, () => visible.value],
+    [() => textareaRef.value, () => visible.value],
     () => {
-      if (el.value && visible.value) {
+      if (textareaRef.value && visible.value) {
         nextTick(() => {
-          el.value.focus();
-          el.value.select();
+          textareaRef.value.focus();
+          textareaRef.value.select();
         });
       }
     },
     { immediate: true }
   );
 
-  return el;
+  return textareaRef;
 };
 
 export const useScrollToBottom = () => {
-  const el = ref(null);
-  onMounted(() => {
-    if (el.value) {
-      el.value.scrollTop = el.value.scrollHeight;
-      const observer = new MutationObserver(
-        () => (el.value.scrollTop = el.value.scrollHeight)
-      );
-      observer.observe(el.value, { childList: true });
+  const scrollRef = ref(null);
+  let observer = null;
+  when(scrollRef)
+    .toBeTruthy()
+    .then(() => {
+      observer = new MutationObserver(() => {
+        scrollRef.value.scrollTop = scrollRef.value.scrollHeight;
+      });
+      observer.observe(scrollRef.value, { childList: true });
+    });
+  onUnmounted(() => {
+    if (observer) {
+      observer.disconnect();
     }
   });
-  return el;
+
+  return scrollRef;
 };
