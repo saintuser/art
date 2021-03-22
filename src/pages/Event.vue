@@ -144,8 +144,12 @@ watch(status, () => {
         :subtitle="users.length + ' online'"
         style="background: var(--bglighter)"
       >
-        <Chat :channel="channel"
-      /></EventPanel>
+        <Chat
+          :channel="channel"
+          :sendtype="event?.sendtype"
+          :reveivetype="event?.reveivetype"
+        />
+      </EventPanel>
       <EventPanel
         v-if="audienceColumns.snapshot"
         title="Snapshot"

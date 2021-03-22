@@ -14,10 +14,10 @@ import {
 } from './';
 import { userName } from './users';
 
-export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
+export const useChat = (channel, sendtype, receivetype) => {
   const chatChannel = isRef(channel) ? channel : ref(channel);
-  const chatSendType = isRef(sendType) ? sendType : ref(sendType);
-  const chatReceiveType = isRef(receiveType) ? receiveType : ref(receiveType);
+  const chatSendType = isRef(sendtype) ? sendtype : ref(sendtype);
+  const chatReceiveType = isRef(receivetype) ? receivetype : ref(receivetype);
 
   const chats = computed(() =>
     messagesWithUsers.value.filter(

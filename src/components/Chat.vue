@@ -1,18 +1,19 @@
 <script setup>
-import { watchEffect, defineProps, toRefs } from "vue";
+import { defineProps, toRefs } from "vue";
 import { useChat, userName, onUserNameChange } from "../lib";
 
 const props = defineProps({
-  channel: String,
-  sendType: String,
-  receiveType: String,
+  channel: { type: String },
+  sendtype: { type: String, default: "CHAT" },
+  receivetype: { type: String, default: "CHAT" },
 });
-const { channel, sendType, receiveType } = toRefs(props);
+
+const { channel, sendtype, receivetype } = toRefs(props);
 
 const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   channel,
-  sendType,
-  receiveType
+  sendtype,
+  receivetype
 );
 </script>
 
