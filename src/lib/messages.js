@@ -36,7 +36,7 @@ export const createMessage = (message) => {
 export const messages = ref([]);
 
 export const loadMessages = () => {
-  fetch(config.historyUrl)
+  fetch(config.messagesUrl)
     .then((res) => res.json())
     .then(
       (loadedMessages) =>
@@ -50,7 +50,7 @@ export const loadMessages = () => {
 
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
-    if (message?.history === true) {
+    if (message?.store === true) {
       messages.value = [...messages.value, message];
     }
   });

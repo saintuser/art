@@ -36,7 +36,20 @@ const processEvent = (event) => {
   return event;
 };
 
-export const loadEvents = () =>
-  fetchSheet(config.eventsUrl).then(
-    ({ rows }) => (events.value = rows.map(processEvent))
-  );
+export const loadEvents = () => {
+  [
+    config.eventsUrl1,
+    config.eventsUrl2,
+    ,
+    config.eventsUrl3,
+    ,
+    config.eventsUrl4,
+  ]
+    .filter((url) => url)
+    .forEach((url) =>
+      fetchSheet(url).then(
+        ({ rows }) =>
+          (events.value = [...events.value, ...rows.map(processEvent)])
+      )
+    );
+};

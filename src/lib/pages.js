@@ -1,11 +1,16 @@
 //@ts-check
-import { ref } from "vue";
-import { config, fetchSheet, fetchDoc } from "../lib";
+import { ref } from 'vue';
+
+import {
+  config,
+  fetchDoc,
+  fetchSheet,
+} from '../lib';
 
 export const pages = ref([]);
 
 export const loadPages = () => {
-  fetchSheet(config.indexUrl).then(({ rows }) => {
+  fetchSheet(config.pagesUrl).then(({ rows }) => {
     const publicRows = rows.filter((row) => row.hidden !== "TRUE");
     pages.value = publicRows;
     // We fetch each Google doc and add them to content collection

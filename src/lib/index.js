@@ -4,7 +4,6 @@ export * from "./utils.js";
 export * from "./events.js";
 export * from "./config.js";
 
-export * from "./calendar.js";
 export * from "./chat.js";
 export * from "./date.js";
 export * from "./doc.js";

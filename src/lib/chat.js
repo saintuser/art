@@ -34,7 +34,7 @@ export const useChat = (channel, sendType = "CHAT", receiveType = "CHAT") => {
         channel: chatChannel.value,
         userName: userName.value,
         value: newMessage.value,
-        history: true,
+        store: true,
       });
       ws.send(outgoingMessage);
       newMessage.value = "";
