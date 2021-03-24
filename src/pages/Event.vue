@@ -160,7 +160,7 @@ watch(status, () => {
     </div>
     <Flex
       v-if="event && event.fientaid && status === 'CHECKED'"
-      style="position: fixed; right: 12px; top: 12px"
+      style="position: fixed; right: 16px; bottom: 16px"
     >
       <a title="I have a ticket"
         ><IconCreditcard style="color: var(--ticket)"
@@ -206,8 +206,8 @@ watch(status, () => {
         <a :href="config.phoneUrl" style="border-bottom: 1px solid var(--fg)">{{
           config.phoneUrl.replace("tel:", "")
         }}</a>
-      </p></Overlay
-    >
+      </p>
+    </Overlay>
 
     <ButtonBack :to="event?.pageid ? '/page/' + event.pageid : '/'" />
   </div>

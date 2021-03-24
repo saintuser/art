@@ -5,6 +5,6 @@
 <style scoped>
 .Smaller {
   font-size: 0.8em;
-  line-height: 1.4em;
+  line-height: 1.1em;
 }
 </style>

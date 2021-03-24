@@ -21,6 +21,10 @@ const routes = [
     component: () => import(`./pages/${config.indexComponent}.vue`),
   },
   {
+    path: "/events",
+    component: () => import(`./pages/Events.vue`),
+  },
+  {
     path: "/threesixty",
     component: () => import("./pages/Threesixty.vue"),
   },

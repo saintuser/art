@@ -145,3 +145,11 @@ export const hash = (s) => {
     h = Math.imul(h ^ s.charCodeAt(i), 2654435761);
   return (h ^ (h >>> 16)) >>> 0;
 };
+
+export const titlecase = (str) =>
+  str
+    .split(" ")
+    .map(([h, ...t]) => h.toUpperCase() + t.join("").toLowerCase())
+    .join(" ");
+
+export const sentencecase = (str) => str.charAt(0).toUpperCase() + str.slice(1);

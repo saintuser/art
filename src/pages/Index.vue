@@ -10,24 +10,50 @@ import {
 } from "../lib";
 
 const pagesWithEvents = computed(() =>
-  pages.value.map((page) => {
-    if (page.eventid) {
-      page.event = events.value.find((event) => event.eventid === page.eventid);
-    }
-    return page;
-  })
+  pages.value
+    .map((page) => {
+      if (page.eventid) {
+        page.event = events.value.find(
+          (event) => event.eventid === page.eventid
+        );
+      }
+      return page;
+    })
+    .filter((event) => event.urgency !== "past")
+);
+
+const eventsWithPages = computed(() =>
+  events.value
+    .map((event) => {
+      if (event.pageid) {
+        event.page = pages.value.find((page) => page.pageid === event.pageid);
+      }
+      return event;
+    })
+    .filter((event) => event.urgency !== "past")
 );
 
 const countdown = useCountdown(config.perfStart);
 const { centerX, centerY } = useWindow();
 const pageStyle = (page) =>
   computed(() => ({
-    left: `${parseFloat(page.x) + centerX.value}px`,
+    left: `${parseFloat(page.x) + centerX.value / 2}px`,
     top: `${parseFloat(page.y) + centerY.value}px`,
   }));
 </script>
 <template>
   <div>
+    <Horizontal>
+      &nbsp;
+      <Vertical style="padding: 60px 0; gap: 32px">
+        <EventCard
+          v-for="(event, i) in eventsWithPages"
+          :key="i"
+          :event="event"
+          :description="false"
+        />
+      </Vertical>
+    </Horizontal>
     <Link
       v-for="(page, i) in pagesWithEvents"
       :key="i"
@@ -69,9 +95,9 @@ const pageStyle = (page) =>
       style="
         position: fixed;
         top: 0;
-        right: 0;
         bottom: 0;
         left: 0;
+        width: 50vw;
         display: flex;
         align-items: center;
         justify-content: center;
