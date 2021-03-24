@@ -1,12 +1,10 @@
 //@ts-check
-import {
-  ref,
-  watch,
-} from 'vue';
+import { watch } from 'vue';
 
 import { useCssVar } from '@vueuse/core';
 
 import { config } from './';
+import { useLocalstorage } from './utils';
 
 const themeVars = {
   bgdark: useCssVar("--bgdark"),
@@ -42,7 +40,7 @@ const themeValues = [
   },
 ];
 
-export const activeTheme = ref(config.theme);
+export const activeTheme = useLocalstorage("elektron_theme", config.theme);
 
 watch(
   activeTheme,

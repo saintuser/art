@@ -16,7 +16,9 @@ const page = computed(() => {
       p = currentPage;
     }
     if (events.value) {
-      p.events = events.value.filter((event) => event.pageid == params.pageid);
+      p.events = events.value
+        .filter((event) => event.hidden !== "TRUE")
+        .filter((event) => event.pageid == params.pageid);
     }
   }
   return p;
@@ -42,7 +44,7 @@ const page = computed(() => {
   padding: clamp(1.5rem, 5vw, 3rem);
   padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(8px, 5vw, 64px);
 }
 @media (max-width: 800px) {

@@ -37,13 +37,13 @@ const countdown = useCountdown(config.perfStart);
 const { centerX, centerY } = useWindow();
 const pageStyle = (page) =>
   computed(() => ({
-    left: `${parseFloat(page.x) + centerX.value / 2}px`,
+    left: `${parseFloat(page.x) + centerX.value}px`,
     top: `${parseFloat(page.y) + centerY.value}px`,
   }));
 </script>
 <template>
   <div>
-    <Horizontal>
+    <!-- <Horizontal>
       &nbsp;
       <Vertical style="padding: 60px 0; gap: 32px">
         <EventCard
@@ -53,7 +53,7 @@ const pageStyle = (page) =>
           :description="false"
         />
       </Vertical>
-    </Horizontal>
+    </Horizontal> -->
     <Link
       v-for="(page, i) in pagesWithEvents"
       :key="i"
@@ -71,8 +71,8 @@ const pageStyle = (page) =>
           ...pageStyle(page).value,
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          color: page.color !== '' ? page.color : 'white',
-          backgroundColor: page.background,
+          color: page.color !== '' ? page.color : 'var(--fg)',
+          backgroundColor: page.background || 'var(--bglight)',
           backgroundImage: page.image
             ? 'url(' + page.image + ')'
             : page.event?.image
@@ -97,7 +97,7 @@ const pageStyle = (page) =>
         top: 0;
         bottom: 0;
         left: 0;
-        width: 50vw;
+        width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;

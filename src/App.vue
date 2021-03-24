@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 
 import {
@@ -14,6 +14,7 @@ import {
   userName,
   userAbout,
   onUserNameChange,
+  useDebug,
 } from "./lib";
 
 loadEvents();
@@ -24,6 +25,7 @@ refreshUsers();
 
 const route = useRoute();
 const showUsers = ref(false);
+
 watch(
   () => route.matched,
   () => {
@@ -31,6 +33,8 @@ watch(
   },
   { immediate: true }
 );
+
+const debug = useDebug();
 </script>
 
 <template>
@@ -41,10 +45,7 @@ watch(
       </Transition>
     </RouterView>
 
-    <div
-      v-if="config.newFeatures"
-      style="position: fixed; right: 16px; top: 16px; display: flex"
-    >
+    <div style="position: fixed; right: 16px; top: 16px; display: flex">
       <IconDarkmode @click="toggleTheme" />
     </div>
     <Users v-if="showUsers" />

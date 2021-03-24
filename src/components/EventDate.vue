@@ -4,11 +4,13 @@ defineProps({ event: { type: Object } });
 </script>
 
 <template>
-  <div class="EventDate">
+  <div class="EventDate" v-if="event">
     {{ event.formattedDistance }}
     <span style="opacity: 0.6">
       {{ event.formattedFromDatetime }} → {{ event.formattedToDatetime }}
     </span>
+    <br />
+    <span v-if="event?.page?.title">{{ event?.page?.title }}</span>
   </div>
 </template>
 

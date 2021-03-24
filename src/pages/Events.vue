@@ -13,12 +13,15 @@ const eventsWithPages = computed(() =>
 </script>
 
 <template>
-  <Vertical style="padding: 64px; gap: 32px">
-    <EventCard
-      v-for="(event, i) in eventsWithPages"
-      :key="i"
-      :event="event"
-      :description="false"
-    />
-  </Vertical>
+  <div>
+    <Vertical style="padding: 64px; gap: 32px">
+      <EventCard
+        v-for="(event, i) in eventsWithPages"
+        :key="i"
+        :event="event"
+        :description="false"
+      />
+    </Vertical>
+    <ButtonBack />
+  </div>
 </template>

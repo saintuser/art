@@ -16,8 +16,17 @@ import {
 const { params } = toRefs(useRoute());
 const router = useRouter();
 
+const eventsWithPages = computed(() =>
+  events.value.map((event) => {
+    if (event.pageid) {
+      event.page = pages.value.find((page) => page.pageid === event.pageid);
+    }
+    return event;
+  })
+);
+
 const event = computed(() => {
-  const e = events.value.find(
+  const e = eventsWithPages.value.find(
     (event) => event.eventid === params.value.eventid
   );
   if (e && e.pageid && pages.value) {
@@ -118,8 +127,9 @@ watch(status, () => {
         <div v-else>
           <VideoStream :src="srcs[0]" />
         </div>
+        <p /> 
         <h2 v-if="event?.title">{{ event.title }}</h2>
-        <EventDate v-if="event?.from" :event="event" />
+        <EventDate :event="event" />
         <Vertical v-if="event?.description" v-html="event.description" />
       </div>
     </div>
