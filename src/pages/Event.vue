@@ -11,6 +11,10 @@ import {
   activeTheme,
   checkTicket,
   users,
+  ws,
+  createMessage,
+  safeJsonParse,
+  useFeatures,
 } from "../lib";
 
 const { params } = toRefs(useRoute());
@@ -104,6 +108,24 @@ watch(status, () => {
     router.push({ path: `/${params.value.eventid}` });
   }
 });
+
+const { admin } = useFeatures();
+const showUsers = ref(false);
+
+ws.addEventListener("message", ({ data }) => {
+  const message = safeJsonParse(data);
+  if (message.type === "USERS") {
+    showUsers.value = !showUsers.value;
+  }
+});
+
+const onToggleUsers = () => {
+  const outgoingMessage = createMessage({
+    type: "USERS",
+    channel: channel.value,
+  });
+  ws.send(outgoingMessage);
+};
 </script>
 
 <template>
@@ -127,7 +149,7 @@ watch(status, () => {
         <div v-else>
           <VideoStream :src="srcs[0]" />
         </div>
-        <p /> 
+        <p />
         <h2 v-if="event?.title">{{ event.title }}</h2>
         <EventDate :event="event" />
         <Vertical v-if="event?.description" v-html="event.description" />
@@ -218,7 +240,13 @@ watch(status, () => {
         }}</a>
       </p>
     </Overlay>
-
+    <Users v-if="showUsers" :about="showAbout" />
+    <div
+      v-if="admin"
+      style="position: fixed; left: 16px; top: 6px; transform: scale(0.7)"
+    >
+      <Button @click="onToggleUsers">Admin: Toggle dots</Button>
+    </div>
     <ButtonBack :to="event?.pageid ? '/page/' + event.pageid : '/'" />
   </div>
 </template>

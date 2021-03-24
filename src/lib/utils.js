@@ -1,11 +1,7 @@
 //@ts-check
-import {
-  computed,
-  isRef,
-  ref,
-} from 'vue';
+import { computed, isRef, ref } from "vue";
 
-import { tryOnUnmounted } from '@vueuse/core';
+import { tryOnUnmounted } from "@vueuse/core";
 
 export function debounce(fn, timeout) {
   let t;
@@ -127,9 +123,6 @@ export const useSetInterval = (
   });
   return interval;
 };
-export const deg2rad = (deg) => (deg * Math.PI) / 180;
-
-export const rad2deg = (rad) => (rad * 180) / Math.PI;
 
 export const range = (from, to, step = 1) => {
   const length = Math.floor((to - from) / step) + 1;
@@ -153,3 +146,25 @@ export const titlecase = (str) =>
     .join(" ");
 
 export const sentencecase = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const deg2rad = (deg) => (deg * Math.PI) / 180;
+
+export const rad2deg = (rad) => (rad * 180) / Math.PI;
+
+export const pol2car = (a, r) => {
+  return {
+    x: Math.cos((a - 90) * (Math.PI / 180)) * r,
+    y: Math.sin((a - 90) * (Math.PI / 180)) * r,
+  };
+};
+
+export const car2pol = (x, y) => {
+  return {
+    a: Math.atan2(y, x) * (180 / Math.PI),
+    r: Math.sqrt(x * x + y * y),
+  };
+};
+
+export const random = (from = 0, to = 1) => from + Math.random() * (to - from);
+
+export const randomint = (from = 0, to = 1) => Math.floor(random(from, to));

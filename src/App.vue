@@ -14,7 +14,6 @@ import {
   userName,
   userAbout,
   onUserNameChange,
-  useDebug,
 } from "./lib";
 
 loadEvents();
@@ -33,8 +32,6 @@ watch(
   },
   { immediate: true }
 );
-
-const debug = useDebug();
 </script>
 
 <template>

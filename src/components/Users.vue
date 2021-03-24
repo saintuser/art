@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, watch, ref } from "vue";
 import { differenceInMilliseconds } from "date-fns";
 
 import {
@@ -13,9 +13,16 @@ import {
   scale,
   userName,
   userAbout,
+  userData,
   onUserNameChange,
   useAboutTextarea,
 } from "../lib";
+
+const props = defineProps({
+  about: { type: Boolean, default: true },
+});
+
+const showMessages = ref(false);
 
 const updatedUsers = computed(() =>
   users.value
@@ -46,6 +53,7 @@ const otherUsers = computed(() =>
 const { centerX, centerY } = useWindow();
 
 const onUserDrag = debounce(({ x, y }) => {
+  userData.value = { userX: x - centerX.value, userY: y - centerY.value };
   const outgoingMessage = createMessage({
     type: "USER",
     value: {
@@ -64,14 +72,13 @@ const otherUserStyle = (otherUser) =>
     top: `${otherUser.value.userY + centerY.value}px`,
   }));
 
-const showMessages = ref(false);
-
 const textareaRef = useAboutTextarea(showMessages);
 </script>
 
 <template>
   <div>
     <Overlay
+      v-if="about"
       style="
         position: fixed;
         top: 0;
@@ -83,11 +90,11 @@ const textareaRef = useAboutTextarea(showMessages);
       "
       :style="{ opacity: showMessages ? 0.9 : 0 }"
     />
-    <div style="position: fixed; left: 12px; bottom: 12px">
+    <div style="position: fixed; left: 12px; bottom: 12px" v-if="about">
       <IconMessage @click="showMessages = !showMessages" />
     </div>
     <transition name="fade">
-      <div v-show="showMessages" class="AboutPanel">
+      <div v-show="showMessages && about" class="AboutPanel">
         <div style="display: flex; font-size: 0.8em">
           <div style="opacity: 0.5">My name is {{ userName }}</div>
           &ensp;
@@ -115,7 +122,7 @@ const textareaRef = useAboutTextarea(showMessages);
           style="transition: opacity 1000ms"
           :opacity="showMessages ? 1 : otherUser.opacity"
         />
-        <div v-if="showMessages">
+        <div v-if="showMessages && about">
           <div
             style="
               font-size: 0.8em;
@@ -130,10 +137,14 @@ const textareaRef = useAboutTextarea(showMessages);
         </div>
       </div>
     </div>
-    <draggable x="100" y="100" @drag="onUserDrag">
+    <draggable
+      :x="userData.userX + centerX"
+      :y="userData.userY + centerY"
+      @drag="onUserDrag"
+    >
       <div style="display: grid; grid-template-columns: auto 300px; gap: 8px">
         <Dot color="red" opacity="0.8" />
-        <div v-if="showMessages">
+        <div v-if="showMessages && about">
           <div
             style="
               font-size: 0.8em;

@@ -1,14 +1,8 @@
 //@ts-check
-import {
-  computed,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch,
-} from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 
-import { differenceInSeconds } from 'date-fns';
-import { merge } from 'lodash';
+import { differenceInSeconds } from "date-fns";
+import { merge } from "lodash";
 
 import {
   adjectives,
@@ -16,11 +10,13 @@ import {
   any,
   config,
   createMessage,
+  pol2car,
+  random,
   randomId,
   safeJsonParse,
   useLocalstorage,
   ws,
-} from '../lib';
+} from "../lib";
 
 const initialUserId = randomId();
 const initialUserName = `${any(adjectives)} ${any(animals)}`;
@@ -28,6 +24,13 @@ const initialUserName = `${any(adjectives)} ${any(animals)}`;
 export const userId = useLocalstorage("elektron_user_id", initialUserId);
 export const userName = useLocalstorage("elektron_user_name", initialUserName);
 export const userAbout = useLocalstorage("elektron_user_about", "");
+
+const randomPosition = pol2car(random(0, 360), random(0, 100));
+
+export const userData = useLocalstorage("elektron_user_data", {
+  userX: randomPosition.x,
+  userY: randomPosition.y,
+});
 
 export const onUserNameChange = () => {
   const newName = window.prompt("Enter your name", userName.value);
