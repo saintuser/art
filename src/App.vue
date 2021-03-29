@@ -1,24 +1,43 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref, watch, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+
 import {
   loadMessages,
   loadPages,
   loadEvents,
+  refreshUser,
   refreshUsers,
-  useUser,
-  theme,
   toggleTheme,
   activeTheme,
+  config,
+  userName,
+  userAbout,
+  onUserNameChange,
+  useAdmin,
+  superuser,
+  toBeUpdated,
+  updated,
 } from "./lib";
 
 loadEvents();
 loadMessages();
 loadPages();
+refreshUser();
 refreshUsers();
 
-const eventsVisible = ref(false);
+const route = useRoute();
+const showUsers = ref(false);
 
-const { userName, onUserNameChange } = useUser();
+watch(
+  () => route.matched,
+  () => {
+    showUsers.value = route.matched?.[0]?.path !== "/:eventid";
+  },
+  { immediate: true }
+);
+
+const { sendUpdate, beforeUpdate, runUpdate, runPostUpdate } = useAdmin();
 </script>
 
 <template>
@@ -29,48 +48,25 @@ const { userName, onUserNameChange } = useUser();
       </Transition>
     </RouterView>
 
-    <Transition name="fade">
-      <div v-if="eventsVisible" class="EventsWrapper">
-        <Events />
-      </div>
-    </Transition>
-
-    <div style="position: fixed; left: 16px; top: 16px">
-      <RouterLink to="/"><Button>Frontpage</Button></RouterLink>
+    <div style="position: fixed; right: 16px; top: 16px; display: flex">
+      <Button v-if="superuser && !toBeUpdated && !updated" @click="sendUpdate"
+        >Send update</Button
+      >
+      <Button v-if="toBeUpdated" @click="runUpdate" style="--fg: orange"
+        >The site is has new version. Click to run the update</Button
+      >
+      <Button v-if="updated" @click="runPostUpdate" style="--fg: orange">
+        Update run fine, now click to turn the volume back on
+      </Button>
+      &ensp;
+      <IconDarkmode @click="toggleTheme" />
     </div>
-
-    <div
-      style="position: fixed; right: 16px; top: 16px; display: flex; gap: 8px"
-    >
-      {{ userName }}&nbsp;<Button @click="onUserNameChange">Change</Button>
-      <Button @click="toggleTheme"> ◑ </Button>
-    </div>
-
-    <div style="position: fixed; left: 16px; bottom: 16px">
-      <Button @click="eventsVisible = !eventsVisible">Menu</Button>
-    </div>
-
-    <Users />
+    <Users v-if="showUsers" />
   </div>
 </template>
 
 <style>
 .App {
-  background: v-bind("theme.bg");
-  color: v-bind("theme.fg");
   min-height: 100vh;
-  transition: background 1s;
-}
-.EventsWrapper {
-  background: v-bind("theme.bg");
-  color: v-bind("theme.fg");
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 300px;
-  overflow: auto;
-  padding: 72px 24px 24px 24px;
-  opacity: 0.9;
 }
 </style>

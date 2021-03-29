@@ -1,27 +1,40 @@
 <script setup>
-import { watchEffect, defineProps, toRefs } from "vue";
-import { useChat } from "../lib/index.js";
+import { defineProps, toRefs } from "vue";
+import { useChat, userName, onUserNameChange } from "../lib";
 
-const props = defineProps({ channel: String });
-const { channel } = toRefs(props);
+const props = defineProps({
+  channel: { type: String },
+  sendtype: { type: String, default: "CHAT" },
+  receivetype: { type: String, default: "CHAT" },
+});
+
+const { channel, sendtype, receivetype } = toRefs(props);
+
 const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
-  channel
+  channel,
+  sendtype,
+  receivetype
 );
 </script>
 
 <template>
-  <div>
-    <h2>{{ channel }}</h2>
-    <div class="Chat">
-      <div class="ChatCards" ref="scrollRef">
-        <TransitionGroup name="fade">
-          <chat-card v-for="(chat, i) in chats" :key="i" :chat="chat"
-        /></TransitionGroup>
-      </div>
-      <textarea ref="textareaRef" v-model="newMessage"></textarea>
-      <Button @click="onNewMessage">Submit</Button>
+  <Vertical style="grid-template-rows: 1fr auto auto; height: 80vh">
+    <div class="ChatCards" ref="scrollRef">
+      <ChatCard v-for="(chat, i) in chats" :key="i" :chat="chat" />
     </div>
-  </div>
+    <div style="display: flex; font-size: 0.8em; transform: translateY(12px)">
+      <div style="opacity: 0.5">My name is {{ userName }}</div>
+      &ensp;
+      <div @click="onUserNameChange" style="cursor: pointer">Change</div>
+    </div>
+    <textarea
+      style="width: 100%"
+      ref="textareaRef"
+      v-model="newMessage"
+      placeholder="Write a chat message here"
+    ></textarea>
+    <Button @click="onNewMessage">Send chat message</Button>
+  </Vertical>
 </template>
 
 <style scoped>
@@ -29,6 +42,7 @@ const { chats, newMessage, onNewMessage, scrollRef, textareaRef } = useChat(
   display: grid;
   gap: 8px;
   grid-template-rows: 1fr auto auto;
+  height: 80vh;
 }
 .ChatCards {
   display: grid;

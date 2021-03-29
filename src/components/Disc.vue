@@ -1,7 +1,6 @@
 <template>
-  <Parallax
+  <div
     style="
-      background: #eee;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -9,5 +8,5 @@
     "
   >
     <div><slot /></div>
-  </Parallax>
+  </div>
 </template>

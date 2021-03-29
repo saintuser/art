@@ -3,10 +3,19 @@ defineProps({ chat: { type: Object } });
 </script>
 
 <template>
-  <div class="ChatCard">
-    <div style="font-size: 0.8em">{{ chat.userName }}</div>
-    <div>{{ chat.value }}</div>
-  </div>
+  <Vertical style="gap: 4px">
+    <Smaller style="opacity: 0.5">
+      {{ chat.userName }}
+    </Smaller>
+    <Small
+      style="
+        border: 2px solid var(--fgdark);
+        border-radius: 4px;
+        padding: 8px 12px;
+        word-break: break-all;
+      "
+    >
+      {{ chat.value }}
+    </Small>
+  </Vertical>
 </template>
-
-<style scoped></style>

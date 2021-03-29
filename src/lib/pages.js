@@ -1,11 +1,12 @@
 //@ts-check
 import { ref } from "vue";
-import { config, fetchSheet, fetchDoc } from "../lib";
+
+import { config, fetchDoc, fetchSheet, replaceYoutube } from "../lib";
 
 export const pages = ref([]);
 
 export const loadPages = () => {
-  fetchSheet(config.indexUrl).then(({ rows }) => {
+  fetchSheet(config.pagesUrl).then(({ rows }) => {
     const publicRows = rows.filter((row) => row.hidden !== "TRUE");
     pages.value = publicRows;
     // We fetch each Google doc and add them to content collection
@@ -15,7 +16,10 @@ export const loadPages = () => {
       .filter((row) => row.publicurl)
       .forEach((row, i) => {
         fetchDoc(row.publicurl).then(
-          (res) => (pages.value[i].content = res.content)
+          (res) =>
+            (pages.value[i].content = replaceYoutube(
+              res.content.replace(/style="[^"]*"/g, "")
+            ))
         );
       });
   });

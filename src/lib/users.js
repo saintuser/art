@@ -1,16 +1,21 @@
 //@ts-check
-import { onMounted, onUnmounted, watch, ref, computed } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+
+import { differenceInSeconds } from "date-fns";
 import { merge } from "lodash";
+
 import {
   adjectives,
   animals,
   any,
-  createMessage,
-  randomId,
-  ws,
-  useLocalstorage,
-  safeJsonParse,
   config,
+  createMessage,
+  pol2car,
+  random,
+  randomId,
+  safeJsonParse,
+  useLocalstorage,
+  ws,
 } from "../lib";
 
 const initialUserId = randomId();
@@ -18,31 +23,47 @@ const initialUserName = `${any(adjectives)} ${any(animals)}`;
 
 export const userId = useLocalstorage("elektron_user_id", initialUserId);
 export const userName = useLocalstorage("elektron_user_name", initialUserName);
+export const userAbout = useLocalstorage("elektron_user_about", "");
 
-export const useUser = () => {
-  const onUserNameChange = () => {
-    const newName = window.prompt("Enter your name", userName.value);
-    if (newName) {
-      userName.value = newName;
-    }
-  };
+const randomPosition = pol2car(random(0, 360), random(0, 100));
 
+export const userData = useLocalstorage("elektron_user_data", {
+  userX: randomPosition.x,
+  userY: randomPosition.y,
+});
+
+export const onUserNameChange = () => {
+  const newName = window.prompt("Enter your name", userName.value);
+  if (newName) {
+    userName.value = newName;
+  }
+};
+
+export const refreshUser = () =>
   watch(
-    () => userName.value,
+    [userName, userAbout],
     () => {
       const outgoingMessage = createMessage({
         type: "USER",
         userId: userId.value,
-        value: { userName: userName.value },
+        value: { userName: userName.value, userAbout: userAbout.value },
       });
       ws.send(outgoingMessage);
-    }
+    },
+    { immediate: true }
   );
 
-  return { userId, userName, onUserNameChange };
-};
-
 export const users = ref([]);
+
+export const updatedUsers = computed(() =>
+  users.value.map((user) => {
+    user.updatedSince = differenceInSeconds(
+      new Date(),
+      new Date(user.datetime)
+    );
+    return user;
+  })
+);
 
 export const refreshUsers = () => {
   ws.addEventListener("message", ({ data }) => {
@@ -75,7 +96,7 @@ export const refreshUsers = () => {
           value: {},
         });
         ws.send(outgoingMessage);
-      }, config.userIdle);
+      }, config.userUpdateRate);
     }
   });
 

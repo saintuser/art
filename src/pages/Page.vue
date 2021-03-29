@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { pages, events } from "../lib";
+import { useRoute, onBeforeRouteLeave } from "vue-router";
+import { pages, events, activeTheme } from "../lib";
 
 const { params } = useRoute();
 
@@ -16,7 +16,9 @@ const page = computed(() => {
       p = currentPage;
     }
     if (events.value) {
-      p.events = events.value.filter((event) => event.pageid == params.pageid);
+      p.events = events.value
+        .filter((event) => event.hidden !== "TRUE")
+        .filter((event) => event.pageid == params.pageid);
     }
   }
   return p;
@@ -24,53 +26,85 @@ const page = computed(() => {
 </script>
 
 <template>
-  <Transition name="fade">
-    <div class="wrapper">
-      <div v-if="page" v-html="page.content" />
-      <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
+  <div>
+    <PageDisc :page="page" />
+    <div class="Page">
+      <div v-html="page.content" class="PageContent" />
+      <div class="EventCards">
+        <EventSection
+          v-for="(event, i) in page.events"
+          :key="i"
+          :event="event"
+        />
+      </div>
     </div>
-  </Transition>
+
+    <ButtonBack />
+  </div>
 </template>
 
 <style>
+.Page {
+  padding: clamp(1.5rem, 5vw, 3rem);
+  padding-top: clamp(5rem, 10vw, 10rem);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: clamp(8px, 5vw, 64px);
+}
+@media (max-width: 800px) {
+  .Page {
+    grid-template-columns: 1fr;
+  }
+}
 .title {
-  margin: 0;
+  margin: 0 0 32px 9;
   font-family: "font-medium", sans-serif;
-  font-size: 4em;
-  line-height: 1em;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 1.2em;
 }
 .title > * {
   font-weight: normal !important;
   font-style: normal !important;
 }
 .subtitle {
-  font-size: 1.75em;
+  font-size: clamp(1.25rem, 2vw, 3rem);
   line-height: 1.5em;
-}
-.c3 .c2 {
-  font-style: italic;
 }
 .c5 {
   font-weight: bold;
 }
-
-.wrapper {
-  padding: clamp(1rem, 5vw, 3rem);
+/* .c12 {
+  padding: 4px 4px 4px 20px;
+  border-left: 5px solid var(--fg);
+  font-weight: bold;
+} */
+.PageContent {
   display: grid;
-  gap: 24px;
-  grid-template-columns:
-    1fr
-    min(65ch, 100%)
-    1fr;
+  grid-auto-rows: max-content;
+  gap: clamp(8px, 1vw, 16px);
+  word-wrap: break-word;
 }
-.wrapper > * {
-  grid-column: 2;
+.PageContent > * {
+  grid-column: 1;
 }
-.wrapper p {
+.PageContent p {
   margin: 0;
 }
-.full-bleed {
+.PageContent a {
+  text-decoration: underline;
+}
+.PageContent hr {
+  display: none;
+}
+.PageContent img {
   width: 100%;
-  grid-column: 1 / 4;
+  display: block;
+  grid-column: ;
+}
+.EventCards {
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 32px;
+  padding-top: clamp(0.5rem, 1.2vw, 2rem);
 }
 </style>

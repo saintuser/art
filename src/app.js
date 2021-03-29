@@ -1,19 +1,37 @@
-import { createApp, h } from "vue";
+import "./app.css";
+
+import { createApp, defineAsyncComponent } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-import * as components from "./components";
-
 import App from "./App.vue";
-import "./app.css";
+import { config } from "./lib";
+
+const components = import.meta.glob("./components/*.vue");
 
 const routes = [
   {
     path: "/",
-    component: () => import("./pages/Index.vue"),
+    component: () => import(`./pages/${config.indexComponent}.vue`),
   },
   {
-    path: "/user",
-    component: () => import("./pages/User.vue"),
+    path: "/events",
+    component: () => import(`./pages/Events.vue`),
+  },
+  {
+    path: "/threesixty",
+    component: () => import("./pages/Threesixty.vue"),
+  },
+  {
+    path: "/fienta",
+    component: () => import("./pages/Fienta.vue"),
+  },
+  {
+    path: "/test",
+    component: () => import("./pages/Test.vue"),
+  },
+  {
+    path: "/test2",
+    component: () => import("./pages/Test2.vue"),
   },
   {
     path: "/page/:pageid",
@@ -34,8 +52,9 @@ const app = createApp(App);
 
 app.use(router);
 
-Object.entries(components).forEach(([name, component]) =>
-  app.component(name, component)
-);
+Object.entries(components).forEach(([path, component]) => {
+  const name = path.match(/\.\/components\/(.*)\.vue$/)[1];
+  app.component(name, defineAsyncComponent(component));
+});
 
 app.mount("#app");

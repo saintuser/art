@@ -1,4 +1,4 @@
 {
-  "compilerOptions": { "lib": ["ESNext"] },
+  "compilerOptions": { "lib": ["ESNext", "DOM"] },
   "exclude": ["node_modules", "dist"]
 }

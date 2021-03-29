@@ -1,14 +1,18 @@
-import ReconnectingWebsocket from "reconnecting-websocket";
-
-import { ref, computed } from "vue";
 import {
-  useUser,
-  randomId,
+  computed,
+  ref,
+} from 'vue';
+
+import ReconnectingWebsocket from 'reconnecting-websocket';
+
+import {
   config,
-  uniqueCollection,
+  randomId,
   safeJsonParse,
+  uniqueCollection,
+  userId,
   users,
-} from ".";
+} from './';
 
 // Websocket
 
@@ -18,7 +22,6 @@ export const ws = new ReconnectingWebsocket(config.wsUrl);
 // Create message
 
 export const createMessage = (message) => {
-  const { userId } = useUser();
   return JSON.stringify({
     id: randomId(),
     datetime: new Date().toISOString(),
@@ -33,7 +36,7 @@ export const createMessage = (message) => {
 export const messages = ref([]);
 
 export const loadMessages = () => {
-  fetch(config.historyUrl)
+  fetch(config.messagesUrl)
     .then((res) => res.json())
     .then(
       (loadedMessages) =>
@@ -47,7 +50,7 @@ export const loadMessages = () => {
 
   ws.addEventListener("message", ({ data }) => {
     const message = safeJsonParse(data);
-    if (message?.history === true) {
+    if (message?.store === true) {
       messages.value = [...messages.value, message];
     }
   });

@@ -1,14 +1,36 @@
 <script setup>
 import { computed } from "vue";
-import { config, pages, events, useCountdown, useWindow } from "../lib";
+import {
+  config,
+  pages,
+  events,
+  useCountdown,
+  useWindow,
+  activeTheme,
+} from "../lib";
 
 const pagesWithEvents = computed(() =>
-  pages.value.map((page) => {
-    if (page.eventid) {
-      page.event = events.value.find((event) => event.eventid === page.eventid);
-    }
-    return page;
-  })
+  pages.value
+    .map((page) => {
+      if (page.eventid) {
+        page.event = events.value.find(
+          (event) => event.eventid === page.eventid
+        );
+      }
+      return page;
+    })
+    .filter((event) => event.urgency !== "past")
+);
+
+const eventsWithPages = computed(() =>
+  events.value
+    .map((event) => {
+      if (event.pageid) {
+        event.page = pages.value.find((page) => page.pageid === event.pageid);
+      }
+      return event;
+    })
+    .filter((event) => event.urgency !== "past")
 );
 
 const countdown = useCountdown(config.perfStart);
@@ -21,11 +43,26 @@ const pageStyle = (page) =>
 </script>
 <template>
   <div>
-    <RouterLink
+    <!-- <Horizontal>
+      &nbsp;
+      <Vertical style="padding: 60px 0; gap: 32px">
+        <EventCard
+          v-for="(event, i) in eventsWithPages"
+          :key="i"
+          :event="event"
+          :description="false"
+        />
+      </Vertical>
+    </Horizontal> -->
+    <Link
       v-for="(page, i) in pagesWithEvents"
       :key="i"
-      :to="
-        page.event?.eventid ? '/' + page.event?.eventid : '/page/' + page.pageid
+      :src="
+        page.link
+          ? page.link
+          : page.event?.eventid
+          ? '/' + page.event?.eventid
+          : '/page/' + page.pageid
       "
     >
       <Disc
@@ -34,54 +71,52 @@ const pageStyle = (page) =>
           ...pageStyle(page).value,
           transform: 'translate(-50%, -50%)',
           position: 'fixed',
-          backgroundColor: page.color,
+          color: page.color !== '' ? page.color : 'var(--fg)',
+          backgroundColor: page.background || 'var(--bglight)',
           backgroundImage: page.image
             ? 'url(' + page.image + ')'
             : page.event?.image
             ? 'url(' + page.event.image + ')'
             : '',
           backgroundSize: 'cover',
-          color: 'white',
           textAlign: 'center',
           width: page.radius * 2 + 'px',
           height: page.radius * 2 + 'px',
-          padding: '24px',
+          padding: '32px',
         }"
       >
         <h2>{{ page.title }}</h2>
-        <p
-          style="line-height: 1.3em"
-          v-if="page.about && page.link !== 'festival'"
-        >
+        <p style="line-height: 1.3em" v-if="page.about">
           {{ page.about }}
         </p>
-        <p v-if="page.link === 'festival'">
-          {{ countdown.join("&nbsp;") + " to go" }}
-        </p>
       </Disc>
-    </RouterLink>
+    </Link>
     <div
       style="
         position: fixed;
         top: 0;
-        right: 0;
         bottom: 0;
         left: 0;
-        display: grid;
-        place-items: center;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         pointer-events: none;
       "
     >
-      <h1
-        style="
-          font-size: clamp(32px, 10vw, 90px);
-          text-align: center;
-          line-height: 1em;
-          white-space: nowrap;
-        "
-      >
-        Welcome to<br />eˉlektron
-      </h1>
+      <div style="display: grid; gap: 16px">
+        <h1
+          style="
+            font-size: clamp(32px, 12vw, 100px);
+            text-align: center;
+            line-height: 1em;
+            white-space: nowrap;
+          "
+        >
+          eˉlektron
+        </h1>
+        <Social style="pointer-events: auto" />
+      </div>
     </div>
   </div>
 </template>
