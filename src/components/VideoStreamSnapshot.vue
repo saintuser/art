@@ -50,6 +50,23 @@ emitter.on("SNAPSHOT_REQUEST", () => {
   );
 });
 
+const usePip = (videoRef) => {
+  const pipAvailable = "pictureInPictureEnabled" in document;
+  const pipEnabled = ref(false);
+  const pipEnter = () => {
+    if (pipAvailable && videoRef.value) {
+      videoRef.value
+        .requestPictureInPicture()
+        .then(() => (pipEnabled.value = true));
+    }
+  };
+  const pipExit = () => {
+    document.exitPictureInPicture().then(() => (pipEnabled.value = false));
+  };
+  return { pipAvailable, pipEnabled, pipEnter, pipExit };
+};
+
+const { pipAvailable, pipEnabled, pipEnter, pipExit } = usePip(videoRef);
 const stat = computed(() => {
   const viewers = stats.value.find(
     (s) => props.streamkey && props.streamkey == s.group
@@ -85,39 +102,38 @@ const stat = computed(() => {
       </Transition>
     </slot>
     <transition name="fade">
-      <div style="text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1)">
-        <transition name="fade">
-          <Flex
-            v-if="stat && status === 'playing'"
-            style="
-              position: absolute;
-              left: clamp(5px, 2vw, 24px);
-              bottom: clamp(5px, 2vw, 24px);
-            "
-          >
-            <IconEye />
-            <Smaller>{{ stat }}</Smaller>
-          </Flex>
-        </transition>
-        <div
+      <div>
+        <Flex
+          v-if="stat && status === 'playing'"
+          style="
+            position: absolute;
+            left: clamp(5px, 2vw, 24px);
+            bottom: clamp(5px, 2vw, 24px);
+          "
+        >
+          <IconEye />
+          <Smaller>{{ stat }}</Smaller>
+        </Flex>
+        <Flex
           style="
             position: absolute;
             right: clamp(5px, 2vw, 24px);
             bottom: clamp(5px, 2vw, 24px);
             color: white;
-            display: flex;
-            align-items: center;
+            gap: 12px;
           "
         >
           <Small v-if="muted" @click="muted = !muted" style="cursor: pointer"
-            >Turn on sound&ensp;</Small
+            >Turn on sound</Small
           >
+          <Small v-if="!muted">&nbsp;</Small>
           <IconMute v-if="!muted" @click="muted = !muted" />
           <IconUnmute v-if="muted" @click="muted = !muted" />
-          &emsp;
+          <IconPip v-if="pipAvailable && !pipEnabled" @click="pipEnter" />
+          <IconUnpip v-if="pipAvailable && pipEnabled" @click="pipExit" />
           <IconFullscreen v-if="!isFullscreen" @click="enter" />
           <IconUnfullscreen v-if="isFullscreen" @click="exit" />
-        </div>
+        </Flex>
       </div>
     </transition>
   </div>
