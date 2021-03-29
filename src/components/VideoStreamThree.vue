@@ -33,7 +33,7 @@ const muted = ref(true);
     <div class="VideoStreamThree">
       <Three>
         <ThreeVideoStream :video="videoRef" />
-        <ThreeDots />
+        <!-- <ThreeDots /> -->
       </Three>
       <transition name="fade">
         <div

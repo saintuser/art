@@ -14,7 +14,7 @@ import {
   ws,
   createMessage,
   safeJsonParse,
-  useFeatures,
+  useAdmin,
 } from "../lib";
 
 const { params } = toRefs(useRoute());
@@ -109,7 +109,7 @@ watch(status, () => {
   }
 });
 
-const { admin } = useFeatures();
+const { admin } = useAdmin();
 const showUsers = ref(false);
 
 ws.addEventListener("message", ({ data }) => {
@@ -177,7 +177,6 @@ const onToggleUsers = () => {
       <EventPanel
         v-if="audienceColumns.chat"
         title="Chat"
-        :subtitle="users.length + ' online'"
         style="background: var(--bglighter)"
       >
         <Chat

@@ -14,6 +14,11 @@ const { isFullscreen, enter, exit, toggle } = useFullscreen(playerRef);
 
 const muted = ref(true);
 
+emitter.on("mute", () => (muted.value = true));
+emitter.on("unmute", () => {
+  muted.value = false;
+});
+
 const statuses = {
   nodata: "Stream is not playing",
   loading: "Stream is loading",
