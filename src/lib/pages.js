@@ -1,11 +1,7 @@
 //@ts-check
-import { ref } from 'vue';
+import { ref } from "vue";
 
-import {
-  config,
-  fetchDoc,
-  fetchSheet,
-} from '../lib';
+import { config, fetchDoc, fetchSheet, replaceYoutube } from "../lib";
 
 export const pages = ref([]);
 
@@ -21,7 +17,9 @@ export const loadPages = () => {
       .forEach((row, i) => {
         fetchDoc(row.publicurl).then(
           (res) =>
-            (pages.value[i].content = res.content.replace(/style="[^"]*"/g, ""))
+            (pages.value[i].content = replaceYoutube(
+              res.content.replace(/style="[^"]*"/g, "")
+            ))
         );
       });
   });

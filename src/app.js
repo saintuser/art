@@ -1,17 +1,10 @@
-import './app.css';
+import "./app.css";
 
-import {
-  createApp,
-  defineAsyncComponent,
-} from 'vue';
+import { createApp, defineAsyncComponent } from "vue";
+import { createRouter, createWebHistory } from "vue-router";
 
-import {
-  createRouter,
-  createWebHistory,
-} from 'vue-router';
-
-import App from './App.vue';
-import { config } from './lib';
+import App from "./App.vue";
+import { config } from "./lib";
 
 const components = import.meta.glob("./components/*.vue");
 

@@ -13,6 +13,7 @@ export * from "./emitter.js";
 export * from "./features.js";
 export * from "./fienta.js";
 export * from "./images.js";
+export * from "./markdown.js";
 export * from "./messages.js";
 export * from "./mouse.js";
 export * from "./pages.js";

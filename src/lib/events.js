@@ -1,20 +1,25 @@
 //@ts-check
-import { ref } from 'vue';
+import { ref } from "vue";
 
 import {
   config,
   fetchSheet,
   getDiff,
   replace,
+  formatText,
   sortEvents,
-} from './';
+} from "./";
 
 export const events = ref([]);
 
 const processEvent = (event) => {
   if (event.description) {
     event.intro = `${event.description.split(/\n/)[0]}.`;
-    event.description = `<p>${event.description.replace(/\n/g, "</p><p>")}</p>`;
+    event.description = formatText(event.description);
+    // event.description = `<p>${replaceYoutube(event.description).replace(
+    //   /\n/g,
+    //   "</p><p>"
+    // )}</p>`;
   }
   // const fromDate = createDate(event.fromdate, event.fromtime);
   // const toDate = createDate(event.todate, event.totime);

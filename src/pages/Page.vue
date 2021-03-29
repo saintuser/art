@@ -31,7 +31,11 @@ const page = computed(() => {
     <div class="Page">
       <div v-html="page.content" class="PageContent" />
       <div class="EventCards">
-        <EventCard v-for="(event, i) in page.events" :key="i" :event="event" />
+        <EventSection
+          v-for="(event, i) in page.events"
+          :key="i"
+          :event="event"
+        />
       </div>
     </div>
 
@@ -44,7 +48,7 @@ const page = computed(() => {
   padding: clamp(1.5rem, 5vw, 3rem);
   padding-top: clamp(5rem, 10vw, 10rem);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: clamp(8px, 5vw, 64px);
 }
 @media (max-width: 800px) {

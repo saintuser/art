@@ -9,8 +9,6 @@ defineProps({ event: { type: Object } });
     <span style="opacity: 0.6">
       {{ event.formattedFromDatetime }} → {{ event.formattedToDatetime }}
     </span>
-    <br />
-    <span v-if="event?.page?.title">{{ event?.page?.title }}</span>
   </div>
 </template>
 
