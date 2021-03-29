@@ -3,7 +3,10 @@ import { defineProps, ref } from "vue";
 import { useFullscreen } from "@vueuse/core";
 import { useVideoStream } from "../lib";
 
-const props = defineProps({ src: String });
+const props = defineProps({
+  src: { type: String },
+  streamkey: { type: String, default: "" },
+});
 const { videoRef, status, width, height } = useVideoStream(props.src);
 
 const playerRef = ref(null);

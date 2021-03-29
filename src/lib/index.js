@@ -18,6 +18,7 @@ export * from "./messages.js";
 export * from "./mouse.js";
 export * from "./pages.js";
 export * from "./sheet.js";
+export * from "./stats.js";
 export * from "./theme.js";
 export * from "./tz.js";
 export * from "./users.js";
